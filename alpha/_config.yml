@@ -139,3 +139,8 @@ deploy:
   type: git
   repo: git@github.com:Tsunamori/Tsunamori.github.io.git
   branch: main
+
+#hexo-directory-category
+auto_dir_categorize:
+  enable: true  # options:true, false; default is true
+  force: false # options:true, false; default is false
