@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Tsunamori's blog
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
+author: Tsunamori
 language: en
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://tsunamori.github.io
 permalink: wiki/:title/
 permalink_defaults:
 pretty_urls:
@@ -42,7 +42,7 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
 relative_link: false
 future: true
 highlight:
@@ -129,7 +129,7 @@ sitemap:
 nofollow:
   enable: true
   exclude:
-    - <your site url domain> # eg: zthxxx.me
+    - tsunamori.github.io # eg: zthxxx.me
 ## Themes: https://hexo.io/themes/
 theme: Wikitten
 
