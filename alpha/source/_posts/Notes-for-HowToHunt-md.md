@@ -306,3 +306,155 @@ https://github.com/KathanP19/HowToHunt/blob/master/CheckList/mindmap.png
 
 ## HTTP desync attack
 1. HTTP_Desync
+    * HTTP request smuggling
+        * how to do
+        ref: https://portswigger.net/web-security/request-smuggling/finding
+          https://portswigger.net/web-security/request-smuggling/exploiting
+          https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn
+          https://paper.seebug.org/1048/
+        * tools
+          https://github.com/defparam/smuggler
+          https://github.com/PortSwigger/http-request-smuggler
+        * testing lab
+          https://portswigger.net/web-security/request-smuggling
+
+## Host-header attack
+1. host-header
+    https://kathan19.gitbook.io/howtohunt/host-header-attack/host-header
+
+## HTML-injection
+1. HTML-injection
+    * Password reset links are usually addressed to your account name followed by the reset link. Also if the application allows you to have your account name with tags and special characters then you should try this.
+    * steps
+        * Create ur acc, edit the name to`<h1>attacker</h1>` or `"abc><h1>attacker</h1>`
+        and save it.
+        * request a password reset n check the reset email.
+        * see if the `<h1>` tag executed.
+    * tips
+        * HTML injection are usually considered as low to medium severity bugs but you can escalate the severity by serving a malicious link by using `<a href>` for eg:
+        `<h1>attacker</h1><a href="your-controlled-domain"Click here</a>`
+
+        * You can redirect the user to your malicious domain and serve a fake reset password page to steal credentials Also you can serve a previously found XSS page and steal user cookies etc.
+
+## IDOR
+1. IDOR
+    https://kathan19.gitbook.io/howtohunt/idor/idor
+
+## JWT attack
+1. JWT
+    https://kathan19.gitbook.io/howtohunt/jwt-attack/jwt_attack
+
+## MFA bypass
+1. MFA bypasses
+    https://kathan19.gitbook.io/howtohunt/mfa-bypass/mfa_bypasses
+2. 2FA bypass
+    https://kathan19.gitbook.io/howtohunt/mfa-bypass/2fa_bypass
+
+## misconfigurations
+1. default credential n admin panel
+    * default credentials basics
+    default software configurations, ie.:
+
+    ```
+https://www.target.com/admin
+https://www.target.com/admin-console
+https://www.target.com/console
+https://admin.target.com
+https://admin-console.target.com
+https://console.target.com
+```
+
+    * get access from third party
+        * search the service default credentials if the admin is working on a third party
+    * bypass to get access to login page
+        * when visiting admin login page is denied, use header injection to bypass, eg, `X-Orginal-URL: /admin` or `X-Rewrite-URL:/admin`
+
+## OAuth
+1. OAuth
+    https://kathan19.gitbook.io/howtohunt/oauth/oauth
+
+## Open redirection
+1. find OpenRedirect trick
+    * steps
+        * create an acc, record the user profile link, logout n clean all the cookies.
+        * paste n visit the profile link, it may redirect u to the login like `https://samplesite.me/login?next=accounts/profile` or `https://samplesite.me/login?retUrl=accounts/profile`
+        * try to exploit the parameter by adding an external domain eg: `https://samplesite.me/login?next=https://evil.com/` or `https://samplesite.me/login?next=https://samplesite.me@evil.com/ #`or `https://targetweb.com?url=www.targetweb.com.attackersite.com (with created subdomain)` (to beat the bad regex filter)
+        * else, try the XSS eg: ` https://samplesite.me/login?next=javascript:alert(1);//`
+
+## Parameter pollution
+1. Parameter pollution in social sharing buttons
+    * find a social sharing button n get the sharing link.
+    * modified it from `https://taget.com/how-to-hunt ` to such as `https://taget.com/how-to-hunt?&u=https://attacker.com/vaya&text=another_site:https://attacker.com/vaya`
+    * click the share button n see if the attack website is in the sharing content
+## Password reset functionality
+Mindmap https://kathan19.gitbook.io/howtohunt/password-reset-functionality/password_reset_functionality
+1. password reset token leakage
+      1. Sent a password reset request using forget password
+      2. Check your email
+      3. Copy your reset page link and paste in another tab and make burp intercept on.
+      4. Look for every request if you find similar token that is in reset link with other domain like: bat.bing.com or facebook.com
+      5. Then there is reset password token leakage.
+1. account takeover by password reset functionality
+      1. email= victim@gmail.com&email=attacker@gmil.com
+      2. email= victim@gmail.com%20email=attacker@gmil.com
+      3. email= victim@gmail.com |email=attacker@gmil.com
+      4. email= victim@gmail.com%0d%0acc:attacker@gmil.com
+      5. email= victim@gmail.com&code= my password reset token
+
+## Rate limit
+1. rate-limit bypass
+    * customizing HTTP methods
+        * change the GET request to POST, PUT, etc.
+        * bypassing rate-limit in API's try HEAD method
+        * using header to bypass the rate limit
+          (use the following just below the host header)
+
+          ```
+X-Forwarded-For: IP
+X-Forwarded-IP: IP
+X-Client-IP: IP
+X-Remote-IP: IP
+X-Originating-IP: IP
+X-Host: IP
+X-Client: IP
+
+#or use double X-Forwarded-For header
+X-Forwarded-For:
+X-Forwarded-For: IP
+```
+
+    * addding headers to spoof IP
+        * add HTTP headers to spoof IP n evade detection
+
+        ```
+X-Forwarded: 127.0.0.1
+X-Forwarded-By: 127.0.0.1
+X-Forwarded-For: 127.0.0.1
+X-Forwarded-For-Original: 127.0.0.1
+X-Forwarder-For: 127.0.0.1
+X-Forward-For: 127.0.0.1
+Forwarded-For: 127.0.0.1
+Forwarded-For-Ip: 127.0.0.1
+X-Custom-IP-Authorization: 127.0.0.1
+X-Originating-IP: 127.0.0.1
+X-Remote-IP: 127.0.0.1
+X-Remote-Addr: 127.0.0.1
+```
+
+        * bypass rate limit using special characters
+          * adding null byte (%00) at the end of the email
+          * try add a space after the email (not encoded)
+          * other characters can be tried to bypass rate limit `%0d , %2e , %09 , %20 , %0, %00, %0d%0a, %0a, %0C`
+          * add a slash (/) at the end of api endpoint
+            from`domain.com/v1/login` to `domain.com/v1/login/`
+          eg: https://hackerone.com/reports/1067533
+        * using IP rotate burp extension
+        other ref: https://kathan19.gitbook.io/howtohunt/rate-limit/ratelimitbypass
+
+## Recon
+1. recon workflow
+https://kathan19.gitbook.io/howtohunt/recon/workflow
+1. subdomain enumeration
+https://kathan19.gitbook.io/howtohunt/recon/subdomain_enumeration
+
+## SQLI
