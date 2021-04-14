@@ -350,7 +350,7 @@ https://github.com/KathanP19/HowToHunt/blob/master/CheckList/mindmap.png
 2. 2FA bypass
     https://kathan19.gitbook.io/howtohunt/mfa-bypass/2fa_bypass
 
-## misconfigurations
+## Misconfigurations
 1. default credential n admin panel
     * default credentials basics
     default software configurations, ie.:
@@ -458,3 +458,15 @@ https://kathan19.gitbook.io/howtohunt/recon/workflow
 https://kathan19.gitbook.io/howtohunt/recon/subdomain_enumeration
 
 ## SQLI
+1. SQL injection
+    * send request to burp scanner n proceed with active scan
+    * https://twitter.com/El3ctr0Byt3s/status/1302706241240731649
+    * for getting hidden parameters
+        1. Use subdomain enumeration tools on the domain.
+        2. Gather all urls using hakcrawler, waybackurls, gau for the domain and subdomains.
+        3. You can use the same method described above in 2nd point.
+        4. Use Arjun to scan for the hidden params in the urls.
+        5. Use --urls flag to include all urls.
+        6. Check the params as https://domain.com?`<hiddenparam>=<value>`
+        7. Send request to file and process it through sqlmap.
+    * https://kathan19.gitbook.io/howtohunt/sqli/sql_injection
