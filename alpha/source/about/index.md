@@ -14,6 +14,8 @@ layout: "page"
 
 相对擅长的方向： Web渗透/机器学习/插件开发
 专业以外的特长： 流利的英语口语/为爱发电同人写手
+想要拓展的方向： pwn/AI security
+
 知乎ID： VIVZC
 GitHub ID: Tsunamori
 
