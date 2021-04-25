@@ -239,18 +239,9 @@
                             &nbsp;
                             121 Web
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E9%94%99%E9%A2%98wp%E9%9B%86_SQL/">错题wp集_SQL</a></li>  <li class="file"><a href="/wiki/PHP/">PHP</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/PHP-RCE_CTF/">PHP-RCE_CTF</a></li>  <li class="file"><a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">错题wp集</a></li>  <li class="file"><a href="/wiki/PHP_CTF/">PHP_CTF</a></li>  <li class="file"><a href="/wiki/back-up-logs-CTF/">back-up-logs_CTF</a></li>  <li class="file"><a href="/wiki/MD5-CTF/">MD5_CTF</a></li>  <li class="file"><a href="/wiki/SQLI-CTF/">SQLI_CTF</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/CTF-Tools/">CTF_Tools</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            120 CTF， 121 Web
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/PHP-RCE/">RCE</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -335,7 +326,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title"><span>archives</span></h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">50</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">53</span></li></ul>
         </div>
     </div>
 
@@ -344,6 +335,303 @@
 </aside>
             
             <section id="main">
+        <article id="post-SQLI-CTF" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/">120 CTF</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/121-Web/">121 Web</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/SQLI-CTF/">
+            <time datetime="2021-04-25T09:12:07.000Z" itemprop="datePublished">2021-04-25</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/SQLI-CTF.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/SQLI-CTF.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/SQLI-CTF.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/SQLI-CTF/">SQLI_CTF</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><h3 id="手注流程"><a href="#手注流程" class="headerlink" title="手注流程"></a>手注流程</h3><ol>
+<li><p>页面里有一个POST表单，测试会不会有注入漏洞<br> POST里<br> id=1’和id=1’#<br> id=1’ and 1=2#和id=1’ and 1=1#<br> 前一个不回显后一个回显，那么说明存在注入。</p>
+</li>
+<li><p>判断字段数：有四个字段<br> id=1’ order by 4#</p>
+</li>
+<p>
+                
+            
+        
+        
+            </p></ol></div>   
+            <div class="article-more-link">
+                <a href="/wiki/SQLI-CTF/#more">Read More</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-MD5-CTF" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/">120 CTF</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/121-Web/">121 Web</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/MD5-CTF/">
+            <time datetime="2021-04-25T02:30:06.000Z" itemprop="datePublished">2021-04-25</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/MD5-CTF.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/MD5-CTF.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/MD5-CTF.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/MD5-CTF/">MD5_CTF</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                
+                    
+                    <p></p><h4 id="MD5-函数数组绕过"><a href="#MD5-函数数组绕过" class="headerlink" title="MD5()函数数组绕过"></a>MD5()函数数组绕过</h4><ol>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">include_once “flag.php”;</span><br><span class="line">ini_set(“display_errors”, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[‘REQUEST_URI’], ‘?’);&#x2F;&#x2F;返回$_SERVER[‘REQUEST_URI’]内从‘?’后开始的值。</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(‘key’,”,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">echo $flag.”取得flag”;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+绕过方法：</li>
+</ol>
+<ul>
+<p>
+                
+            
+        
+        
+            </p></ul></div>   
+            <div class="article-more-link">
+                <a href="/wiki/MD5-CTF/#more">Read More</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-back-up-logs-CTF" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/">120 CTF</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF/121-Web/">121 Web</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/back-up-logs-CTF/">
+            <time datetime="2021-04-25T02:09:20.000Z" itemprop="datePublished">2021-04-25</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/back-up-logs-CTF.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/back-up-logs-CTF.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/back-up-logs-CTF.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/back-up-logs-CTF/">back-up-logs_CTF</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+            
+        
+        
+            <h4 id="文件后缀"><a href="#文件后缀" class="headerlink" title="文件后缀"></a>文件后缀</h4><p>back.rar<br>back.tar<br>back.tar.gz<br>back.zip<br>backup.rar<br>backup.tar<br>backup.tar.gz<br>backup.zip<br>temp.rar<br>temp.tar<br>temp.tar.gz<br>temp.zip<br>web.rar<br>web.tar<br>web.tar.gz<br>web.zip<br>website.rar<br>website.tar<br>website.tar.gz<br>website.zip<br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.rar/">www.rar</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.tar/">www.tar</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.tar.gz/">www.tar.gz</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://www.zip/">www.zip</a><br>wwwroot.rar<br>wwwroot.tar<br>wwwroot.tar.gz<br>wwwroot.zip<br>index.php.bak</p>
+<h4 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h4><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.freebuf.com/sectool/202350.html">https://www.freebuf.com/sectool/202350.html</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-CTF-Tools" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -426,13 +714,13 @@
 <li>在线正则表达式  <a target="_blank" rel="external nofollow noopener noreferrer" href="https://regex101.com/r/cT1rB2/1">https://regex101.com/r/cT1rB2/1</a></li>
 <li>CTF在线工具 <a target="_blank" rel="external nofollow noopener noreferrer" href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></li>
 <li>js美化 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://beautifier.io/">https://beautifier.io/</a></li>
-</ol>
-</p><p>
+<li>查看常用CTF文件是否存在于网站中：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/WangYihang/SourceLeakHacker">https://github.com/WangYihang/SourceLeakHacker</a></li>
+<p>
                 
             
         
         
-            </p></div>   
+            </p></ol></p></div>   
             <div class="article-more-link">
                 <a href="/wiki/CTF-Tools/#more">Read More</a>
             </div>
@@ -448,7 +736,7 @@
 
 
     
-        <article id="post-PHP" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-PHP_CTF" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -470,7 +758,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/PHP/">
+        <a href="/wiki/PHP_CTF/">
             <time datetime="2021-04-23T01:51:12.000Z" itemprop="datePublished">2021-04-23</time>
         </a>
     </div>
@@ -482,13 +770,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/PHP.md"> Source </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/PHP_CTF.md"> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/PHP.md"> Edit </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/PHP_CTF.md"> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/PHP.md"> History </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/PHP_CTF.md"> History </a>
                             </div>
                         
                     </div>
@@ -496,7 +784,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/PHP/">PHP</a>
+            <a class="article-title" href="/wiki/PHP_CTF/">PHP_CTF</a>
         </h1>
     
 
@@ -538,7 +826,7 @@
         
             </p></ul></li></ol></div>   
             <div class="article-more-link">
-                <a href="/wiki/PHP/#more">Read More</a>
+                <a href="/wiki/PHP_CTF/#more">Read More</a>
             </div>
         
         <footer class="article-footer">
@@ -552,7 +840,7 @@
 
 
     
-        <article id="post-错题wp集_SQL" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-CTF_错题集" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -568,13 +856,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/wp/" rel="tag">wp</a>
+        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/%E9%94%99%E9%A2%98wp%E9%9B%86_SQL/">
+        <a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">
             <time datetime="2021-04-22T06:57:37.000Z" itemprop="datePublished">2021-04-22</time>
         </a>
     </div>
@@ -586,13 +874,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/错题wp集_SQL.md"> Source </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/CTF_错题集.md"> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/错题wp集_SQL.md"> Edit </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/CTF_错题集.md"> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/错题wp集_SQL.md"> History </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/CTF_错题集.md"> History </a>
                             </div>
                         
                     </div>
@@ -600,7 +888,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/%E9%94%99%E9%A2%98wp%E9%9B%86_SQL/">错题wp集_SQL</a>
+            <a class="article-title" href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">错题wp集</a>
         </h1>
     
 
@@ -642,7 +930,7 @@
         
             </p></ol></p></div>   
             <div class="article-more-link">
-                <a href="/wiki/%E9%94%99%E9%A2%98wp%E9%9B%86_SQL/#more">Read More</a>
+                <a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/#more">Read More</a>
             </div>
         
         <footer class="article-footer">
@@ -1053,309 +1341,8 @@
 
 
     
-        <article id="post-PHP-RCE" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/120-CTF%EF%BC%8C-121-Web/">120 CTF， 121 Web</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/CTF/" rel="tag">CTF</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/PHP-RCE/">
-            <time datetime="2021-04-20T08:22:46.000Z" itemprop="datePublished">2021-04-20</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/PHP-RCE.md"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/PHP-RCE.md"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/PHP-RCE.md"> History </a>
-                            </div>
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/PHP-RCE/">RCE</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p></p><h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><ol>
-<li>文件包含命令执行 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://xz.aliyun.com/t/5535">https://xz.aliyun.com/t/5535</a><ul>
-<li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.csdn.net/nai_kai/article/details/106805220">https://blog.csdn.net/nai_kai/article/details/106805220</a></li>
-</ul>
-</li>
-<p>
-                
-            
-        
-        
-            </p></ol></div>   
-            <div class="article-more-link">
-                <a href="/wiki/PHP-RCE/#more">Read More</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-useful-books" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/140-Books/">140 Books</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/Books/" rel="tag">Books</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/useful-books/">
-            <time datetime="2021-04-15T01:56:37.000Z" itemprop="datePublished">2021-04-15</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/useful-books.md"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/useful-books.md"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/useful-books.md"> History </a>
-                            </div>
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/useful-books/">useful books</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                
-                    
-                    <p><ol>
-<li>Hack tricks <a target="_blank" rel="external nofollow noopener noreferrer" href="https://book.hacktricks.xyz/">https://book.hacktricks.xyz/</a></li>
-<li>CTF-wiki <a target="_blank" rel="external nofollow noopener noreferrer" href="https://ctf-wiki.org/">https://ctf-wiki.org/</a></li>
-<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://3wapp.github.io/WebSecurity">https://3wapp.github.io/WebSecurity</a></li>
-</ol>
-</p><p>
-                
-            
-        
-        
-            </p></div>   
-            <div class="article-more-link">
-                <a href="/wiki/useful-books/#more">Read More</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-XXE" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/">110 Bug bounty</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/">112 Ideas</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/Summary/" rel="tag">Summary</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/XXE/">
-            <time datetime="2021-04-14T08:32:38.000Z" itemprop="datePublished">2021-04-14</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/XXE.md"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/XXE.md"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/XXE.md"> History </a>
-                            </div>
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/XXE/">XXE</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-                    
-                    
-                
-            
-        
-        
-            <ol>
-<li>XXE methods <a target="_blank" rel="external nofollow noopener noreferrer" href="https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods">https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods</a></li>
-</ol>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
         </nav>
     
 </section>
