@@ -120,7 +120,7 @@ jsonContent:
     categories: true
   ignore:
     - 404.html
-    
+
 ### Creat sitemap
 sitemap:
   path: sitemap.xml

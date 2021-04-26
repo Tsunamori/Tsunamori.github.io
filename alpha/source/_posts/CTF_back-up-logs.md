@@ -1,5 +1,5 @@
 ---
-title: back-up-logs_CTF
+title: CTF back-up-logs
 toc: true
 date: 2021-04-25 10:09:20
 tags: CTF

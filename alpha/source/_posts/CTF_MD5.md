@@ -1,5 +1,5 @@
 ---
-title: MD5_CTF
+title: CTF MD5
 toc: true
 date: 2021-04-25 10:30:06
 tags: CTF
