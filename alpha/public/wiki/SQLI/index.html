@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>SQLI | Tsunamori&#39;s blog</title>
+    
+    
+        <meta name="keywords" content="Summary">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="https:&#x2F;&#x2F;kathan19.gitbook.io&#x2F;howtohunt&#x2F;sqli&#x2F;sql_injection Cookie injection: can only works for sqlmap above level 2. eg:sqlmap –cookie&#x3D;”hint&#x3D;id; id&#x3D;1” -u “http:&#x2F;&#x2F;“ -p id –level&#x3D;2 Any other parameters">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLI">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/SQLI/index.html">
+<meta property="og:site_name" content="Tsunamori&#39;s blog">
+<meta property="og:description" content="https:&#x2F;&#x2F;kathan19.gitbook.io&#x2F;howtohunt&#x2F;sqli&#x2F;sql_injection Cookie injection: can only works for sqlmap above level 2. eg:sqlmap –cookie&#x3D;”hint&#x3D;id; id&#x3D;1” -u “http:&#x2F;&#x2F;“ -p id –level&#x3D;2 Any other parameters">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-14T06:17:04.000Z">
+<meta property="article:modified_time" content="2021-04-20T03:03:40.596Z">
+<meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="Summary">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Tsunamori&#39;s blog" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Tsunamori&#39;s blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
+            <h2 id="name">Tsunamori</h2>
+            <h3 id="title">The green hat hacker</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>moon the other side</span>
+            <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                51
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                5
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Tsunamori/Tsunamori.github.io" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.zhihu.com/people/li-jian-guo-53-56 || zhihu" target="_blank" title="zhihu" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-zhihu"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            100 Cyber security
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            110 Bug bounty
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            112 Ideas
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Account-Takeover-Methodology/">Account Takeover Methodology</a></li>  <li class="file"><a href="/wiki/Application-level-DoS/">Application level DoS</a></li>  <li class="file"><a href="/wiki/Authentication-bypass/">Authentication bypass</a></li>  <li class="file"><a href="/wiki/Broken-link-hijacking/">Broken-link hijacking</a></li>  <li class="file"><a href="/wiki/Broken-auth-and-session-management/">Broken auth and session management</a></li>  <li class="file"><a href="/wiki/Bypassing-CSP/">Bypassing CSP</a></li>  <li class="file"><a href="/wiki/CMS/">CMS</a></li>  <li class="file"><a href="/wiki/CORS/">CORS</a></li>  <li class="file"><a href="/wiki/CSRF/">CSRF</a></li>  <li class="file"><a href="/wiki/Finding-CVEs/">Finding CVEs</a></li>  <li class="file"><a href="/wiki/Check-list/">Check list</a></li>  <li class="file"><a href="/wiki/Source-code-review/">Source code review</a></li>  <li class="file"><a href="/wiki/EXIF-geo-data-not-stripped/">EXIF geo data not stripped</a></li>  <li class="file"><a href="/wiki/File-upload-bypass/">File upload bypass</a></li>  <li class="file"><a href="/wiki/Find-origin-IP/">Find origin IP</a></li>  <li class="file"><a href="/wiki/HTTP-desync-attack/">HTTP desync attack</a></li>  <li class="file"><a href="/wiki/Host-header-attack/">Host-header attack</a></li>  <li class="file"><a href="/wiki/HTML-injection/">HTML-injection</a></li>  <li class="file"><a href="/wiki/IDOR/">IDOR</a></li>  <li class="file"><a href="/wiki/JWT-attack/">JWT attack</a></li>  <li class="file"><a href="/wiki/MFA-bypass/">MFA bypass</a></li>  <li class="file"><a href="/wiki/Misconfigurations/">Misconfigurations</a></li>  <li class="file"><a href="/wiki/OAuth/">OAuth</a></li>  <li class="file"><a href="/wiki/Open-redirection/">Open redirection</a></li>  <li class="file"><a href="/wiki/Parameter-pollution/">Parameter pollution</a></li>  <li class="file"><a href="/wiki/Password-reset-functionality/">Password reset functionality</a></li>  <li class="file"><a href="/wiki/Rate-limit/">Rate limit</a></li>  <li class="file"><a href="/wiki/Recon/">Recon</a></li>  <li class="file active"><a href="/wiki/SQLI/">SQLI</a></li>  <li class="file"><a href="/wiki/SSRF/">SSRF</a></li>  <li class="file"><a href="/wiki/SSTI/">SSTI</a></li>  <li class="file"><a href="/wiki/Sensitive-info-leaks/">Sensitive info leaks</a></li>  <li class="file"><a href="/wiki/Status-code-bypass/">Status code bypass</a></li>  <li class="file"><a href="/wiki/Subdomain-takeover/">Subdomain takeover</a></li>  <li class="file"><a href="/wiki/Tabnabbing/">Tabnabbing</a></li>  <li class="file"><a href="/wiki/WAF-bypasses/">WAF bypasses</a></li>  <li class="file"><a href="/wiki/Weak-password/">Weak password</a></li>  <li class="file"><a href="/wiki/XSS/">XSS</a></li>  <li class="file"><a href="/wiki/XXE/">XXE</a></li>  <li class="file"><a href="/wiki/HTTP-request/">HTTP request</a></li>  <li class="file"><a href="/wiki/JavaScript/">JavaScript</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            119 Notes
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes-for-HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer/">Notes_0 to 1 the road of CTFer</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            120 CTF
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            121 Web
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/CTF_PHP-RCE/">CTF PHP-RCE</a></li>  <li class="file"><a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">错题wp集</a></li>  <li class="file"><a href="/wiki/CTF_PHP/">CTF PHP</a></li>  <li class="file"><a href="/wiki/CTF_back-up-logs/">CTF back-up-logs</a></li>  <li class="file"><a href="/wiki/CTF_MD5/">CTF MD5</a></li>  <li class="file"><a href="/wiki/CTF_SQLI/">CTF SQLI</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/CTF-Tools/">CTF_Tools</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            140 Books
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/useful-books/">useful books</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">51</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-SQLI" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/">110 Bug bounty</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/">112 Ideas</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Summary/" rel="tag">Summary</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/SQLI/">
+            <time datetime="2021-04-14T06:17:04.000Z" itemprop="datePublished">2021-04-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/SQLI.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/SQLI.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/SQLI.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            SQLI
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    
+                </div>
+            
+        
+        
+            <ol>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://kathan19.gitbook.io/howtohunt/sqli/sql_injection">https://kathan19.gitbook.io/howtohunt/sqli/sql_injection</a></li>
+<li>Cookie injection: can only works for sqlmap above level 2. <em>eg:sqlmap –cookie=”hint=id; id=1” -u “http://“ -p id –level=2</em></li>
+<li>Any other parameters needs to be forced, such as UA injection: user-agent=blabla* (–level 2)</li>
+<li>SQL injection through HTTP headers: <a target="_blank" rel="external nofollow noopener noreferrer" href="https://resources.infosecinstitute.com/topic/sql-injection-http-headers/">https://resources.infosecinstitute.com/topic/sql-injection-http-headers/</a> (level 2 recommended as tried)</li>
+<li>Time-based blind injection: use thread=blabla to fasten it.<ul>
+<li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.freebuf.com/sectool/222967.html">https://www.freebuf.com/sectool/222967.html</a></li>
+<li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://zhuanlan.zhihu.com/p/129904025">https://zhuanlan.zhihu.com/p/129904025</a></li>
+<li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://zhuanlan.kanxue.com/article-10333.htm">https://zhuanlan.kanxue.com/article-10333.htm</a></li>
+</ul>
+</li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/SSRF/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    SSRF
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/Recon/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">Recon</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Tsunamori &copy; 2021 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

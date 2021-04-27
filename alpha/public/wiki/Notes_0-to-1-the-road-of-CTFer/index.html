@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>Notes_0 to 1 the road of CTFer | Tsunamori&#39;s blog</title>
+    
+    
+        <meta name="keywords" content="Notes">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="第一章 Web入门信息收集敏感信息泄漏git泄漏 常规git泄漏：flag在源码内，可直接利用工具或脚本获取。 git回滚：flag被修改，但依然保存在commit记录里。 利用git reset --hard [版本号]获取flag。 更简单的方法是通过git log-stat查看每个commit修改了哪些文件，再用git diff HEAD [commit-id]比较当前版本和想看的commi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes_0 to 1 the road of CTFer">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer/index.html">
+<meta property="og:site_name" content="Tsunamori&#39;s blog">
+<meta property="og:description" content="第一章 Web入门信息收集敏感信息泄漏git泄漏 常规git泄漏：flag在源码内，可直接利用工具或脚本获取。 git回滚：flag被修改，但依然保存在commit记录里。 利用git reset --hard [版本号]获取flag。 更简单的方法是通过git log-stat查看每个commit修改了哪些文件，再用git diff HEAD [commit-id]比较当前版本和想看的commi">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-26T05:49:07.000Z">
+<meta property="article:modified_time" content="2021-04-26T09:01:33.889Z">
+<meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="Notes">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Tsunamori&#39;s blog" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Tsunamori&#39;s blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
+            <h2 id="name">Tsunamori</h2>
+            <h3 id="title">The green hat hacker</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>moon the other side</span>
+            <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                51
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                5
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Tsunamori/Tsunamori.github.io" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://www.zhihu.com/people/li-jian-guo-53-56 || zhihu" target="_blank" title="zhihu" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-zhihu"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            100 Cyber security
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            110 Bug bounty
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            112 Ideas
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Account-Takeover-Methodology/">Account Takeover Methodology</a></li>  <li class="file"><a href="/wiki/Application-level-DoS/">Application level DoS</a></li>  <li class="file"><a href="/wiki/Authentication-bypass/">Authentication bypass</a></li>  <li class="file"><a href="/wiki/Broken-link-hijacking/">Broken-link hijacking</a></li>  <li class="file"><a href="/wiki/Broken-auth-and-session-management/">Broken auth and session management</a></li>  <li class="file"><a href="/wiki/Bypassing-CSP/">Bypassing CSP</a></li>  <li class="file"><a href="/wiki/CMS/">CMS</a></li>  <li class="file"><a href="/wiki/CORS/">CORS</a></li>  <li class="file"><a href="/wiki/CSRF/">CSRF</a></li>  <li class="file"><a href="/wiki/Finding-CVEs/">Finding CVEs</a></li>  <li class="file"><a href="/wiki/Check-list/">Check list</a></li>  <li class="file"><a href="/wiki/Source-code-review/">Source code review</a></li>  <li class="file"><a href="/wiki/EXIF-geo-data-not-stripped/">EXIF geo data not stripped</a></li>  <li class="file"><a href="/wiki/File-upload-bypass/">File upload bypass</a></li>  <li class="file"><a href="/wiki/Find-origin-IP/">Find origin IP</a></li>  <li class="file"><a href="/wiki/HTTP-desync-attack/">HTTP desync attack</a></li>  <li class="file"><a href="/wiki/Host-header-attack/">Host-header attack</a></li>  <li class="file"><a href="/wiki/HTML-injection/">HTML-injection</a></li>  <li class="file"><a href="/wiki/IDOR/">IDOR</a></li>  <li class="file"><a href="/wiki/JWT-attack/">JWT attack</a></li>  <li class="file"><a href="/wiki/MFA-bypass/">MFA bypass</a></li>  <li class="file"><a href="/wiki/Misconfigurations/">Misconfigurations</a></li>  <li class="file"><a href="/wiki/OAuth/">OAuth</a></li>  <li class="file"><a href="/wiki/Open-redirection/">Open redirection</a></li>  <li class="file"><a href="/wiki/Parameter-pollution/">Parameter pollution</a></li>  <li class="file"><a href="/wiki/Password-reset-functionality/">Password reset functionality</a></li>  <li class="file"><a href="/wiki/Rate-limit/">Rate limit</a></li>  <li class="file"><a href="/wiki/Recon/">Recon</a></li>  <li class="file"><a href="/wiki/SQLI/">SQLI</a></li>  <li class="file"><a href="/wiki/SSRF/">SSRF</a></li>  <li class="file"><a href="/wiki/SSTI/">SSTI</a></li>  <li class="file"><a href="/wiki/Sensitive-info-leaks/">Sensitive info leaks</a></li>  <li class="file"><a href="/wiki/Status-code-bypass/">Status code bypass</a></li>  <li class="file"><a href="/wiki/Subdomain-takeover/">Subdomain takeover</a></li>  <li class="file"><a href="/wiki/Tabnabbing/">Tabnabbing</a></li>  <li class="file"><a href="/wiki/WAF-bypasses/">WAF bypasses</a></li>  <li class="file"><a href="/wiki/Weak-password/">Weak password</a></li>  <li class="file"><a href="/wiki/XSS/">XSS</a></li>  <li class="file"><a href="/wiki/XXE/">XXE</a></li>  <li class="file"><a href="/wiki/HTTP-request/">HTTP request</a></li>  <li class="file"><a href="/wiki/JavaScript/">JavaScript</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            119 Notes
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes-for-HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file active"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer/">Notes_0 to 1 the road of CTFer</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            120 CTF
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            121 Web
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/CTF_PHP-RCE/">CTF PHP-RCE</a></li>  <li class="file"><a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">错题wp集</a></li>  <li class="file"><a href="/wiki/CTF_PHP/">CTF PHP</a></li>  <li class="file"><a href="/wiki/CTF_back-up-logs/">CTF back-up-logs</a></li>  <li class="file"><a href="/wiki/CTF_MD5/">CTF MD5</a></li>  <li class="file"><a href="/wiki/CTF_SQLI/">CTF SQLI</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/CTF-Tools/">CTF_Tools</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            140 Books
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/useful-books/">useful books</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">51</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Notes_0-to-1-the-road-of-CTFer" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/">110 Bug bounty</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/119-Notes/">119 Notes</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Notes/" rel="tag">Notes</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Notes_0-to-1-the-road-of-CTFer/">
+            <time datetime="2021-04-26T05:49:07.000Z" itemprop="datePublished">2021-04-26</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/Notes_0-to-1-the-road-of-CTFer.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/Notes_0-to-1-the-road-of-CTFer.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/Notes_0-to-1-the-road-of-CTFer.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Notes_0 to 1 the road of CTFer
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E7%AB%A0-Web%E5%85%A5%E9%97%A8"><span class="toc-number">1.</span> <span class="toc-text">第一章 Web入门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-number">1.1.</span> <span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E6%BC%8F"><span class="toc-number">1.1.1.</span> <span class="toc-text">敏感信息泄漏</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#git%E6%B3%84%E6%BC%8F"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">git泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SVN%E6%B3%84%E6%BC%8F"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">SVN泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HG%E6%B3%84%E6%BC%8F"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">HG泄漏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.2.</span> <span class="toc-text">敏感备份文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gedit%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">gedit备份文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#vim%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">vim备份文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%84%E6%96%87%E4%BB%B6"><span class="toc-number">1.1.2.3.</span> <span class="toc-text">常规文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-1"><span class="toc-number">1.1.2.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Banner%E8%AF%86%E5%88%AB"><span class="toc-number">1.1.3.</span> <span class="toc-text">Banner识别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E8%A1%8C%E6%94%B6%E9%9B%86%E6%8C%87%E7%BA%B9%E5%BA%93"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">自行收集指纹库</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%B7%B2%E6%9C%89%E5%B7%A5%E5%85%B7"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">使用已有工具</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93-2"><span class="toc-number">1.1.3.3.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CTF%E4%B8%AD%E7%9A%84SQL%E6%B3%A8%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">CTF中的SQL注入</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h1 id="第一章-Web入门"><a href="#第一章-Web入门" class="headerlink" title="第一章 Web入门"></a>第一章 Web入门</h1><h2 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h2><h3 id="敏感信息泄漏"><a href="#敏感信息泄漏" class="headerlink" title="敏感信息泄漏"></a>敏感信息泄漏</h3><h4 id="git泄漏"><a href="#git泄漏" class="headerlink" title="git泄漏"></a>git泄漏</h4><ol>
+<li>常规git泄漏：flag在源码内，可直接利用工具或脚本获取。</li>
+<li>git回滚：flag被修改，但依然保存在commit记录里。<ul>
+<li>利用<code>git reset --hard [版本号]</code>获取flag。</li>
+<li>更简单的方法是通过<code>git log-stat</code>查看每个commit修改了哪些文件，再用<code>git diff HEAD [commit-id]</code>比较当前版本和想看的commit之间的变化。</li>
+</ul>
+</li>
+<li>git分支：命令<code>git reflog</code>查看分支间切换的记录。从原url下载分支内容并恢复（目前的恢复分支记录需要下载分支HEAD并修改GitHacker.py代码实现自动恢复分支，先简单记录下来，后续看是否有其它更简单的方式。）</li>
+<li>git stash：stash是对当前工作的“保存”，以备后续恢复。<code>git stash list</code>查看保存的列表，<code>git stash pop</code>恢复工作现场，<code>git stash show</code>显示做了哪些改动。</li>
+<li>git index：index是暂存区，用于通过git add .命令暂存新建文件等待commit。使用<code>git checkout-index</code>命令恢复文件。</li>
+<li>git泄漏的其他利用方式：泄漏的git中也可能有其他有用的信息。<ul>
+<li>.git/config文件夹中可能含有access_token信息，从而访问该用户的其它仓库。</li>
+</ul>
+</li>
+</ol>
+<h4 id="SVN泄漏"><a href="#SVN泄漏" class="headerlink" title="SVN泄漏"></a>SVN泄漏</h4><p>SVN是源代码版本管理软件，如果存在泄漏，可以利用.svn/entries或wc.db文件获取服务器源码等信息。</p>
+<ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></li>
+<li>Seay-svn（Win）</li>
+</ul>
+<h4 id="HG泄漏"><a href="#HG泄漏" class="headerlink" title="HG泄漏"></a>HG泄漏</h4><p>.hg隐藏文件中包含代码和分支修改记录等信息。</p>
+<ul>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/kost/dvcs-ripper">https://github.com/kost/dvcs-ripper</a></li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>CTF线上赛往往会有重定向的问题，例如，只要访问<code>.git</code>便会返回403,此时访问<code>.git/config</code>，如果有文件内容返回，说明存在git泄漏，反之，一般不存在。而在SVN泄漏中，一般是在entries中爬取源代码，但有时会出现entries为空的情况，这时注意wc.db文件存在与否，便可通过其中的checksum在pristine文件夹中获取源代码。</p>
+<h3 id="敏感备份文件"><a href="#敏感备份文件" class="headerlink" title="敏感备份文件"></a>敏感备份文件</h3><h4 id="gedit备份文件"><a href="#gedit备份文件" class="headerlink" title="gedit备份文件"></a>gedit备份文件</h4><p>在Linux下，用gedit编辑器保存文件后，当前目录下会生成一个<code>[文件名]~</code>的备份文件，访问这个文件即可获得文件内容。</p>
+<h4 id="vim备份文件"><a href="#vim备份文件" class="headerlink" title="vim备份文件"></a>vim备份文件</h4><p>vim在意外退出时会生成一个备份文件，文件名格式为<code>.filename.swp</code>，再次生成备份文件时则为<code>.filename.swo</code>，第三次为<code>.filename.swn</code>，以此类推。恢复备份的办法是，先在当前目录下创建一个flag文件，再使用<code>vim-r flag</code>，即可恢复.flag.swp。</p>
+<h4 id="常规文件"><a href="#常规文件" class="headerlink" title="常规文件"></a>常规文件</h4><p>主要靠丰富字典。(dirsearch+自己收集字典)</p>
+<ul>
+<li>phpinfo()</li>
+<li>备份文件后缀<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">back.rar</span><br><span class="line">back.tar</span><br><span class="line">back.tar.gz</span><br><span class="line">back.zip</span><br><span class="line">backup.rar</span><br><span class="line">backup.tar</span><br><span class="line">backup.tar.gz</span><br><span class="line">backup.zip</span><br><span class="line">temp.rar</span><br><span class="line">temp.tar</span><br><span class="line">temp.tar.gz</span><br><span class="line">temp.zip</span><br><span class="line">web.rar</span><br><span class="line">web.tar</span><br><span class="line">web.tar.gz</span><br><span class="line">web.zip</span><br><span class="line">website.rar</span><br><span class="line">website.tar</span><br><span class="line">website.tar.gz</span><br><span class="line">website.zip</span><br><span class="line">www.rar</span><br><span class="line">www.tar</span><br><span class="line">www.tar.gz</span><br><span class="line">www.zip</span><br><span class="line">wwwroot.rar</span><br><span class="line">wwwroot.tar</span><br><span class="line">wwwroot.tar.gz</span><br><span class="line">wwwroot.zip</span><br><span class="line">index.php.bak</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h4><p>线上赛过程中，出题人往往会在线运维题目，有时会导致swp备份文件的生成。所以读者在比赛过程中可以编写实时监控脚本，对题目服务进行监控。</p>
+<h3 id="Banner识别"><a href="#Banner识别" class="headerlink" title="Banner识别"></a>Banner识别</h3><p>在线上赛中，网站的Banner对解题有着十分重要的作用，选手往往可以通过Banner信息来获得解题思路。<br>如得知网站是用ThinkPHP的Web框架编写时，我们可以尝试ThinkPHP框架的相关历史漏洞。或者得知这个网站是Windows服务器，那么我们在测试上传漏洞时可以根据Windows的特性进行尝试。</p>
+<h4 id="自行收集指纹库"><a href="#自行收集指纹库" class="headerlink" title="自行收集指纹库"></a>自行收集指纹库</h4><ul>
+<li>Github CMS指纹库</li>
+<li>扫描器识别</li>
+</ul>
+<h4 id="使用已有工具"><a href="#使用已有工具" class="headerlink" title="使用已有工具"></a>使用已有工具</h4><ul>
+<li>Wappalyzer（pip install python-Wappalyzer）：在data目录下，apps.json是其规则库，读者可以根据自己需求自由添加。</li>
+</ul>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>除了以上两种识别方式，我们还可以通过随意输入一些URL，观察404和302跳转页面中是否包含CMS及版本号。</p>
+<h2 id="CTF中的SQL注入"><a href="#CTF中的SQL注入" class="headerlink" title="CTF中的SQL注入"></a>CTF中的SQL注入</h2>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/CTF_SQLI/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">CTF SQLI</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Tsunamori &copy; 2021 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

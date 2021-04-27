@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CMS/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/JavaScript/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_PHP-RCE/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_back-up-logs/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF-Tools/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_MD5/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_SQLI/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_PHP/</loc>
+    
+    <lastmod>2021-04-26</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</loc>
+    
+    <lastmod>2021-04-25</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/HTTP-request/</loc>
+    
+    <lastmod>2021-04-23</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/SSRF/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/useful-books/</loc>
+    
+    <lastmod>2021-04-22</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/about/index.html</loc>
+    
+    <lastmod>2021-04-21</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/File-upload-bypass/</loc>
+    
+    <lastmod>2021-04-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/SQLI/</loc>
+    
+    <lastmod>2021-04-20</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Source-code-review/</loc>
+    
+    <lastmod>2021-04-19</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Bypassing-CSP/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/JWT-attack/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Check-list/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/XXE/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/XSS/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Weak-password/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/WAF-bypasses/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Tabnabbing/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Subdomain-takeover/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Status-code-bypass/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Sensitive-info-leaks/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/SSTI/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Recon/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Rate-limit/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Password-reset-functionality/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Parameter-pollution/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Open-redirection/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/OAuth/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Notes-for-HowToHunt-md/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Misconfigurations/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/MFA-bypass/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/IDOR/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/HTML-injection/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Host-header-attack/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/HTTP-desync-attack/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Find-origin-IP/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/EXIF-geo-data-not-stripped/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Broken-link-hijacking/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Broken-auth-and-session-management/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Authentication-bypass/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Application-level-DoS/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Account-Takeover-Methodology/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Finding-CVEs/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CSRF/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CORS/</loc>
+    
+    <lastmod>2021-04-14</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/index.html</loc>
+    
+    <lastmod>2021-04-08</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/index.html</loc>
+    
+    <lastmod>2021-04-08</lastmod>
+    
+  </url>
+  
+
+  <url>
+    <loc>https://tsunamori.github.io/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/Notes/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/Summary/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/Books/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/Tools/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/CTF/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/119-Notes/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/140-Books/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/</loc>
+    <lastmod>2021-04-26</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+</urlset>
