@@ -227,6 +227,139 @@ AS别名：id=(select%20pwd%20from%20wp_user)%20as%20title
 
 ### 总结
 实际比赛中，应根据不同的SQL服务器类型查找相关资料，通过fuzz得出被过滤的字符、函数、关键词等，在文档中查找未过滤的替代，完成绕过。
-* 联系靶场：github-sqli-labs
+* 练习靶场：github-sqli-labs
 
 ## 任意文件读取漏洞
+
+### 文件读取漏洞常见触发点
+
+#### PHP
+有关文件读取的标准函数（审计中重点关注）。
+包括但不限于：
+* `file_get_contents(),file(),fopen()`函数，(及其文件指针操作函数fread(),fgets()等);
+* 与文件包含相关的函数`include(),require(),include_once(),require_once()`等;
+* 通过PHP读文件的执行系统命令：`system(),exec()`等。
+PHP扩展中读取文件的函数：
+* php-curl扩展
+* XML模块XXE
+
+相关源码阅读：Wrapper和Filter
+
+PHP文件包含的实际问题：
+    1. 文件路径前面可控，后面不可控：在较低PHP及容器版本中可以使用`\x00`截断，对应的URL编码是`%00`。当服务端存在文件上传功能时，也可以尝试利用zip或phar协议直接进行文件包含执行PHP代码。
+    1. 文件路径后面可控，前面不可控：通过`../`进行目录穿越读取文件，但这种情况无法使用Wrapper，如果服务器是利用include等文件包含类的函数，将无法读取PHP文件中的PHP代码。
+    1. 文件路径中间可控：和第一种相似，但无法利用Wrapper进行文件包含。
+
+#### Python
+漏洞经常出现在框架请求静态资源文件部分，也就是最后读取文件内容的open函数。但直接导致漏洞的原因往往是Python函数的feature被忽略。
+
+除了Python框架，很多其它涉及文件操作的应用也可能因为滥用open函数、模板的不当渲染导致任意文件读取。
+
+#### JAVA
+* 文件读取函数FileInputStream
+* XXE
+* JAVA模块所支持的`file://`协议
+* Spring Cloud Config Server 路径穿越与任意文件读取漏洞 CVE-2019-3799, Jenkins 任意文件读取漏洞 CVE-2018-1999002
+
+#### Ruby
+* 通常与Rails框架相关。
+* Ruby on Rails 远程代码执行漏洞 CVE-2016-0752，Ruby on Rails 路径穿越与任意文件读取漏洞 CVE-2018-3760，Ruby on Rails 路径穿越与任意文件读取漏洞 CVE-2019-5418
+
+#### Node
+* 通常为模板注入、代码注入等。
+* Node.js express 模块任意文件读取漏洞 CVE-2017-14849
+
+### 中间件/服务器相关
+
+#### Nginx错误配置
+常搭配Python-Web应用一起出现。
+* /static../ -> /home/myapp/static/../，产生目录穿越，穿越至myapp目录。原因：location最后没有加‘/’限制
+```
+location /static {
+  alias /home/myapp/static/;
+}
+```
+
+#### 数据库
+MySQL：
+* load_file(),利用条件严格，但仍然常出相关文件读取题目。
+* load data infile，需要执行完整的SQL语句且需要FILE权限，比较少见，除了SSRF攻击MySQL以外，很少能够直接执行整条非基本SQL语句的机会。
+
+#### 软链接
+又称符号链接，即soft link或symbolic link。相当于win下的快捷方式。
+
+硬链接与软链接的区别： https://www.jianshu.com/p/b035d94fa959
+
+bash命令`ln-s`可以创建一个指向指定文件的软链接文件，然后将该文件上传至服务器，访问该链接文件时，实际上是在请求服务端它指向的文件。
+
+#### FFmpeg
+CISCN 2017 FFmpeg 任意文件读取漏洞
+
+#### Doker-API
+Docker-API可以控制Docker的行为，Docker-API通过UNIX Socket通信，也可以通过HTTP直接通信。当可以通过SSRF漏洞进行UNIX Socket通信时，就可以通过操纵Docker-API把本地文件载入Docker新容器进行读取（利用Docker的ADD、COPY操作）。
+
+### 客户端相关
+客户端文件读取漏洞，大多基于XSS读取本地文件。
+
+#### 浏览器/Flash XSS
+js读取本地文件
+* Safari浏览器 客户端本地文件读取漏洞
+
+#### MarkDown语法解析器XSS
+具有解析js的能力，且缺乏浏览器的读取本地文件限制。
+
+## 文件读取漏洞常见读取路径
+
+### Linux
+
+#### flag名称（相对路径）
+fuzz方式获取
+```
+../../../../../../../../../flag(.txt|.php|.pyc|.py ...)
+flag(.txt|.php|.pyc|.py ...)
+[dir_you_know]/flag(.txt|.php|.pyc|.py ...)
+../../../../../../../../../etc/flag(.txt|.php|.pyc|.py ...)
+../../../../../../../../../tmp/flag(.txt|.php|.pyc|.py ...)
+../flag(.txt|.php|.pyc|.py ...)
+../../../../../../../../root/flag(.txt|.php|.pyc|.py ...)
+../../../../../../../../home/flag(.txt|.php|.pyc|.py ...)
+../../../../../../../../home/[user_you_know]/flag(.txt|.php|.pyc|.py ...)
+```
+
+#### 服务器信息（绝对路径）
+CTF中常见的部分须知目录和文件
+
+1.  /etc目录
+    多是各种应用或系统配置文件，是进行文件读取的首要目标。
+1.  /etc/passwd （详细解析：http://c.biancheng.net/view/839.html）
+    Linux系统保存用户信息及其工作目录的文件，所有用户/组可读，一般用作Linux系统下文件读取漏洞存在判断的基准。从该文件可得系统中存在哪些用户，及其所属组和工作目录。
+1.  /etc/shadow （详细解析： http://c.biancheng.net/view/840.html）
+    是Linux系统保存用户信息及（可能存在）密码（hash）的文件，权限是root用户可读写、shadow组可读。所以一般情况下该文件不可读。
+1.  /etc/apache2/*
+    是Apache的配置文件，可以获知Web目录、服务端口等信息。
+1.  /etc/nginx/*
+    是Nginx配置文件（Ubuntu等系统），可以获知Web目录、服务端口等信息。
+1.  /etc/apparmor(.d)/*
+    是Apparmor配置文件，可以获知各应用系统调用的白名单、黑名单。（如查看MySQL是否禁用系统调用，确定是否可以使用UDF执行系统命令）
+1.  /etc/(cron.d/*|crontab)
+    是定时任务文件。有些题会设置一些定时任务，读取这些配置文件就可以发现隐藏的目录或其它文件。
+1.  /etc/environment
+    是环境变量配置文件之一。环境变量可能存在大量目录信息的泄漏，甚至可能出现secret key泄漏的情况。
+1.  /etc/hostname
+    主机名
+1.  /etc/hosts
+    主机名查询静态表，包含知道域名解析IP的成对信息。通过该文件，可以探测网卡信息和内网IP/域名。
+1.  /etc/issue
+    指明系统版本。
+1.  /etc/mysql/*
+    MySQL配置文件。
+1.  /etc/php/*
+    PHP配置文件。
+1.  /proc目录
+    通常存储进程动态运行的各种信息，本质上是一种虚拟目录。
+    *如果查看非当前进程的信息，pid是可以暴力破解的，如果要查看当前进程，只需/proc/self/代替/proc/[pid]/即可。*
+    对应目录下的cmdline可读出比较敏感的信息。`/proc/[pid]/cmdline`
+    有时我们无法获取当前应用所在的目录，通过cwd命令可以直接跳转到当前目录。`/proc/[pid]/cwd/`
+    环境变量中可能存在secret_key，也可以通过environ读取。`/proc/[pid]/environ`
+1.  其它目录
+    
