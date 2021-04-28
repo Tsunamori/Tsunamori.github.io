@@ -1,0 +1,37 @@
+100 Cyber security
+	110 bug bounty
+		111 intro
+		112 ideas
+		113 tools
+		114 platforms
+		# 115 news
+		# 116 writeups
+		# 117 certs
+
+
+		119 notes
+	120 CTF
+		121 Web
+		122 PWN
+		123 Reverse
+		124 Crypto
+		125 Mobile
+		126 Misc
+		127 Blockchain
+		128 IoT
+		129 Tools
+	130 POC
+	140 Books
+	150 projects
+
+200 AI security
+300 hardware security
+
+400 ICS security
+	410 Electric power system 
+
+500 IoT security
+	510 Automotive security
+
+600 keep calm n use kali
+700 bugs n debugs

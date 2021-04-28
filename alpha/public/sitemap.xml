@@ -2,7 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer_1/</loc>
+    <loc>https://tsunamori.github.io/wiki/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</loc>
+    
+    <lastmod>2021-04-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/%E8%BD%A6%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8/</loc>
+    
+    <lastmod>2021-04-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Recon/</loc>
     
     <lastmod>2021-04-28</lastmod>
     
@@ -10,6 +24,13 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/%E8%BF%91%E6%BA%90%E6%B8%97%E9%80%8F/</loc>
+    
+    <lastmod>2021-04-28</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/Notes_0-to-1-the-road-of-CTFer_1/</loc>
     
     <lastmod>2021-04-28</lastmod>
     
@@ -213,13 +234,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/SSTI/</loc>
-    
-    <lastmod>2021-04-14</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/Recon/</loc>
     
     <lastmod>2021-04-14</lastmod>
     
@@ -430,6 +444,20 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://tsunamori.github.io/tags/ICS/</loc>
+    <lastmod>2021-04-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/tags/IoT/</loc>
+    <lastmod>2021-04-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -476,6 +504,27 @@
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/140-Books/</loc>
+    <lastmod>2021-04-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/400-ICS-security/</loc>
+    <lastmod>2021-04-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/500-IoT-security/</loc>
+    <lastmod>2021-04-28</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/500-IoT-security/510-Automotive-security/</loc>
     <lastmod>2021-04-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

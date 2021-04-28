@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2021-04-28T07:08:59.972Z</updated>
+  <updated>2021-04-28T08:55:27.841Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -17,11 +17,65 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>new</title>
+    <title>车联网安全</title>
+    <link href="https://tsunamori.github.io/wiki/%E8%BD%A6%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8/"/>
+    <id>https://tsunamori.github.io/wiki/%E8%BD%A6%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8/</id>
+    <published>2021-04-28T08:50:20.000Z</published>
+    <updated>2021-04-28T08:55:27.841Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>初识智能网联汽车安全 <a href="https://www.anquanke.com/post/id/230212">https://www.anquanke.com/post/id/230212</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;ol&gt;
+&lt;li&gt;初识智能网联汽车安全 &lt;a href=&quot;https://www.anquanke.com/post/id/230212&quot;&gt;https://www.anquanke.com/post/id/230212&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</summary>
+      
+    
+    
+    
+    <category term="500 IoT security" scheme="https://tsunamori.github.io/categories/500-IoT-security/"/>
+    
+    <category term="510 Automotive security" scheme="https://tsunamori.github.io/categories/500-IoT-security/510-Automotive-security/"/>
+    
+    
+    <category term="IoT" scheme="https://tsunamori.github.io/tags/IoT/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工控安全</title>
+    <link href="https://tsunamori.github.io/wiki/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/"/>
+    <id>https://tsunamori.github.io/wiki/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</id>
+    <published>2021-04-28T07:50:51.000Z</published>
+    <updated>2021-04-28T09:57:20.533Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="工控安全入门"><a href="#工控安全入门" class="headerlink" title="工控安全入门"></a>工控安全入门</h4><ol><li><p>工控安全从入门到实战<br> （一） <a href="https://www.anquanke.com/post/id/178265">https://www.anquanke.com/post/id/178265</a><br> （二） <a href="https://www.anquanke.com/post/id/178425">https://www.anquanke.com/post/id/178425</a></p></li><li><p>工控安全Wiki <a href="https://www.yuque.com/tidesec/ics">https://www.yuque.com/tidesec/ics</a></p></li><li><p>工控安全协议入门<br> <a href="https://www.anquanke.com/post/id/185513">https://www.anquanke.com/post/id/185513</a></p></li></ol><h4 id="工控安全工具"><a href="#工控安全工具" class="headerlink" title="工控安全工具"></a>工控安全工具</h4><ol><li>ICS windows v2.0 <a href="https://www.anquanke.com/post/id/227645">https://www.anquanke.com/post/id/227645</a> （含工具列表）</li></ol><h4 id="实验室"><a href="#实验室" class="headerlink" title="实验室"></a>实验室</h4><ol><li>工控安全-灯塔实验室 <a href="http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/">http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</a></li><li>工控安全-Tide安全团队 <a href="http://www.tidesec.net/">http://www.tidesec.net/</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;工控安全入门&quot;&gt;&lt;a href=&quot;#工控安全入门&quot; class=&quot;headerlink&quot; title=&quot;工控安全入门&quot;&gt;&lt;/a&gt;工控安全入门&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;工控安全从入门到实战&lt;br&gt; （一） &lt;a href=&quot;https://www.anqua</summary>
+      
+    
+    
+    
+    <category term="400 ICS security" scheme="https://tsunamori.github.io/categories/400-ICS-security/"/>
+    
+    
+    <category term="ICS" scheme="https://tsunamori.github.io/tags/ICS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>近源渗透</title>
     <link href="https://tsunamori.github.io/wiki/%E8%BF%91%E6%BA%90%E6%B8%97%E9%80%8F/"/>
     <id>https://tsunamori.github.io/wiki/%E8%BF%91%E6%BA%90%E6%B8%97%E9%80%8F/</id>
     <published>2021-04-28T07:05:26.000Z</published>
-    <updated>2021-04-28T07:08:59.972Z</updated>
+    <updated>2021-04-28T07:56:44.933Z</updated>
     
     <content type="html"><![CDATA[<ol><li>红蓝对抗中的近源渗透 <a href="https://security.tencent.com/index.php/blog/msg/167">https://security.tencent.com/index.php/blog/msg/167</a></li></ol>]]></content>
     
@@ -520,66 +574,6 @@
       
     <summary type="html">&lt;ol&gt;
 &lt;li&gt;detail method &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover&quot;&gt;https://kathan19.gitbook.io/how</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Status code bypass</title>
-    <link href="https://tsunamori.github.io/wiki/Status-code-bypass/"/>
-    <id>https://tsunamori.github.io/wiki/Status-code-bypass/</id>
-    <published>2021-04-14T07:23:23.000Z</published>
-    <updated>2021-04-14T07:28:46.681Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>tips <a href="https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass">https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass</a></li><li>403 status code bypass <a href="https://kathan19.gitbook.io/howtohunt/status-code-bypass/403bypass">https://kathan19.gitbook.io/howtohunt/status-code-bypass/403bypass</a></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;tips &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/status-code-bypass/status_code_bypass&quot;&gt;https://kathan19.gitbook.io/howtohunt/st</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Sensitive info leaks</title>
-    <link href="https://tsunamori.github.io/wiki/Sensitive-info-leaks/"/>
-    <id>https://tsunamori.github.io/wiki/Sensitive-info-leaks/</id>
-    <published>2021-04-14T06:42:34.000Z</published>
-    <updated>2021-04-14T07:22:52.429Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="Github-recon"><a href="#Github-recon" class="headerlink" title="Github recon"></a>Github recon</h2><ol><li><p>steps</p><ol><li>Check github with company name for API keys or passswords.</li><li>Enumerate the employees of the company from linkedin and twitter and check their repositories on github for sensitive information.</li><li>Check source code of main website and subdomains for github links in the html comments or anywhere. Search using ctl-F and search for keyword github</li></ol></li><li><p>tools</p><ol><li><a href="https://github.com/BishopFox/GitGot">https://github.com/BishopFox/GitGot</a></li><li><a href="https://github.com/hisxo/gitGraber">https://github.com/hisxo/gitGraber</a></li><li><a href="https://github.com/tillson/git-hound">https://github.com/tillson/git-hound</a></li><li><a href="https://securitytrails.com/blog/github-dorks">https://securitytrails.com/blog/github-dorks</a></li></ol></li><li><p>Github dorks</p></li></ol><ul><li>GitHub Dorks for Finding Files<br>  filename:manifest.xml<br>  filename:travis.yml<br>  filename:vim_settings.xml<br>  filename:database<br>  filename:prod.exs NOT prod.secret.exs<br>  filename:prod.secret.exs<br>  filename:.npmrc _auth<br>  filename:.dockercfg auth<br>  filename:WebServers.xml<br>  filename:.bash_history<br>  filename:sftp-config.json<br>  filename:sftp.json path:.vscode<br>  filename:secrets.yml password<br>  filename:.esmtprc password<br>  filename:passwd path:etc<br>  filename:dbeaver-data-sources.xml<br>  path:sites databases password<br>  filename:config.php dbpasswd<br>  filename:prod.secret.exs<br>  filename:configuration.php JConfig password<br>  filename:.sh_history<br>  shodan_api_key language:python<br>  filename:shadow path:etc<br>  JEKYLL_GITHUB_TOKEN<br>  filename:proftpdpasswd<br>  filename:.pgpass<br>  filename:idea14.key<br>  filename:hub oauth_token<br>  HEROKU_API_KEY language:json<br>  HEROKU_API_KEY language:shell<br>  SF_USERNAME salesforce<br>  filename:.bash_profile aws<br>  extension:json api.forecast.io<br>  filename:.env MAIL_HOST=smtp.gmail.com<br>  filename:wp-config.php<br>  extension:sql mysql dump<br>  filename:credentials aws_access_key_id<br>  filename:id_rsa or filename:id_dsa<br>GitHub Dorks for Finding Languages<br>  language:python username<br>  language:php username<br>  language:sql username<br>  language:html password<br>  language:perl password<br>  language:shell username<br>  language:java api<br>  HOMEBREW_GITHUB_API_TOKEN language:shell<br>GiHub Dorks for Finding API Keys, Tokens and Passwords<br>  api_key<br>  “api keys”<br>  authorization_bearer:<br>  oauth<br>  auth<br>  authentication<br>  client_secret<br>  api_token:<br>  “api token”<br>  client_id<br>  password<br>  user_password<br>  user_pass<br>  passcode<br>  client_secret<br>  secret<br>  password hash<br>  OTP<br>  user auth<br>GitHub Dorks for Finding Usernames<br>  user:name (user:admin)<br>  org:name (org:google type:users)<br>  in:login ( in:login)<br>  in:name ( in:name)<br>  fullname:firstname lastname (fullname: )<br>  in:email (data in:email)<br>GitHub Dorks for Finding Information using Dates<br>  created:&lt;2012–04–05<br>  created:&gt;=2011–06–12<br>  created:2016–02–07 location:iceland<br>  created:2011–04–06..2013–01–14  in:username<br>GitHub Dorks for Finding Information using Extension<br>  extension:pem private<br>  extension:ppk private<br>  extension:sql mysql dump<br>  extension:sql mysql dump password<br>  extension:json [api.forecast.io] (<a href="http://api.forecast.io/">http://api.forecast.io/</a>)<br>  extension:json [mongolab.com] (<a href="http://mongolab.com/">http://mongolab.com/</a>)<br>  extension:yaml [mongolab.com] (<a href="http://mongolab.com/">http://mongolab.com/</a>)<br>  [WFClient] Password= extension:ica<br>  extension:avastlic “[support.avast.com] (<a href="http://support.avast.com/)%E2%80%9D">http://support.avast.com/)”</a><br>  extension:json googleusercontent client_secret</li></ul><p><a href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all</a></p><h2 id="Google-recon"><a href="#Google-recon" class="headerlink" title="Google recon"></a>Google recon</h2><ol><li>Google dorks <a href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks</a></li></ol><h2 id="Shodan-recon"><a href="#Shodan-recon" class="headerlink" title="Shodan recon"></a>Shodan recon</h2><ol><li>Big IP shodan Search:-<br><code>http.title:&quot;BIG-IP&amp;reg;-Redirect&quot; org:Org</code></li><li>CVE 2020-3452<br><code>http.html_hash:-628873716 “set-cookie: webvpn;”</code></li><li>CVE CVE-2019-11510<br><code>http.html:/dana-na/</code></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;Github-recon&quot;&gt;&lt;a href=&quot;#Github-recon&quot; class=&quot;headerlink&quot; title=&quot;Github recon&quot;&gt;&lt;/a&gt;Github recon&lt;/h2&gt;&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;steps&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Ch</summary>
       
     
     
