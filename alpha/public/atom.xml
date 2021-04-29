@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2021-04-28T08:55:27.841Z</updated>
+  <updated>2021-04-29T09:36:08.045Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CTF_IoT</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_IoT/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_IoT/</id>
+    <published>2021-04-29T09:34:18.000Z</published>
+    <updated>2021-04-29T09:36:08.045Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="stm32"><a href="#stm32" class="headerlink" title="stm32"></a>stm32</h4><p><a href="https://www.anquanke.com/post/id/229321">https://www.anquanke.com/post/id/229321</a><br><a href="https://www.anquanke.com/post/id/231440">https://www.anquanke.com/post/id/231440</a></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;stm32&quot;&gt;&lt;a href=&quot;#stm32&quot; class=&quot;headerlink&quot; title=&quot;stm32&quot;&gt;&lt;/a&gt;stm32&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://www.anquanke.com/post/id/229321&quot;&gt;https://</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="128 IoT" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/128-IoT/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ICS_CTF</title>
+    <link href="https://tsunamori.github.io/wiki/CTF_ICS/"/>
+    <id>https://tsunamori.github.io/wiki/CTF_ICS/</id>
+    <published>2021-04-29T07:05:16.000Z</published>
+    <updated>2021-04-29T08:04:36.057Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Modbus-赛题"><a href="#Modbus-赛题" class="headerlink" title="Modbus 赛题"></a>Modbus 赛题</h4><p><a href="https://www.anquanke.com/post/id/185513">https://www.anquanke.com/post/id/185513</a></p><h3 id="工控安全CTF-工具"><a href="#工控安全CTF-工具" class="headerlink" title="工控安全CTF 工具"></a>工控安全CTF 工具</h3><ol><li>网络数据包处理脚本 <a href="https://github.com/NewBee119/ctf_ics_traffic">https://github.com/NewBee119/ctf_ics_traffic</a></li><li>Modbus 脚本 <a href="https://github.com/arnaudsoullie/funwithmodbus0x5a">https://github.com/arnaudsoullie/funwithmodbus0x5a</a></li></ol>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;Modbus-赛题&quot;&gt;&lt;a href=&quot;#Modbus-赛题&quot; class=&quot;headerlink&quot; title=&quot;Modbus 赛题&quot;&gt;&lt;/a&gt;Modbus 赛题&lt;/h4&gt;&lt;p&gt;&lt;a href=&quot;https://www.anquanke.com/post/id/</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="128 ICS" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/128-ICS/"/>
+    
+    
+    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
+    
+  </entry>
   
   <entry>
     <title>车联网安全</title>
@@ -50,9 +106,9 @@
     <link href="https://tsunamori.github.io/wiki/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/"/>
     <id>https://tsunamori.github.io/wiki/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</id>
     <published>2021-04-28T07:50:51.000Z</published>
-    <updated>2021-04-28T09:57:20.533Z</updated>
+    <updated>2021-04-29T09:09:36.169Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="工控安全入门"><a href="#工控安全入门" class="headerlink" title="工控安全入门"></a>工控安全入门</h4><ol><li><p>工控安全从入门到实战<br> （一） <a href="https://www.anquanke.com/post/id/178265">https://www.anquanke.com/post/id/178265</a><br> （二） <a href="https://www.anquanke.com/post/id/178425">https://www.anquanke.com/post/id/178425</a></p></li><li><p>工控安全Wiki <a href="https://www.yuque.com/tidesec/ics">https://www.yuque.com/tidesec/ics</a></p></li><li><p>工控安全协议入门<br> <a href="https://www.anquanke.com/post/id/185513">https://www.anquanke.com/post/id/185513</a></p></li></ol><h4 id="工控安全工具"><a href="#工控安全工具" class="headerlink" title="工控安全工具"></a>工控安全工具</h4><ol><li>ICS windows v2.0 <a href="https://www.anquanke.com/post/id/227645">https://www.anquanke.com/post/id/227645</a> （含工具列表）</li></ol><h4 id="实验室"><a href="#实验室" class="headerlink" title="实验室"></a>实验室</h4><ol><li>工控安全-灯塔实验室 <a href="http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/">http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</a></li><li>工控安全-Tide安全团队 <a href="http://www.tidesec.net/">http://www.tidesec.net/</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<h4 id="工控安全入门"><a href="#工控安全入门" class="headerlink" title="工控安全入门"></a>工控安全入门</h4><ol><li><p>工控安全从入门到实战<br> （一） <a href="https://www.anquanke.com/post/id/178265">https://www.anquanke.com/post/id/178265</a><br> （二） <a href="https://www.anquanke.com/post/id/178425">https://www.anquanke.com/post/id/178425</a></p></li><li><p>工控安全Wiki <a href="https://www.yuque.com/tidesec/ics">https://www.yuque.com/tidesec/ics</a></p></li><li><p>工控安全协议入门<br> Modbus 协议 <a href="https://www.anquanke.com/post/id/185513">https://www.anquanke.com/post/id/185513</a><br> S7comm 协议 <a href="https://www.anquanke.com/post/id/186099">https://www.anquanke.com/post/id/186099</a></p><pre><code>         https://www.anquanke.com/post/id/186587</code></pre><p> DNP3协议 <a href="https://www.anquanke.com/post/id/187221">https://www.anquanke.com/post/id/187221</a></p></li><li><p>工控安全相关资源（协议数据包等） <a href="https://github.com/w3h/icsmaster">https://github.com/w3h/icsmaster</a></p></li></ol><h4 id="工控安全工具"><a href="#工控安全工具" class="headerlink" title="工控安全工具"></a>工控安全工具</h4><ol><li>ICS windows v2.0 <a href="https://www.anquanke.com/post/id/227645">https://www.anquanke.com/post/id/227645</a> （含工具列表）</li></ol><h4 id="实验室"><a href="#实验室" class="headerlink" title="实验室"></a>实验室</h4><ol><li>工控安全-灯塔实验室 <a href="http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/">http://plcscan.org/blog/category/%E5%B7%A5%E6%8E%A7%E5%AE%89%E5%85%A8/</a></li><li>工控安全-Tide安全团队 <a href="http://www.tidesec.net/">http://www.tidesec.net/</a></li></ol>]]></content>
     
     
       
@@ -516,64 +572,6 @@
       
     <summary type="html">&lt;ol&gt;
 &lt;li&gt;WAF bypass using headers(Password reset poisoning)&lt;br&gt; &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Tabnabbing</title>
-    <link href="https://tsunamori.github.io/wiki/Tabnabbing/"/>
-    <id>https://tsunamori.github.io/wiki/Tabnabbing/</id>
-    <published>2021-04-14T08:00:25.000Z</published>
-    <updated>2021-04-14T08:01:27.941Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li><a href="https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing">https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing</a></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing&quot;&gt;https://kathan19.gitbook.io/howtohunt/tabnabbing/tabnabbing&lt;/</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Subdomain takeover</title>
-    <link href="https://tsunamori.github.io/wiki/Subdomain-takeover/"/>
-    <id>https://tsunamori.github.io/wiki/Subdomain-takeover/</id>
-    <published>2021-04-14T07:40:42.000Z</published>
-    <updated>2021-04-14T07:52:55.633Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>detail method <a href="https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover">https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover</a></li><li>easy method <a href="https://kathan19.gitbook.io/howtohunt/subdomain-takeover/easy_methods">https://kathan19.gitbook.io/howtohunt/subdomain-takeover/easy_methods</a></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;detail method &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/subdomain-takeover/subdomain_takeover&quot;&gt;https://kathan19.gitbook.io/how</summary>
       
     
     
