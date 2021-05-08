@@ -38,3 +38,7 @@ echo $flag.”取得flag”;
 `s214587387a`
 
 ref: https://blog.csdn.net/zpy1998zpy/article/details/80582974
+
+#### MD5碰撞严格比较（非弱类型绕过）
+构造前缀碰撞法”（chosen-prefix collisions）
+https://xz.aliyun.com/t/2232

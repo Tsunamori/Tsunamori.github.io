@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2021-04-29T09:36:08.045Z</updated>
+  <updated>2021-05-08T09:30:44.357Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>WP-BugKu-Web</title>
+    <link href="https://tsunamori.github.io/wiki/BugKu-WP/"/>
+    <id>https://tsunamori.github.io/wiki/BugKu-WP/</id>
+    <published>2021-05-08T03:43:54.000Z</published>
+    <updated>2021-05-08T09:30:44.357Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="Web-18"><a href="#Web-18" class="headerlink" title="Web 18"></a>Web 18</h4><p>提示：题目刷新几次后有提示，需要计算数值并post value。</p><ul><li>考点：爬虫复习、利用eval()直接计算string内的数字公式、利用同一个Session进行get和post请求，防止网页动态刷新计算值失效、post请求中data注意格式为{‘somevtext’：’somevalue’}、python和PHP的计算方式不太一样，可能存在计算偏差导致得不到flag，需要重复发送几次。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;114.67.246.176:14925&#x2F;&#39;</span><br><span class="line">s &#x3D; requests.session()</span><br><span class="line">r &#x3D; s.get(url)</span><br><span class="line">r.encoding &#x3D; &#39;utf-8&#39;</span><br><span class="line">soup&#x3D;BeautifulSoup(r.text,&#39;lxml&#39;)</span><br><span class="line">data&#x3D;soup.select(&#39;div&#39;)</span><br><span class="line">for item in data:</span><br><span class="line">    #获取原文为804134448*284526014-53361872*1933492032+466213037-393751154*4253881+1224286171-1203351395*1548147628+1689398514&#x3D;?;</span><br><span class="line">    result&#x3D;item.get_text()</span><br><span class="line"></span><br><span class="line">result1&#x3D;result[0:len(result)-3] #去掉后三位‘&#x3D;?;’</span><br><span class="line">result2 &#x3D; eval(result1) #计算数值</span><br><span class="line">result3&#x3D;&#123;&#39;value&#39;:result2&#125; #添加post请求数据格式</span><br><span class="line"></span><br><span class="line">mssg&#x3D;s.post(url, data&#x3D;result3) #利用同一个session，防止网页刷新。</span><br><span class="line"></span><br><span class="line">print(mssg.text)</span><br></pre></td></tr></table></figure></li></ul><h4 id="Web-19"><a href="#Web-19" class="headerlink" title="Web 19"></a>Web 19</h4><p>提示： OK ,now you have to post the margin what you find</p><ul><li>解题思路：刷新几次之后没有发现变化，f12看network请求，在response包header内看到base64加密的flag，解码后为‘跑的还不错，给你flag吧: MjE0Nzg1’，一开始并没有意识到后面是base64的密文，直到一次运行爬虫发现密文有=号结尾。根据其他人的解读，说margin是数字所以提示了有两次base64解密，完全没有意识到这一层，我只猜到了post数据时数据格式为{‘margin’:xxx}，不得不说这提示的语法不太行，应该删掉what，这个着实困扰了。<br>  这个解开之后就简单很多了，另一个难点是在py3里string无法直接用base64解密，需要先转换成ascii。以及解密之后的返回值为bytes，需要转换成utf-8格式再进行后续删减处理，不然有<code>b’‘</code>等噪音。  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url&#x3D;&#39;http:&#x2F;&#x2F;114.67.246.176:19877&#x2F;&#39;</span><br><span class="line">s&#x3D;requests.session()</span><br><span class="line"></span><br><span class="line">r&#x3D;s.get(url).headers.get(&#39;flag&#39;)</span><br><span class="line">r1&#x3D;base64.b64decode(r.encode(&#39;ascii&#39;))</span><br><span class="line">r2&#x3D;r1.decode(&quot;utf-8&quot;)</span><br><span class="line">r3&#x3D;r2[len(r2)-8:len(r2)]</span><br><span class="line">r4&#x3D;base64.b64decode(r3.encode(&#39;ascii&#39;)).decode(&quot;utf-8&quot;)</span><br><span class="line"></span><br><span class="line">print(s.post(url, data&#x3D;&#123;&#39;margin&#39;:r4&#125;).text)</span><br></pre></td></tr></table></figure></li></ul><h4 id="Web-23"><a href="#Web-23" class="headerlink" title="Web 23"></a>Web 23</h4><p>题目：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">highlight_file(&#39;2.php&#39;);</span><br><span class="line">$key&#x3D;&#39;flag&#123;********************************&#125;&#39;;</span><br><span class="line">$IM&#x3D; preg_match(&quot;&#x2F;key.*key.&#123;4,7&#125;key:\&#x2F;.\&#x2F;(.*key)[a-z][[:punct:]]&#x2F;i&quot;, trim($_GET[&quot;id&quot;]), $match);</span><br><span class="line">if( $IM )&#123;</span><br><span class="line"> die(&#39;key is: &#39;.$key);</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><ul><li>解题思路：基本上难点都在这句正则上了，外加一个trim()去掉输入值前后的空白字符。解读一下php语句，就是当id的输入值符合正则时，退出（die）并返回key。2.php在此处仅为含有该php语句的文件（highlight_file），与输入值无关。跟着这道题试验了好几个找到的在线正则工具，发现还是regex101好用。<br><code>/key.*key.&#123;4,7&#125;key:\/.\/(.*key)[a-z][[:punct:]]/i</code>，<code>&#123;4,7&#125;</code>表示重复前面部分4～7次，<code>[:punct:]</code>为所有的特殊字符。<br>payload：<code>keykeykkeykey:/k/keya[:punct:]</code></li></ul><h4 id="Web-24"><a href="#Web-24" class="headerlink" title="Web 24"></a>Web 24</h4><p>题目：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">if(isset($_GET[&#39;v1&#39;]) &amp;&amp; isset($_GET[&#39;v2&#39;]) &amp;&amp; isset($_GET[&#39;v3&#39;]))&#123;</span><br><span class="line">    $v1 &#x3D; $_GET[&#39;v1&#39;];</span><br><span class="line">    $v2 &#x3D; $_GET[&#39;v2&#39;];</span><br><span class="line">    $v3 &#x3D; $_GET[&#39;v3&#39;];</span><br><span class="line">    if($v1 !&#x3D; $v2 &amp;&amp; md5($v1) &#x3D;&#x3D; md5($v2))&#123;</span><br><span class="line">        if(!strcmp($v3, $flag))&#123;</span><br><span class="line">            echo $flag;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure><ul><li>解题思路：似曾相识的MD5相等题，此次应掏出MD5绕过笔记。strcmp(str1,str2),如果str1小于str2返回&lt;0；如果str1大于str2返回&gt;0；如果两者相等，返回0。因为是if(!xxx)返回flag，所以v3和flag相等。搜索strcmp绕过，可知当传入的类型非期望类型时，即传入值非string时，发生错误，返回0。如：数组,<code>?a[]=2</code></li></ul><h4 id="Web-25"><a href="#Web-25" class="headerlink" title="Web 25"></a>Web 25</h4><p>提示：SQL约束攻击</p><ul><li>解题思路：点开链接，发现是一个后台登录站点，先放着不管，查一下提示给的SQL约束攻击。内容也算似曾相识，之前在bug bounty的hint里面见过，也就是利用用户名长度限制，在用户名最后加上多个空白字符以及末尾一个用于绕过用户名是否已注册的对比的任意字符，那么在存储时，数据库仅存储前X位字符，导致攻击者可以取代登录目标用户。ref：<a href="https://www.freebuf.com/articles/web/124537.html">https://www.freebuf.com/articles/web/124537.html</a><br>知道了就简单了，思路是先盲猜管理员用户名，然后通过SQL约束攻击注册新帐号，取代替换原管理员帐号的密码。</li></ul><h4 id="Web-26"><a href="#Web-26" class="headerlink" title="Web 26"></a>Web 26</h4><p>提示：are you from google?</p><ul><li>解题思路：这个提示已经很明显了，直接包头加转发（referer），表示自己是从google来的就行。突然在想x-forward-for为啥不行，查了一下XFF必须是IP地址。</li></ul><h4 id="Web-27"><a href="#Web-27" class="headerlink" title="Web 27"></a>Web 27</h4><p>提示：<br>    1. please input a<br>    2. md5 collision</p><ul><li>解题思路：MD5碰撞，题面只有一句please input a，盲猜是输入a和某个值碰撞，那么首先试试输入数组报错法，回显<code>false!!</code>，起码证明思路应该是对的，重新查了查MD5碰撞，猜测题目是强类型不能绕过。但不知道另一个对比值要怎么做真实碰撞呢？<br>好家伙，看了看提示，发现是没给对比值源码。。。行8</li></ul><h4 id="Web-28"><a href="#Web-28" class="headerlink" title="Web 28"></a>Web 28</h4><p>提示：请从本地访问。</p><ul><li>解题思路：好的看到本地访问又稳了，直接开链接搞XFF。题目不但似曾相识还莫名的变简单了。。。<br>我一般是上burp，不过在评论里看到一个<code>curl -H &quot;X-Forwarded-For: 127.0.0.1&quot; http://114.67.246.176:18832/</code>，码住。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h4 id=&quot;Web-18&quot;&gt;&lt;a href=&quot;#Web-18&quot; class=&quot;headerlink&quot; title=&quot;Web 18&quot;&gt;&lt;/a&gt;Web 18&lt;/h4&gt;&lt;p&gt;提示：题目刷新几次后有提示，需要计算数值并post value。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;考点：爬虫复习、</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/"/>
+    
+    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/"/>
+    
+    
+    <category term="CTF, WriteUp" scheme="https://tsunamori.github.io/tags/CTF-WriteUp/"/>
+    
+  </entry>
   
   <entry>
     <title>CTF_IoT</title>
@@ -217,9 +247,9 @@
     <link href="https://tsunamori.github.io/wiki/CTF_MD5/"/>
     <id>https://tsunamori.github.io/wiki/CTF_MD5/</id>
     <published>2021-04-25T02:30:06.000Z</published>
-    <updated>2021-04-26T05:59:49.336Z</updated>
+    <updated>2021-05-08T09:22:14.493Z</updated>
     
-    <content type="html"><![CDATA[<h4 id="MD5-函数数组绕过"><a href="#MD5-函数数组绕过" class="headerlink" title="MD5()函数数组绕过"></a>MD5()函数数组绕过</h4><ol><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">include_once “flag.php”;</span><br><span class="line">ini_set(“display_errors”, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[‘REQUEST_URI’], ‘?’);&#x2F;&#x2F;返回$_SERVER[‘REQUEST_URI’]内从‘?’后开始的值。</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(‘key’,”,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">echo $flag.”取得flag”;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>绕过方法：</li></ol><ul><li> 对key关键词的过滤可以用kekeyy绕过，从而传递key1&amp;key2进行比较。</li><li> md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的。</li><li> 利用==比较漏洞,如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。下列的字符串的MD5值都是0e开头的：<br><code>QNKCDZO</code><br><code>240610708</code><br><code>s878926199a</code><br><code>s155964671a</code><br><code>s214587387a</code><br><code>s214587387a</code></li></ul><p>ref: <a href="https://blog.csdn.net/zpy1998zpy/article/details/80582974">https://blog.csdn.net/zpy1998zpy/article/details/80582974</a></p>]]></content>
+    <content type="html"><![CDATA[<h4 id="MD5-函数数组绕过"><a href="#MD5-函数数组绕过" class="headerlink" title="MD5()函数数组绕过"></a>MD5()函数数组绕过</h4><ol><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">include_once “flag.php”;</span><br><span class="line">ini_set(“display_errors”, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[‘REQUEST_URI’], ‘?’);&#x2F;&#x2F;返回$_SERVER[‘REQUEST_URI’]内从‘?’后开始的值。</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(‘key’,”,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">echo $flag.”取得flag”;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>绕过方法：</li></ol><ul><li> 对key关键词的过滤可以用kekeyy绕过，从而传递key1&amp;key2进行比较。</li><li> md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的。</li><li> 利用==比较漏洞,如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。下列的字符串的MD5值都是0e开头的：<br><code>QNKCDZO</code><br><code>240610708</code><br><code>s878926199a</code><br><code>s155964671a</code><br><code>s214587387a</code><br><code>s214587387a</code></li></ul><p>ref: <a href="https://blog.csdn.net/zpy1998zpy/article/details/80582974">https://blog.csdn.net/zpy1998zpy/article/details/80582974</a></p><h4 id="MD5碰撞严格比较（非弱类型绕过）"><a href="#MD5碰撞严格比较（非弱类型绕过）" class="headerlink" title="MD5碰撞严格比较（非弱类型绕过）"></a>MD5碰撞严格比较（非弱类型绕过）</h4><p>构造前缀碰撞法”（chosen-prefix collisions）<br><a href="https://xz.aliyun.com/t/2232">https://xz.aliyun.com/t/2232</a></p>]]></content>
     
     
       
@@ -274,16 +304,16 @@
     <link href="https://tsunamori.github.io/wiki/CTF-Tools/"/>
     <id>https://tsunamori.github.io/wiki/CTF-Tools/</id>
     <published>2021-04-23T08:48:56.000Z</published>
-    <updated>2021-04-26T06:28:08.428Z</updated>
+    <updated>2021-05-08T07:16:33.004Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>在线正则表达式  <a href="https://regex101.com/r/cT1rB2/1">https://regex101.com/r/cT1rB2/1</a></li><li>CTF在线工具 <a href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></li><li>js美化 <a href="https://beautifier.io/">https://beautifier.io/</a></li></ol><h3 id="信息泄漏"><a href="#信息泄漏" class="headerlink" title="信息泄漏"></a>信息泄漏</h3><ol><li>查看常用CTF文件是否存在于网站中：<a href="https://github.com/WangYihang/SourceLeakHacker">https://github.com/WangYihang/SourceLeakHacker</a></li><li>常规git泄漏：<a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<ol><li>在线正则表达式  <a href="https://regex101.com/">https://regex101.com/</a></li><li>CTF在线工具 <a href="http://ctf.ssleye.com/">http://ctf.ssleye.com/</a></li><li>js美化 <a href="https://beautifier.io/">https://beautifier.io/</a></li></ol><h3 id="信息泄漏"><a href="#信息泄漏" class="headerlink" title="信息泄漏"></a>信息泄漏</h3><ol><li>查看常用CTF文件是否存在于网站中：<a href="https://github.com/WangYihang/SourceLeakHacker">https://github.com/WangYihang/SourceLeakHacker</a></li><li>常规git泄漏：<a href="https://github.com/BugScanTeam/GitHack">https://github.com/BugScanTeam/GitHack</a></li></ol>]]></content>
     
     
       
       
     <summary type="html">&lt;ol&gt;
-&lt;li&gt;在线正则表达式  &lt;a href=&quot;https://regex101.com/r/cT1rB2/1&quot;&gt;https://regex101.com/r/cT1rB2/1&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;CTF在线工具 &lt;a href=&quot;http://ctf.ssleye.</summary>
+&lt;li&gt;在线正则表达式  &lt;a href=&quot;https://regex101.com/&quot;&gt;https://regex101.com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;CTF在线工具 &lt;a href=&quot;http://ctf.ssleye.com/&quot;&gt;http://ctf.ssl</summary>
       
     
     
@@ -331,9 +361,9 @@
     <link href="https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/"/>
     <id>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</id>
     <published>2021-04-22T06:57:37.000Z</published>
-    <updated>2021-04-25T09:42:01.663Z</updated>
+    <updated>2021-05-08T07:53:11.056Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>SUCTF 2019 EasySQL <a href="https://blog.csdn.net/qq_43619533/article/details/103434935">https://blog.csdn.net/qq_43619533/article/details/103434935</a><ul><li> 考点： 通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||</li></ul></li><li>BugKu web 21 <a href="https://blog.csdn.net/qq_41333578/article/details/92759619">https://blog.csdn.net/qq_41333578/article/details/92759619</a><ul><li> 考点： 弱比较的绕过; PHP伪协议php://input如何输入请求主体; eregi绕过的两种方式; 注意<code>\x00</code>会截断后续内容，而%00不会。</li></ul></li><li>BugKu 冬至红包 <a href="https://blog.csdn.net/qq_46230755/article/details/112973722">https://blog.csdn.net/qq_46230755/article/details/112973722</a><ul><li> 考点： 新姿势</li></ul></li></ol>]]></content>
+    <content type="html"><![CDATA[<ol><li>SUCTF 2019 EasySQL <a href="https://blog.csdn.net/qq_43619533/article/details/103434935">https://blog.csdn.net/qq_43619533/article/details/103434935</a><ul><li> 考点： 通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||</li></ul></li><li>BugKu web 21 <a href="https://blog.csdn.net/qq_41333578/article/details/92759619">https://blog.csdn.net/qq_41333578/article/details/92759619</a><ul><li> 考点： 弱比较的绕过; PHP伪协议php://input如何输入请求主体; eregi绕过的两种方式; 注意<code>\x00</code>会截断后续内容，而%00不会。</li></ul></li><li>BugKu 冬至红包 <a href="https://blog.csdn.net/qq_46230755/article/details/112973722">https://blog.csdn.net/qq_46230755/article/details/112973722</a><ul><li> 考点： 新姿势</li></ul></li><li>BugKu web18 <a href="https://ctf.bugku.com/challenges/detail/id/85.html">https://ctf.bugku.com/challenges/detail/id/85.html</a><ul><li>考点：爬虫复习、利用eval()直接计算string内的数字公式、利用同一个Session进行get和post请求，防止网页动态刷新计算值失效、post请求中data注意格式为{‘somevtext’：’somevalue’}、python和PHP的计算方式不太一样，可能存在计算偏差导致得不到flag，需要重复发送几次。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line"></span><br><span class="line">url &#x3D; &#39;http:&#x2F;&#x2F;114.67.246.176:14925&#x2F;&#39;</span><br><span class="line"></span><br><span class="line">s &#x3D; requests.session()</span><br><span class="line"></span><br><span class="line">r &#x3D; s.get(url)</span><br><span class="line"># 这里要根据网页的编码来设置解码，这个目标网站编码为&#39;utf-8&#39;</span><br><span class="line">r.encoding &#x3D; &#39;utf-8&#39;</span><br><span class="line">soup&#x3D;BeautifulSoup(r.text,&#39;lxml&#39;)</span><br><span class="line">data&#x3D;soup.select(&#39;div&#39;)</span><br><span class="line">for item in data:</span><br><span class="line">    #获取原文为804134448*284526014-53361872*1933492032+466213037-393751154*4253881+1224286171-1203351395*1548147628+1689398514&#x3D;?;</span><br><span class="line">    result&#x3D;item.get_text()</span><br><span class="line"></span><br><span class="line">result1&#x3D;result[0:len(result)-3] #去掉后三位‘&#x3D;?;’</span><br><span class="line"></span><br><span class="line">result2 &#x3D; eval(result1) #计算数值</span><br><span class="line"></span><br><span class="line">result3&#x3D;&#123;&#39;value&#39;:result2&#125; #添加post请求数据格式</span><br><span class="line"></span><br><span class="line">mssg&#x3D;s.post(url, data&#x3D;result3) #利用同一个session，防止网页刷新。</span><br><span class="line"></span><br><span class="line">print(mssg.text)</span><br></pre></td></tr></table></figure></li></ul></li></ol>]]></content>
     
     
       
@@ -543,35 +573,6 @@
       
     <summary type="html">&lt;ol&gt;
 &lt;li&gt;weak password policy &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/weak-password-policy/weak_password_policy&quot;&gt;https://kathan19.git</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>WAF bypasses</title>
-    <link href="https://tsunamori.github.io/wiki/WAF-bypasses/"/>
-    <id>https://tsunamori.github.io/wiki/WAF-bypasses/</id>
-    <published>2021-04-14T08:05:47.000Z</published>
-    <updated>2021-04-14T08:07:33.177Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>WAF bypass using headers(Password reset poisoning)<br> <a href="https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using_headers">https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using_headers</a></li></ol>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;ol&gt;
-&lt;li&gt;WAF bypass using headers(Password reset poisoning)&lt;br&gt; &lt;a href=&quot;https://kathan19.gitbook.io/howtohunt/waf-bypasses/waf_bypass_using</summary>
       
     
     
