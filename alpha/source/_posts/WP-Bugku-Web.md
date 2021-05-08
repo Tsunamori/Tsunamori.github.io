@@ -2,7 +2,7 @@
 title: WP-BugKu-Web
 toc: true
 date: 2021-05-08 11:43:54
-tags: CTF, WriteUp
+tags: [CTF, WriteUp]
 categories: [100 Cyber security, 120 CTF, 121 Web ]
 ---
 
