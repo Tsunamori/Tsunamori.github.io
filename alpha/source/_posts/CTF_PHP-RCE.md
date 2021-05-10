@@ -58,3 +58,17 @@ categories: [100 Cyber security, 120 CTF, 121 Web]
 ### 目录遍历
 1. ../../etc/passwd
     * https://www.freebuf.com/vuls/247620.html
+
+### file_get_contents()绕过
+```
+此函数可以获取本地的内容，也可以支持HTTP、FTP等协议远程抓取内容。
+
+当使用该函数打开某个文件时
+$result=file_get_contents($_GET['xxx'])
+
+可以通过在url里使用 ?xxx=data:text/plain,(url编码的内容)
+这时$result的值为url编码的内容
+
+或者也可以在url里使用?xxx=php://input
+然后将要赋值的数据写入POST里也可达到上述结果
+```

@@ -42,3 +42,8 @@ mssg=s.post(url, data=result3) #利用同一个session，防止网页刷新。
 
 print(mssg.text)
     ```
+1. BugKu Web 32
+题目：文件上传;My name is margin,give me a image file not a php
+
+* 解题思路：文件上传漏洞，掏出上传fuzz试试看。
+  fuzz没过，看评论说是把multipart/form-data;修改成Content-Type: mulTipart/form-data; ，然后修改php文件为php4，竟然还有这种操作，学到了。
