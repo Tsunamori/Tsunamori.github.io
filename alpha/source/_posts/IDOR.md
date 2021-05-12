@@ -1,5 +1,5 @@
 ---
-title: IDOR
+title: IDOR/Broken object level authorization
 toc: true
 date: 2021-04-14 14:06:57
 tags: Summary

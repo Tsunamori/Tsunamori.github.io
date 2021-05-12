@@ -2,6 +2,41 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tsunamori.github.io/wiki/Dork/</loc>
+    
+    <lastmod>2021-05-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/IDOR/</loc>
+    
+    <lastmod>2021-05-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/SSTI/</loc>
+    
+    <lastmod>2021-05-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_SQLI/</loc>
+    
+    <lastmod>2021-05-12</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/useful-books/</loc>
+    
+    <lastmod>2021-05-12</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tsunamori.github.io/wiki/WP-Bugku-Web/</loc>
     
     <lastmod>2021-05-11</lastmod>
@@ -93,13 +128,6 @@
   </url>
   
   <url>
-    <loc>https://tsunamori.github.io/wiki/CTF_SQLI/</loc>
-    
-    <lastmod>2021-04-27</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/wiki/CMS/</loc>
     
     <lastmod>2021-04-26</lastmod>
@@ -136,13 +164,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/SQLI/</loc>
-    
-    <lastmod>2021-04-25</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/useful-books/</loc>
     
     <lastmod>2021-04-25</lastmod>
     
@@ -254,13 +275,6 @@
   </url>
   
   <url>
-    <loc>https://tsunamori.github.io/wiki/SSTI/</loc>
-    
-    <lastmod>2021-04-14</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/wiki/Rate-limit/</loc>
     
     <lastmod>2021-04-14</lastmod>
@@ -304,13 +318,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/MFA-bypass/</loc>
-    
-    <lastmod>2021-04-14</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/IDOR/</loc>
     
     <lastmod>2021-04-14</lastmod>
     
@@ -424,7 +431,7 @@
 
   <url>
     <loc>https://tsunamori.github.io/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -432,56 +439,56 @@
   
   <url>
     <loc>https://tsunamori.github.io/tags/Summary/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/Tools/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/CTF/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/Notes/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/Books/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/ICS/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/IoT/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/tags/WriteUp/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
@@ -490,84 +497,84 @@
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/119-Notes/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/121-Web/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/140-Books/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/400-ICS-security/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/500-IoT-security/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/500-IoT-security/510-Automotive-security/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/128-ICS/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/128-IoT/</loc>
-    <lastmod>2021-05-11</lastmod>
+    <lastmod>2021-05-12</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
