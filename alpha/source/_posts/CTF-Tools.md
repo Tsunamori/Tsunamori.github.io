@@ -9,6 +9,7 @@ categories: [100 Cyber security, 120 CTF]
 1. 在线正则表达式  https://regex101.com/
 1. CTF在线工具 http://ctf.ssleye.com/
 1. js美化 https://beautifier.io/
+1. 在线代码运算：https://www.anycodes.cn/#/OnlineCode
 
 
 ### 信息泄漏

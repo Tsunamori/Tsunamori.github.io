@@ -47,3 +47,66 @@ print(mssg.text)
 
 * 解题思路：文件上传漏洞，掏出上传fuzz试试看。
   fuzz没过，看评论说是把multipart/form-data;修改成Content-Type: mulTipart/form-data; ，然后修改php文件为php4，竟然还有这种操作，学到了。
+
+1. BugKu Web 33
+提示：
+```
+Flag:{xxx}
+fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=
+ // }l.&W'EG*B(W[(+G'U-0
+```
+题目：
+```
+<?php
+function encrypt($data,$key)
+{
+    $key = md5('ISCC');
+    $x = 0;
+    $len = strlen($data);
+    $klen = strlen($key);
+    for ($i=0; $i < $len; $i++) {
+        if ($x == $klen)
+        {
+            $x = 0;
+        }
+        $char .= $key[$x];
+        $x+=1;
+    }
+    for ($i=0; $i < $len; $i++) {
+        $str .= chr((ord($data[$i]) + ord($char[$i])) % 128);
+    }
+    return base64_encode($str);
+}
+?>
+```
+
+* 解题思路：在线解base64的时候还没注意到，复制下来才发现还有特殊字符。`.=`连接赋值运算符，将右边参数附加到左边的参数之后。完整的看了一遍代码，发现应该是得到提示的base64字符串的算法。懒得配环境，对PHP一直是只会读代码不会写应用的状态，干脆在网上找了找PHP在线运行网站。试着运行了一下原算法用不同的数字和字母输入data内容。
+根据提示中的base64推断，data长度为20。
+逆推写了一下获取data的源码：
+```
+<?php
+$str='fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA=';
+$str_decode = base64_decode($str);
+$len1=strlen($str_decode);
+
+$key = md5('ISCC');  # 729623334f0aa2784a1599fd374c120d
+$klen = strlen($key);
+$char = '';
+$data = '';
+for ($i=0; $i < $len1; $i++) {
+        if ($x == $klen)
+        {
+            $x = 0;
+        }
+        $char .= $key[$x]; # 729623334f0aa2784a1599fd374c120d729623
+        $x+=1;
+    }
+# print($len1); -> 38
+# print($char); -> 729623334f0aa2784a1599fd374c120d729623
+for ($i=0; $i < $len1; $i++) {
+        $data .= chr((ord($str_decode[$i])+128)-ord($char[$i]));
+    }
+print($data);    
+?>
+```
+得到结果：lag{asdqwdfasfdawfefqwdqwdadwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag:{asdqwdfasfdawfefqwdqwdadwqadawd}，结果正确。
