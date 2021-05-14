@@ -31,6 +31,7 @@ categories: [100 Cyber security, 120 CTF, 121 Web]
 	}
   include($file); //include不能包含自身，会死循环，故拒绝访问。
   ```
+1. 文件包含漏洞总结 https://blackdn.github.io/2020/04/04/CTF-File-Inclusion-2020/
 
 ### 命令执行绕过
 1.  https://blog.csdn.net/u014549283/article/details/81783164

