@@ -17,7 +17,7 @@
 <meta property="og:description" content="文件包含 文件包含命令执行 https:&#x2F;&#x2F;xz.aliyun.com&#x2F;t&#x2F;5535  https:&#x2F;&#x2F;blog.csdn.net&#x2F;nai_kai&#x2F;article&#x2F;details&#x2F;106805220    PHP伪协议（php:&#x2F;&#x2F;） https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;0a8339fcc269  文件包含漏洞利用 https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_32393893">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-20T08:22:46.000Z">
-<meta property="article:modified_time" content="2021-05-14T06:40:49.313Z">
+<meta property="article:modified_time" content="2021-05-17T03:30:45.339Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -518,11 +518,13 @@
 <li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://zhuanlan.zhihu.com/p/127047303">https://zhuanlan.zhihu.com/p/127047303</a></li>
 <li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.codenong.com/cs110213257/">https://www.codenong.com/cs110213257/</a></li>
 <li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.anquanke.com/post/id/208398">https://www.anquanke.com/post/id/208398</a></li>
+<li> ls查看上一级：<code>ls ..;ls /</code></li>
+<li> 命令之间用<code>;</code>隔开。</li>
 <li> ${HOME:0:1} = / (获取目录分割符绕过过滤)</li>
 <li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.cnblogs.com/Tkitn/p/11661017.html">https://www.cnblogs.com/Tkitn/p/11661017.html</a></li>
 <li> <a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.csdn.net/qq_45927819/article/details/109671655">https://blog.csdn.net/qq_45927819/article/details/109671655</a></li>
 <li> 管道符（; | || &amp; &amp;&amp;）过滤绕过：换行符%0a</li>
-<li> 空格绕过：%20(目前做题最好使的一个绕过，&lt;&gt;经常不成功)</li>
+<li> 空格绕过：%20(目前做题最好使的一个绕过，&lt;，&gt;，&lt;&gt;经常不成功)</li>
 <li> 关键词绕过：引号需要每个字母之间添加引号’或”，加<code>\</code>的话只需要加一个,cat可以用tac代替。</li>
 <li> 文件读取不能用cat的替代：show_source(‘flag.php’)</li>
 <li>Eval命令绕过利用，eval()内参数数目不限，彼此之间用分号隔开。<ul>

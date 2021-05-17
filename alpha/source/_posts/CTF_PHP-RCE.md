@@ -38,11 +38,13 @@ categories: [100 Cyber security, 120 CTF, 121 Web]
 1.  https://zhuanlan.zhihu.com/p/127047303
 1.  https://www.codenong.com/cs110213257/
 1.  https://www.anquanke.com/post/id/208398
+1.  ls查看上一级：`ls ..;ls /`
+1.  命令之间用`;`隔开。
 1.  ${HOME:0:1} = / (获取目录分割符绕过过滤)
 1.  https://www.cnblogs.com/Tkitn/p/11661017.html
 1.  https://blog.csdn.net/qq_45927819/article/details/109671655
 1.  管道符（; | || & &&）过滤绕过：换行符%0a
-1.  空格绕过：%20(目前做题最好使的一个绕过，<>经常不成功)
+1.  空格绕过：%20(目前做题最好使的一个绕过，<，>，<>经常不成功)
 1.  关键词绕过：引号需要每个字母之间添加引号'或"，加`\`的话只需要加一个,cat可以用tac代替。
 1.  文件读取不能用cat的替代：show_source('flag.php')
 1.  Eval命令绕过利用，eval()内参数数目不限，彼此之间用分号隔开。
