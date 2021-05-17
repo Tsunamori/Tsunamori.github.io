@@ -7,6 +7,8 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
 ---
 
 
+### Web
+
 #### SUCTF 2019 EasySQL
 https://blog.csdn.net/qq_43619533/article/details/103434935
     *  考点： 通过输入非零数字得到的回显1和输入其余字符得不到回显来判断出内部的查询语句可能存在有||
@@ -163,3 +165,5 @@ for i in range(1,250):
 再做个关于fuzz后台登录密码的注入笔记：
     * 判断密码长度：uname=admin'^(length(passwd)=32)^'，逐一递增，并根据32位猜测密码为MD5。
     * 判断密码每一位字符：uname=admin'^(ascii(substr((passwd)from(1))=52)^'
+
+### Crypto
