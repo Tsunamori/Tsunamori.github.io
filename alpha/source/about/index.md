@@ -25,3 +25,4 @@ GitHub ID: Tsunamori
 # To-Do list
 
 1. 整理文件包含漏洞，把一大堆链接精简一下。
+1. 读完 从0到1：Ctfer之路。

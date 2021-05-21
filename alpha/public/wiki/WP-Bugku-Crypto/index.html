@@ -17,7 +17,7 @@
 <meta property="og:description" content="&#x2F;.-提示： ..-.&#x2F;.-..&#x2F;.-&#x2F;–.&#x2F;—-.–&#x2F;-..&#x2F;…–&#x2F;..-.&#x2F;-.-.&#x2F;-…&#x2F;..-.&#x2F;.—-&#x2F;–…&#x2F;..-.&#x2F;—-.&#x2F;…–&#x2F;—-.&#x2F;—-.&#x2F;…..&#x2F;—–&#x2F;….-&#x2F;—–.-  解题思路：搞了半天，因为有前后两个ASCII码所以直接写pycode总是很难搞，还是从网上找了在线工具：https:&#x2F;&#x2F;www.ctftools.com&#x2F;down&#x2F;down&#x2F;passwd&#x2F;，相当方便了。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-17T09:02:34.000Z">
-<meta property="article:modified_time" content="2021-05-17T09:57:18.284Z">
+<meta property="article:modified_time" content="2021-05-21T09:40:14.488Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="WriteUp">
@@ -494,7 +494,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">Catalogue</strong>
-                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">&#x2F;.-</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link"><span class="toc-number">1.</span> <span class="toc-text">&#x2F;.-</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%81%AA%E6%98%8E%E7%9A%84%E5%B0%8F%E7%BE%8A"><span class="toc-number">2.</span> <span class="toc-text">聪明的小羊</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ok"><span class="toc-number">3.</span> <span class="toc-text">ok</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#lt-gt"><span class="toc-number">4.</span> <span class="toc-text">[+-&lt;&gt;]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%8A%E7%8C%AA%E5%9B%B0%E5%9C%A8%E7%8C%AA%E5%9C%88%E9%87%8C"><span class="toc-number">5.</span> <span class="toc-text">把猪困在猪圈里</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%A0%E5%96%9C%E6%AC%A2%E4%B8%8B%E6%A3%8B%E5%90%97"><span class="toc-number">6.</span> <span class="toc-text">你喜欢下棋吗</span></a></li></ol>
                 </div>
             
         
@@ -502,6 +502,27 @@
             <h4 id><a href="#" class="headerlink" title="/.-"></a>/.-</h4><p>提示： ..-./.-../.-/–./—-.–/-../…–/..-./-.-./-…/..-./.—-/–…/..-./—-./…–/—-./—-./…../—–/….-/—–.-</p>
 <ul>
 <li>解题思路：搞了半天，因为有前后两个ASCII码所以直接写pycode总是很难搞，还是从网上找了在线工具：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.ctftools.com/down/down/passwd/%EF%BC%8C%E7%9B%B8%E5%BD%93%E6%96%B9%E4%BE%BF%E4%BA%86%E3%80%82">https://www.ctftools.com/down/down/passwd/，相当方便了。</a></li>
+</ul>
+<h4 id="聪明的小羊"><a href="#聪明的小羊" class="headerlink" title="聪明的小羊"></a>聪明的小羊</h4><p>提示：一只小羊翻过了2个栅栏 fa{fe13f590lg6d46d0d0}</p>
+<ul>
+<li>解题思路：根据提示可得栅栏加密。</li>
+</ul>
+<h4 id="ok"><a href="#ok" class="headerlink" title="ok"></a>ok</h4><p>提示：Ook.</p>
+<ul>
+<li>解题思路：根据提示，可得brainfuck/Ook加密。</li>
+</ul>
+<h4 id="lt-gt"><a href="#lt-gt" class="headerlink" title="[+-&lt;&gt;]"></a>[+-&lt;&gt;]</h4><p>提示：<code>+++++ +++++ [-&gt;++ +++++ +++&lt;] &gt;++.+ +++++ .&lt;+++ [-&gt;-- -&lt;]&gt;- -.+++ +++.&lt; ++++[ -&gt;+++ +&lt;]&gt;+ +++.&lt; +++++ +++[- &gt;---- ----&lt; ]&gt;--- ----- ---.&lt; +++++ ++[-&gt; +++++ ++&lt;]&gt; +++.&lt; +++++ +[-&gt;- ----- &lt;]&gt;-- ----- -.--. ----. --.++ +++++ +.&lt;++ ++++[ -&gt;+++ +++&lt;] &gt;++++ +.++. &lt;++++ ++[-&gt; ----- -&lt;]&gt;- ----- ----. -.&lt;++ +++++ [-&gt;++ +++++ &lt;]&gt;+. ----. ++++. &lt;++++ +++[- &gt;---- ---&lt;] &gt;---- .+.&lt;+ +++++ ++[-&gt; +++++ +++&lt;] &gt;++++ +++++ ++.&lt;</code></p>
+<ul>
+<li>解题思路：跟上个一样，这个是brainfuck。</li>
+</ul>
+<h4 id="把猪困在猪圈里"><a href="#把猪困在猪圈里" class="headerlink" title="把猪困在猪圈里"></a>把猪困在猪圈里</h4><p>提示： flag{}</p>
+<ul>
+<li>密文开头有个<code>/9j/</code>，结尾有等号，是比较明显的base64转图片的提示。利用<a target="_blank" rel="external nofollow noopener noreferrer" href="http://tool.chinaz.com/tools/imgtobase/%E7%BD%91%E7%AB%99%E8%A7%A3%E5%AF%86%EF%BC%8C%E5%9C%A8%E5%BC%80%E5%A4%B4%E5%8A%A0%60data:image/jpg;base64,%60%E8%A1%A5%E5%85%A8%E5%9B%BE%E7%89%87%E5%A4%B4%EF%BC%8C%E5%BE%97%E5%88%B0%E7%8C%AA%E5%9C%88%E5%AF%86%E7%A0%81%E5%9B%BE%E7%89%87%EF%BC%8C%E5%AF%B9%E7%85%A7%E5%AF%86%E7%A0%81%E8%A1%A8%E8%A7%A3%E5%AF%86%E5%BE%97%E5%88%B0flag%E3%80%82">http://tool.chinaz.com/tools/imgtobase/网站解密，在开头加`data:image/jpg;base64,`补全图片头，得到猪圈密码图片，对照密码表解密得到flag。</a></li>
+</ul>
+<h4 id="你喜欢下棋吗"><a href="#你喜欢下棋吗" class="headerlink" title="你喜欢下棋吗"></a>你喜欢下棋吗</h4><p>提示：解压密码为小写<br>4423244324433534315412244543</p>
+<ul>
+<li>解题思路：下棋，提示了这是棋盘密码。查了一下，棋盘密码有两种，一种是Polybius密码，密文为两两组合的数字，另一种是ADFGX密码，密文为两两组合的字母。<br>但是看在线的解密都要密钥，看别人的WP才发现他们解密用的常见密码表，行吧。<br>这里得到密码，解压文件，得到下一个密文<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">一种5bit的编码</span><br><span class="line">bugku里面的内容为小写</span><br><span class="line">bugku&#123;11111 11001 00011 00111 01001 11011 10110 11111 10000 01110 11011 10110 11111 01001 00001&#125;</span><br></pre></td></tr></table></figure>
+看评论是博多密码（我只是个密码小白我啥也不知道），直接解得到flag。</li>
 </ul>
 
             </div>
