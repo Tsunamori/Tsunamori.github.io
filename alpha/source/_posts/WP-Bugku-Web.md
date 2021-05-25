@@ -233,7 +233,7 @@ for ($i=0; $i < $len1; $i++) {
 print($data);    
 ?>
 ```
-得到结果：lag{asdqwdfasfdawfefqwdqwdadwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag:{asdqwdfasfdawfefqwdqwdadwqadawd}，结果正确。
+得到结果：lag{asdqwdf[此次哔-]adwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag{asdqwdf[此次哔-]adwqadawd}，结果正确。
 * 总结： 难点主要在一开始完整的阅读代码理解意思，并且顺利的逆推`$str .= chr((ord($data[$i]) + ord($char[$i])) % 128);`这句代码。关于这句代码我自己写了写逆推笔记，记录整理如下：
 ```
 ord($di)+ord($ci) = A #简化原代码，$di=$data[$i],$ci=$char[$i],$str1=$str[$i].
