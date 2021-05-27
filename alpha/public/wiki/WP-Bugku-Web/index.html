@@ -16,8 +16,8 @@
 <meta property="og:site_name" content="Tsunamori&#39;s blog">
 <meta property="og:description" content="Web 18提示：题目刷新几次后有提示，需要计算数值并post value。  考点：爬虫复习、利用eval()直接计算string内的数字公式、利用同一个Session进行get和post请求，防止网页动态刷新计算值失效、post请求中data注意格式为{‘somevtext’：’somevalue’}、python和PHP的计算方式不太一样，可能存在计算偏差导致得不到flag，需要重复发送几次">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-05-08T03:43:54.000Z">
-<meta property="article:modified_time" content="2021-05-17T08:55:20.360Z">
+<meta property="article:published_time" content="2021-05-08T16:43:54.000Z">
+<meta property="article:modified_time" content="2021-05-25T12:31:50.371Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="CTF">
 <meta property="article:tag" content="WriteUp">
@@ -182,7 +182,7 @@
             <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
             <h2 id="name">Tsunamori</h2>
             <h3 id="title">The green hat hacker</h3>
-            <span id="location"><i class="fa fa-map-marker"></i>moon the other side</span>
+            <span id="location"><i class="fa fa-map-marker"></i>Moon the other side</span>
             <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
         </div>
         <div class="article-info profile-block">
@@ -202,7 +202,7 @@
                     
                     
                     <td>
-                        <a href="https://github.com/Tsunamori/Tsunamori.github.io" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                        <a href="https://github.com/Tsunamori/" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
                             <i class="fa fa-github"></i>
                         </a>
                     </td>
@@ -430,6 +430,15 @@
     </div>
 
     
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>tags</span></h3>
+        <div class="widget">
+            <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/" rel="tag">Books</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CTF/" rel="tag">CTF</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ICS/" rel="tag">ICS</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IoT/" rel="tag">IoT</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Notes/" rel="tag">Notes</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Summary/" rel="tag">Summary</a><span class="tag-list-count">43</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tools/" rel="tag">Tools</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WriteUp/" rel="tag">WriteUp</a><span class="tag-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
@@ -456,7 +465,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/WP-Bugku-Web/">
-            <time datetime="2021-05-08T03:43:54.000Z" itemprop="datePublished">2021-05-08</time>
+            <time datetime="2021-05-08T16:43:54.000Z" itemprop="datePublished">2021-05-08</time>
         </a>
     </div>
 
@@ -467,13 +476,13 @@
                         
                         
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/WP-Bugku-Web.md"> Source </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/tsunamori/Wiki-site/raw/writing/source/_posts/WP-Bugku-Web.md"> Source </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/WP-Bugku-Web.md"> Edit </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/tsunamori/Wiki-site/edit/writing/source/_posts/WP-Bugku-Web.md"> Edit </a>
                             </div>
                             <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/WP-Bugku-Web.md"> History </a>
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/tsunamori/Wiki-site/commits/writing/source/_posts/WP-Bugku-Web.md"> History </a>
                             </div>
                         
                     </div>
@@ -562,7 +571,7 @@
 
 <ul>
 <li>解题思路：在线解base64的时候还没注意到，复制下来才发现还有特殊字符。<code>.=连接赋值运算符，将右边参数附加到左边的参数之后。</code>完整的看了一遍代码，发现应该是如何计算出提示中base64字符串的算法。懒得配环境，对PHP一直是只会读代码不会写应用的状态，干脆在网上找了找PHP在线运行网站<code>www.anycodes.cn</code>。试着运行了一下原算法，用不同的数字和字母输入data内容，观察运行。<br>然后根据提示中的base64推断可得data长度。<br>逆推写了一下获取data的源码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$str&#x3D;&#39;fR4aHWwuFCYYVydFRxMqHhhCKBseH1dbFygrRxIWJ1UYFhotFjA&#x3D;&#39;;</span><br><span class="line">$str_decode &#x3D; base64_decode($str);</span><br><span class="line">$len1&#x3D;strlen($str_decode);</span><br><span class="line"></span><br><span class="line">$key &#x3D; md5(&#39;ISCC&#39;);  # 729623334f0aa2784a1599fd374c120d</span><br><span class="line">$klen &#x3D; strlen($key);</span><br><span class="line">$char &#x3D; &#39;&#39;;</span><br><span class="line">$data &#x3D; &#39;&#39;;</span><br><span class="line">for ($i&#x3D;0; $i &lt; $len1; $i++) &#123;</span><br><span class="line">        if ($x &#x3D;&#x3D; $klen)</span><br><span class="line">        &#123;</span><br><span class="line">            $x &#x3D; 0;</span><br><span class="line">        &#125;</span><br><span class="line">        $char .&#x3D; $key[$x]; # 729623334f0aa2784a1599fd374c120d729623</span><br><span class="line">        $x+&#x3D;1;</span><br><span class="line">    &#125;</span><br><span class="line"># print($len1); -&gt; 38</span><br><span class="line"># print($char); -&gt; 729623334f0aa2784a1599fd374c120d729623</span><br><span class="line">for ($i&#x3D;0; $i &lt; $len1; $i++) &#123;</span><br><span class="line">        $data .&#x3D; chr((ord($str_decode[$i])+128)-ord($char[$i]));</span><br><span class="line">    &#125;</span><br><span class="line">print($data);    </span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
-得到结果：lag{asdqwdfasfdawfefqwdqwdadwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag:{asdqwdfasfdawfefqwdqwdadwqadawd}，结果正确。</li>
+得到结果：lag{asdqwdf[此次哔-]adwqadawd}，提示里写了Flag:{xxx}，所以把结果改成Flag{asdqwdf[此次哔-]adwqadawd}，结果正确。</li>
 <li>总结： 难点主要在一开始完整的阅读代码理解意思，并且顺利的逆推<code>$str .= chr((ord($data[$i]) + ord($char[$i])) % 128);</code>这句代码。关于这句代码我自己写了写逆推笔记，记录整理如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ord($di)+ord($ci) &#x3D; A #简化原代码，$di&#x3D;$data[$i],$ci&#x3D;$char[$i],$str1&#x3D;$str[$i].</span><br><span class="line">$str1 &#x3D; chr((ord($di)+ord($ci)) % 128) #chr和ord为互补，所以从右边拿到左边就变成ord。</span><br><span class="line">ord($str1)&#x3D;(ord($di)+ord($ci)) % 128 #在这里简化一下得到下面。</span><br><span class="line">ord($str1)&#x3D;(A) % 128</span><br><span class="line">ord($str1)+128&#x3D;(A) #这里有一点直觉的成分，因为ord得出的值范围在0～255之间，而A为两个ord相加，所以数值范围应该在0～510,也就是A mod 128的结果在0～127之间。无法确定到底A净除了几个128的情况下，我选择先加一个128,看一下到底能不能运行。（后续发现获得$di还是要经过一个chr，所以A到底多了几个128好像没啥影响）</span><br><span class="line">ord($di) &#x3D; A-ord($ci) #从最后产出的base64密文解密可得data的长度，而char的内容只和md5(&#39;ISCC&#39;)和data长度有关，所以可以知道char的内容。</span><br><span class="line">$di &#x3D; chr(A-ord($ci)) #这里可以把原本简化的A用原内容代替回来了。</span><br><span class="line">$di &#x3D; chr((ord($str1)+128)-ord($ci)) #思路就是这样，然后根据这个写代码。</span><br></pre></td></tr></table></figure></li>
 </ul>
 <h4 id="Web-34"><a href="#Web-34" class="headerlink" title="Web 34"></a>Web 34</h4><p>提示：文件包含</p>

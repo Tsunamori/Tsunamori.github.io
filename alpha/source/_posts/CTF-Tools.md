@@ -33,3 +33,5 @@ categories: [100 Cyber security, 120 CTF]
 1. 黄道十二宫杀手解密：
     工具：https://m.majorgeeks.com/files/details/azdecrypt.html
     wp：https://blog.csdn.net/qq_43625917/article/details/113623475
+1. 编码格式转换：converter https://blog.csdn.net/pdsu161530247/article/details/74640746
+    CTFCrackTools.git

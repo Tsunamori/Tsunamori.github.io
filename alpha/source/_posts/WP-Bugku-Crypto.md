@@ -92,16 +92,59 @@ s8=r'#*=#$3*#%,#%%,3'*9
 s9=r',*+7,7+@===+)61'*9
 
 tmp=''
-for i in range(17):
-    tmp += s1[i]+s2[i+2]+s3[i+4]+s4[i+6]+s5[i+8]+s6[i+10]+s7[i+12]+s8[i+14]+s9[i+16]
+for i in range(15):
+    tmp += s1[i]+s2[i+2]+s3[i+4]+s4[i+6]+s5[i+8]+s6[i+10]+s7[i+12]+s8[i+14]+s9[-1]
 
 def cut(obj, sec):
     str_list = [obj[i:i+sec] for i in range(0,len(obj),sec)]
     print(str_list)
     return str_list
 
-l1=cut(tmp,17)
+l1=cut(tmp,15)
 for i in l1:
     print (i)
 ```
-然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。
+然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。（代码写的还是有问题，这个先放一放）
+
+#### 简单加密
+* 提示：e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA
+解题思路：加密新手毫无灵感，按照AA转为==的思路转换密文，再base64解密。
+```
+text='e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA'
+text1=[(ord(c)-4) for c in text]
+text2=''.join(chr(c) for c in text1)
+
+print (text2)
+```
+
+#### 散乱的密文
+* 题目： lf5{ag024c483549d7fd@@1}  一张纸条上凌乱的写着2 1 6 5 3 4
+解题思路：根据开头的flag大概知道后面的数字是提示了顺序，再看密文长度为24,推断是每六位按照数字顺序打乱。
+这密文还有问题，顺序不完全对。
+解题思路：
+```
+text='lf5{ag 024c48 3549d7 fd@@1}' #2 1 6 5 3 4
+text=text.split(' ')
+
+def calcu(text1):
+    text1=list(text1)
+    order='2 1 5 6 4 3'
+    order= order.split(' ')
+    for i in range(0, len(order)):
+        order[i] = int(order[i])-1
+    list1 = [text1[i] for i in order]
+    print(''.join(list1))
+
+for i in text:
+    calcu(i)
+```
+
+#### .!?
+解题思路：看题目，应该是Ook。
+
+#### 一段Base64
+解题思路：converter好使。https://blog.csdn.net/pdsu161530247/article/details/74640746
+
+#### 奇怪的密码
+* 提示：突然天上一道雷电 gndk€rlqhmtkwwp}z
+解题思路：
