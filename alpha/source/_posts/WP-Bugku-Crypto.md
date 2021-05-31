@@ -147,4 +147,87 @@ for i in text:
 
 #### 奇怪的密码
 * 提示：突然天上一道雷电 gndk€rlqhmtkwwp}z
-解题思路：
+解题思路：累次加密。（不知道是累次的就照着flag格式硬猜是ASCII增加）
+抄个脚本：
+```
+# -*- coding:utf-8 -*-
+c = "gndk{rlqhmtkwwp}z"
+i = 0
+flag = ""
+while i < len(c):
+    num = ord(c[i]) - (i + 1)
+    flag += chr(num)
+    i += 1
+
+print("解密：", flag)
+```
+
+#### 托马斯.杰斐逊
+* 题目：
+```
+1： <ZWAXJGDLUBVIQHKYPNTCRMOSFE <
+2： <KPBELNACZDTRXMJQOYHGVSFUWI <
+3： <BDMAIZVRNSJUWFHTEQGYXPLOCK <
+4： <RPLNDVHGFCUKTEBSXQYIZMJWAO <
+5： <IHFRLABEUOTSGJVDKCPMNZQWXY <
+6： <AMKGHIWPNYCJBFZDRUSLOQXVET <
+7： <GWTHSPYBXIZULVKMRAFDCEONJQ <
+8： <NOZUTWDCVRJLXKISEFAPMYGHBQ <
+9： <QWATDSRFHENYVUBMCOIKZGJXPL <
+10： <WABMCXPLTDSRJQZGOIKFHENYVU <
+11： <XPLTDAOIKFZGHENYSRUBMCQWVJ <
+12： <TDSWAYXPLVUBOIKZGJRFHENMCQ <
+13： <BMCSRFHLTDENQWAOXPYVUIKZGJ <
+14： <XPHKZGJTDSENYVUBMLAOIRFCQW <
+
+密钥： 2,5,1,3,6,4,9,7,8,14,10,13,11,12
+
+密文：HCBTSXWCRQGLES
+```
+解题思路：题目翻译成英文大概是thomas jefferson，用关键词thomas jefferson cipher去google，得到wheel cipher，中文应该是杰弗逊圆盘/轮转机加密。但是根据原加密算法看了一下，这个和默认的加密有区别，是根据密钥更改每一行的顺序。
+抄个代码，自己改了改：ref:https://www.cnblogs.com/0yst3r-2046/p/11810574.html
+```
+#! /usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+import numpy as np
+#秘钥
+key="2,5,1,3,6,4,9,7,8,14,10,13,11,12"
+#密文
+cipher_text = "HCBTSXWCRQGLES"
+
+f = open("file.txt")
+str_first_encry = []
+
+for line in f:
+    line = line.strip()
+    str_first_encry.append(line)
+
+key_index = key.split(",")
+str_second_encry=[]
+for k in key_index:
+    str_second_encry.append(str_first_encry[int(k)-1])
+    print(str_first_encry[int(k)-1])
+
+for i,ch in enumerate(cipher_text):
+    line = str_second_encry[i]
+    split_index = line.index(ch)
+    temp=[]
+    temp[0:len(line)-split_index+1] = line[split_index:len(line)]
+    temp[len(temp):] = line[0:split_index]
+    str_second_encry[i] = "".join(temp)
+print("-------------------------------------")
+
+list_store = []
+i = 0
+for plain in str_second_encry:
+    print(plain)
+    plain = list(plain)
+    list_store.append(plain)
+    i += 1
+
+list_store = np.array(list_store)
+print("提取每一列内容：")
+#翻转读取每一列的内容，使结果更直观
+print(np.transpose(list_store))
+```

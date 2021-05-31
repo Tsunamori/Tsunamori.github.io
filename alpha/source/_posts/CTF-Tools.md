@@ -35,3 +35,4 @@ categories: [100 Cyber security, 120 CTF]
     wp：https://blog.csdn.net/qq_43625917/article/details/113623475
 1. 编码格式转换：converter https://blog.csdn.net/pdsu161530247/article/details/74640746
     CTFCrackTools.git
+1. 累次加密：10进制的ASCII码依次增加。ref:https://blog.csdn.net/pdsu161530247/article/details/78149818
