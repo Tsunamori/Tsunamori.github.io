@@ -243,3 +243,53 @@ print(np.transpose(list_store))
 #### 贝斯家族
 * 题目：@iH<,{bdR2H;i6*Tm,Wx2izpx2!
 解题思路：base91
+
+#### python(N1CTF)
+解题思路：ref:https://blog.csdn.net/crisprx/article/details/107178198
+自己写了好久，还是没写对，看了别人的WP，重点还是在对于Feistel加密结构的了解吧。虽然思路是对了，想办法利用原有代码减少重构量，但是还是没抓准关键点。
+
+#### 进制转换
+* 题目： 二进制、八进制、十进制、十六进制，你能分的清吗？
+解题思路：没找到合适的脚本，自己写吧。
+```
+text = 'd87 x65 x6c x63 o157 d109 o145 b100000 d116 b1101111 o40 x6b b1100101 b1101100 o141 d105 x62 d101 b1101001 ' \
+       'd46 o40 d71 x69 d118 x65 x20 b1111001 o157 b1110101 d32 o141 d32 d102 o154 x61 x67 b100000 o141 d115 b100000 ' \
+       'b1100001 d32 x67 o151 x66 d116 b101110 b100000 d32 d102 d108 d97 o147 d123 x31 b1100101 b110100 d98 d102 ' \
+       'b111000 d49 b1100001 d54 b110011 x39 o64 o144 o145 d53 x61 b1100010 b1100011 o60 d48 o65 b1100001 x63 b110110 ' \
+       'd101 o63 b111001 d97 d51 o70 d55 b1100010 d125 x20 b101110 x20 b1001000 d97 d118 o145 x20 d97 o40 d103 d111 ' \
+       'd111 x64 d32 o164 b1101001 x6d o145 x7e'
+
+temp = []
+temp = text.split(' ')
+
+for i in range(len(temp)):
+    if temp[i][0] == 'd':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 10))
+    elif temp[i][0] == 'x':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 16))
+    elif temp[i][0] == 'o':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 8))
+    elif temp[i][0] == 'b':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 2))
+print(''.join(temp))
+
+```
+
+#### affine
+题目：  y = 17x-8 flag{szzyfimhyzd}
+* 解题思路：题目提示了，是仿射密码（Affine cipher）。
+
+#### Crack it
+* 解题思路：使用john the riper一步搞定，hashcat在超过32位的win hash上真不行。
+
+#### RSA
+* 解题思路：恶补了一下rsa的知识，ref：https://zhuanlan.zhihu.com/p/76017554
+但是由于题目里N特别大，分解不好搞，查了一下，适合使用wiener attack的方法来解。
+由于Rsactftools有更新，所以利用n,e,c的方式和之前的不一样了，使用方法参照 https://github.com/Ganapati/RsaCtfTool/issues/247 。
+
+#### 来自宇宙的信号
+解题思路：题目提示了，是银河字母。

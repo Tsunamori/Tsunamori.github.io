@@ -19,6 +19,7 @@ layout: "page"
 知乎ID： VIVZC
 GitHub ID: Tsunamori
 邮箱：dHN1bmFtb3JpI3Byb3Rvbm1haWwuY29t=
+bugku info：https://ctf.bugku.com/user/info/id/14330.html
 
 博客应该会主要用来整理学习笔记和构建自己的知识库吧，这也是为什么会选择wikitten的原因， wiki格式很合我心意。分类方式沿用了之前工作中构建知识库的模式，刚好解决了wikitten的排序问题。
 
@@ -26,3 +27,4 @@ GitHub ID: Tsunamori
 
 1. 整理文件包含漏洞，把一大堆链接精简一下。
 1. 读完 从0到1：Ctfer之路。
+1. bugku排名刷到100。

@@ -167,3 +167,6 @@ for i in range(1,250):
     * 判断密码每一位字符：uname=admin'^(ascii(substr((passwd)from(1))=52)^'
 
 ### Crypto
+1. python(N1CTF)
+解题思路：ref:https://blog.csdn.net/crisprx/article/details/107178198
+自己写了好久，还是没写对，看了别人的WP，重点还是在对于Feistel加密结构的了解吧。虽然思路是对了，想办法利用原有代码减少重构量，但是还是没抓准关键点。
