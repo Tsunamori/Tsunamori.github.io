@@ -79,32 +79,7 @@ print(Str.decode(str))
 #### 黄道十二官
 * 解题思路：点开图一脸蒙蔽，查了查才发现是个古老的案子中的加密，还挺有意思的。
 然并卵，还是借鉴了别人另一道题的wp以及代码（顺便说dcode.fr的那个解密不太行），ref：https://blog.csdn.net/qq_43625917/article/details/113623475
-自己改了代码：
-```
-s1=r'%,,@*>@?==%88%5'*9
-s2=r',@%#@@90-7$^=*@'*9
-s3=r'17,(>()1@##-$40'*9
-s4=r'~,*6?#%#8#=75+1'*9
-s5=r'(*@*1%#>,0@5%?'*9
-s6=r'%*^=)&>=1%,+7&#'*9
-s7=r'8681(+8*@@(,@@@'*9
-s8=r'#*=#$3*#%,#%%,3'*9
-s9=r',*+7,7+@===+)61'*9
-
-tmp=''
-for i in range(15):
-    tmp += s1[i]+s2[i+2]+s3[i+4]+s4[i+6]+s5[i+8]+s6[i+10]+s7[i+12]+s8[i+14]+s9[-1]
-
-def cut(obj, sec):
-    str_list = [obj[i:i+sec] for i in range(0,len(obj),sec)]
-    print(str_list)
-    return str_list
-
-l1=cut(tmp,15)
-for i in l1:
-    print (i)
-```
-然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。（代码写的还是有问题，这个先放一放）
+然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。（代码写的还是有问题，这个脚本先看别人的吧）
 
 #### 简单加密
 * 提示：e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA
@@ -292,4 +267,14 @@ print(''.join(temp))
 由于Rsactftools有更新，所以利用n,e,c的方式和之前的不一样了，使用方法参照 https://github.com/Ganapati/RsaCtfTool/issues/247 。
 
 #### 来自宇宙的信号
-解题思路：题目提示了，是银河字母。
+* 解题思路：题目提示了，是银河字母。
+
+#### 抄错的字符
+提示：QWIHBLGZZXJSXZNVBZW
+* 解题思路：看了评论，看来需要跑脚本，而且要base64解码。
+这里结合base64的原理，四个字符代表三个字节，原题目有23位，也就是base64密文应该为`QWIHBLGZZXJSXZNVBZW=`的变化，四位四位的取出变形，解码观察是否可以成功解出来，并且能够组成一段话，或者写个脚本批量猜测变化fuzz，看能不能解出可阅读的字节。
+
+#### Math&English
+提示：英文、元音。
+* 解题思路：好家伙，第一个提示直接给我思路整歪了，对着音标解了半天，结果其实作者暗示的是元音密码。。。
+21.33.1.22=FLAG
