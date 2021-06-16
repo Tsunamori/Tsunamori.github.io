@@ -8,7 +8,7 @@ categories: [100 Cyber security, 120 CTF, 124 Crypto ]
 
 #### /.-
 提示： ..-./.-../.-/--./----.--/-../...--/..-./-.-./-.../..-./.----/--.../..-./----./...--/----./----./...../-----/....-/-----.-
-* 解题思路：搞了半天，因为有前后两个ASCII码所以直接写pycode总是很难搞，还是从网上找了在线工具：https://www.ctftools.com/down/down/passwd/，相当方便了。
+* 解题思路：搞了半天，因为有前后两个ASCII码所以直接写pycode总是很难搞，还是从网上找了在线工具： https://www.ctftools.com/down/down/passwd/ ，相当方便了。
 
 #### 聪明的小羊
 提示：一只小羊翻过了2个栅栏 fa{fe13f590lg6d46d0d0}
@@ -24,7 +24,7 @@ categories: [100 Cyber security, 120 CTF, 124 Crypto ]
 
 #### 把猪困在猪圈里
 提示： flag{}
-* 密文开头有个`/9j/`，结尾有等号，是比较明显的base64转图片的提示。利用http://tool.chinaz.com/tools/imgtobase/网站解密，在开头加`data:image/jpg;base64,`补全图片头，得到猪圈密码图片，对照密码表解密得到flag。
+* 密文开头有个`/9j/`，结尾有等号，是比较明显的base64转图片的提示。利用 http://tool.chinaz.com/tools/imgtobase/  网站解密，在开头加`data:image/jpg;base64,`补全图片头，得到猪圈密码图片，对照密码表解密得到flag。
 
 #### 你喜欢下棋吗
 提示：解压密码为小写
@@ -79,10 +79,13 @@ print(Str.decode(str))
 #### 黄道十二官
 * 解题思路：点开图一脸蒙蔽，查了查才发现是个古老的案子中的加密，还挺有意思的。
 然并卵，还是借鉴了别人另一道题的wp以及代码（顺便说dcode.fr的那个解密不太行），ref：https://blog.csdn.net/qq_43625917/article/details/113623475
-然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。（代码写的还是有问题，这个脚本先看别人的吧）
+然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html ）解密。（代码写的还是有问题，这个脚本先看别人的吧）
 
 #### 简单加密
-* 提示：e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA
+* 提示：
+```
+e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA
+```
 解题思路：加密新手毫无灵感，按照AA转为==的思路转换密文，再base64解密。
 ```
 text='e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA'
