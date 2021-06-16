@@ -79,29 +79,224 @@ print(Str.decode(str))
 #### 黄道十二官
 * 解题思路：点开图一脸蒙蔽，查了查才发现是个古老的案子中的加密，还挺有意思的。
 然并卵，还是借鉴了别人另一道题的wp以及代码（顺便说dcode.fr的那个解密不太行），ref：https://blog.csdn.net/qq_43625917/article/details/113623475
-自己改了代码：
+然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。（代码写的还是有问题，这个脚本先看别人的吧）
+
+#### 简单加密
+* 提示：e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA
+解题思路：加密新手毫无灵感，按照AA转为==的思路转换密文，再base64解密。
 ```
-s1=r'%,,@*>@?==%88%5'*9
-s2=r',@%#@@90-7$^=*@'*9
-s3=r'17,(>()1@##-$40'*9
-s4=r'~,*6?#%#8#=75+1'*9
-s5=r'(*@*1%#>,0@5%?'*9
-s6=r'%*^=)&>=1%,+7&#'*9
-s7=r'8681(+8*@@(,@@@'*9
-s8=r'#*=#$3*#%,#%%,3'*9
-s9=r',*+7,7+@===+)61'*9
+text='e6Z9i~]8R~U~QHE{RnY{QXg~QnQ{^XVlRXlp^XI5Q6Q6SKY8jUAA'
+text1=[(ord(c)-4) for c in text]
+text2=''.join(chr(c) for c in text1)
 
-tmp=''
-for i in range(17):
-    tmp += s1[i]+s2[i+2]+s3[i+4]+s4[i+6]+s5[i+8]+s6[i+10]+s7[i+12]+s8[i+14]+s9[i+16]
-
-def cut(obj, sec):
-    str_list = [obj[i:i+sec] for i in range(0,len(obj),sec)]
-    print(str_list)
-    return str_list
-
-l1=cut(tmp,17)
-for i in l1:
-    print (i)
+print (text2)
 ```
-然后用专用的工具AZdecrypt（https://m.majorgeeks.com/files/details/azdecrypt.html）解密。
+
+#### 散乱的密文
+* 题目： lf5{ag024c483549d7fd@@1}  一张纸条上凌乱的写着2 1 6 5 3 4
+解题思路：根据开头的flag大概知道后面的数字是提示了顺序，再看密文长度为24,推断是每六位按照数字顺序打乱。
+这密文还有问题，顺序不完全对。
+解题思路：
+```
+text='lf5{ag 024c48 3549d7 fd@@1}' #2 1 6 5 3 4
+text=text.split(' ')
+
+def calcu(text1):
+    text1=list(text1)
+    order='2 1 5 6 4 3'
+    order= order.split(' ')
+    for i in range(0, len(order)):
+        order[i] = int(order[i])-1
+    list1 = [text1[i] for i in order]
+    print(''.join(list1))
+
+for i in text:
+    calcu(i)
+```
+
+#### .!?
+解题思路：看题目，应该是Ook。
+
+#### 一段Base64
+解题思路：converter好使。https://blog.csdn.net/pdsu161530247/article/details/74640746
+
+#### 奇怪的密码
+* 提示：突然天上一道雷电 gndk€rlqhmtkwwp}z
+解题思路：累次加密。（不知道是累次的就照着flag格式硬猜是ASCII增加）
+抄个脚本：
+```
+# -*- coding:utf-8 -*-
+c = "gndk{rlqhmtkwwp}z"
+i = 0
+flag = ""
+while i < len(c):
+    num = ord(c[i]) - (i + 1)
+    flag += chr(num)
+    i += 1
+
+print("解密：", flag)
+```
+
+#### 托马斯.杰斐逊
+* 题目：
+```
+1： <ZWAXJGDLUBVIQHKYPNTCRMOSFE <
+2： <KPBELNACZDTRXMJQOYHGVSFUWI <
+3： <BDMAIZVRNSJUWFHTEQGYXPLOCK <
+4： <RPLNDVHGFCUKTEBSXQYIZMJWAO <
+5： <IHFRLABEUOTSGJVDKCPMNZQWXY <
+6： <AMKGHIWPNYCJBFZDRUSLOQXVET <
+7： <GWTHSPYBXIZULVKMRAFDCEONJQ <
+8： <NOZUTWDCVRJLXKISEFAPMYGHBQ <
+9： <QWATDSRFHENYVUBMCOIKZGJXPL <
+10： <WABMCXPLTDSRJQZGOIKFHENYVU <
+11： <XPLTDAOIKFZGHENYSRUBMCQWVJ <
+12： <TDSWAYXPLVUBOIKZGJRFHENMCQ <
+13： <BMCSRFHLTDENQWAOXPYVUIKZGJ <
+14： <XPHKZGJTDSENYVUBMLAOIRFCQW <
+
+密钥： 2,5,1,3,6,4,9,7,8,14,10,13,11,12
+
+密文：HCBTSXWCRQGLES
+```
+解题思路：题目翻译成英文大概是thomas jefferson，用关键词thomas jefferson cipher去google，得到wheel cipher，中文应该是杰弗逊圆盘/轮转机加密。但是根据原加密算法看了一下，这个和默认的加密有区别，是根据密钥更改每一行的顺序。
+抄个代码，自己改了改：ref:https://www.cnblogs.com/0yst3r-2046/p/11810574.html
+```
+#! /usr/bin/env python3
+# -*- coding: UTF-8 -*-
+
+import numpy as np
+#秘钥
+key="2,5,1,3,6,4,9,7,8,14,10,13,11,12"
+#密文
+cipher_text = "HCBTSXWCRQGLES"
+
+f = open("file.txt")
+str_first_encry = []
+
+for line in f:
+    line = line.strip()
+    str_first_encry.append(line)
+
+key_index = key.split(",")
+str_second_encry=[]
+for k in key_index:
+    str_second_encry.append(str_first_encry[int(k)-1])
+    print(str_first_encry[int(k)-1])
+
+for i,ch in enumerate(cipher_text):
+    line = str_second_encry[i]
+    split_index = line.index(ch)
+    temp=[]
+    temp[0:len(line)-split_index+1] = line[split_index:len(line)]
+    temp[len(temp):] = line[0:split_index]
+    str_second_encry[i] = "".join(temp)
+print("-------------------------------------")
+
+list_store = []
+i = 0
+for plain in str_second_encry:
+    print(plain)
+    plain = list(plain)
+    list_store.append(plain)
+    i += 1
+
+list_store = np.array(list_store)
+print("提取每一列内容：")
+#翻转读取每一列的内容，使结果更直观
+print(np.transpose(list_store))
+```
+
+#### 这不是MD5
+* 题目： 666c61677b616537333538376261353662616566357d
+解题思路：十六进制转字符串。
+
+#### 告诉你个秘密
+* 题目：636A56355279427363446C4A49454A7154534230526D6843 56445A31614342354E326C4B4946467A5769426961453067
+解题思路：十六进制字符串、base64解码都解出来了，然而万万没想到最后一步是看键盘（物理层面）。
+
+#### 贝斯家族
+* 题目：@iH<,{bdR2H;i6*Tm,Wx2izpx2!
+解题思路：base91
+
+#### python(N1CTF)
+解题思路：ref:https://blog.csdn.net/crisprx/article/details/107178198
+自己写了好久，还是没写对，看了别人的WP，重点还是在对于Feistel加密结构的了解吧。虽然思路是对了，想办法利用原有代码减少重构量，但是还是没抓准关键点。
+
+#### 进制转换
+* 题目： 二进制、八进制、十进制、十六进制，你能分的清吗？
+解题思路：没找到合适的脚本，自己写吧。
+```
+text = 'd87 x65 x6c x63 o157 d109 o145 b100000 d116 b1101111 o40 x6b b1100101 b1101100 o141 d105 x62 d101 b1101001 ' \
+       'd46 o40 d71 x69 d118 x65 x20 b1111001 o157 b1110101 d32 o141 d32 d102 o154 x61 x67 b100000 o141 d115 b100000 ' \
+       'b1100001 d32 x67 o151 x66 d116 b101110 b100000 d32 d102 d108 d97 o147 d123 x31 b1100101 b110100 d98 d102 ' \
+       'b111000 d49 b1100001 d54 b110011 x39 o64 o144 o145 d53 x61 b1100010 b1100011 o60 d48 o65 b1100001 x63 b110110 ' \
+       'd101 o63 b111001 d97 d51 o70 d55 b1100010 d125 x20 b101110 x20 b1001000 d97 d118 o145 x20 d97 o40 d103 d111 ' \
+       'd111 x64 d32 o164 b1101001 x6d o145 x7e'
+
+temp = []
+temp = text.split(' ')
+
+for i in range(len(temp)):
+    if temp[i][0] == 'd':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 10))
+    elif temp[i][0] == 'x':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 16))
+    elif temp[i][0] == 'o':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 8))
+    elif temp[i][0] == 'b':
+        temp[i] = temp[i][1:]
+        temp[i] = chr(int(temp[i], 2))
+print(''.join(temp))
+
+```
+
+#### affine
+题目：  y = 17x-8 flag{szzyfimhyzd}
+* 解题思路：题目提示了，是仿射密码（Affine cipher）。
+
+#### Crack it
+* 解题思路：使用john the riper一步搞定，hashcat在超过32位的win hash上真不行。
+
+#### RSA
+* 解题思路：恶补了一下rsa的知识，ref：https://zhuanlan.zhihu.com/p/76017554
+但是由于题目里N特别大，分解不好搞，查了一下，适合使用wiener attack的方法来解。
+由于Rsactftools有更新，所以利用n,e,c的方式和之前的不一样了，使用方法参照 https://github.com/Ganapati/RsaCtfTool/issues/247 。
+
+#### 来自宇宙的信号
+* 解题思路：题目提示了，是银河字母。
+
+#### 抄错的字符
+提示：QWIHBLGZZXJSXZNVBZW
+* 解题思路：看了评论，看来需要跑脚本，而且要base64解码。
+这里结合base64的原理，四个字符代表三个字节，原题目有23位，也就是base64密文应该为`QWIHBLGZZXJSXZNVBZW=`的变化，四位四位的取出变形，解码观察是否可以成功解出来，并且能够组成一段话，或者写个脚本批量猜测变化fuzz，看能不能解出可阅读的字节。
+
+#### Math&English
+提示：英文、元音。
+* 解题思路：好家伙，第一个提示直接给我思路整歪了，对着音标解了半天，结果其实作者暗示的是元音密码。。。
+21.33.1.22=FLAG
+
+#### 给你私钥吧
+* 解题思路：逆向代码倒是不难，难点在如何获取私钥。
+顺带补了一下RSA公私钥的知识点，不过RSA相关还是需要再多做做题。
+这个晚点再补充，Sage下起来有些慢。
+```
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
+import base64
+
+flag='GSheKsD2r4g1baPF811ZVmZtzy3srPy7Qrr8uO7cDE/OD/dIc/48r9oGQyKp+XOor4nlHctqW9BzUEbGhX7vJ6aRlV/9RULhm6io1syVPsMaqvvVoEAspH/hk/NXOP383peNdXK6riu9hNTqvlenwgKx9iAuCaPUUsh1s5Vo6s/bORFMfGLVx4/B+b4pO8YubKe6lUNMLY8eUmgVEvISYcq7Fd1JEzlzA9/+ABXneTiFxVd3F6BdPHQyAbIWcE1fJFQao8MyZ6dBb764XuOKi8NvIt+VgVtVpBqtHzECYPYVpecUtqVvUiXhpimWMpvONFafOtObQ8GSN9FSmSwM4w=='
+cipher_txt = base64.b64decode(flag)
+f=open(r"privatekey.pem","r")
+key = RSA.importKey(f.read())
+cipher = PKCS1_OAEP.new(key)
+message = cipher.decrypt(cipher_txt)
+print(message)
+```
+
+#### 一段新闻
+* 解题思路：这个真是毫无灵感一脸蒙蔽
+看了WP才发现，是利用零宽字符转码，这个实在是有意思。
