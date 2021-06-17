@@ -22,6 +22,11 @@ https://github.com/WangYihang/SourceLeakHacker （扫目录不如dirsearch但更
 #### 常规git泄漏
 https://github.com/BugScanTeam/GitHack
 
+## 漏洞利用
+
+#### SSTI/flask模板注入
+https://github.com/epinna/tplmap （python2环境，配环境有点麻烦，但装好就相当好使）
+
 ## 密码加解密
 
 #### 摩斯密码
@@ -112,3 +117,6 @@ http://www.atoolbox.net/Tool.php?Id=829
 #### 社会主义核心价值观加密
 http://www.atoolbox.net/Tool.php?Id=850
 顾名思义。由公平公正blabla组成。
+
+#### 音符加密
+https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue

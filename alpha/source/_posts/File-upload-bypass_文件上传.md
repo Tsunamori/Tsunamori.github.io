@@ -6,6 +6,7 @@ tags: Summary
 categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 ---
 
+1. 文件上传漏洞总结 https://www.yuque.com/jxswcy/ctfnotebook/qhc3xt
 1. File upload bypass
     * bypassing normal extension
         sth.php.jpg or sth.jpg.php
@@ -43,3 +44,8 @@ ref：https://www.secpulse.com/archives/71246.html
 if (isset($_GET[page])) {
 include $_GET[page];
 ```
+
+#### python里读取文件路径上一级路径及文件的方法
+https://blog.csdn.net/niedongri/article/details/80662158
+获取上一级路径内文件：os.system('cat ../flag')
+echo或许也可以替代。

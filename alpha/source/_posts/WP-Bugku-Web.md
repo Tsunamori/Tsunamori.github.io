@@ -341,3 +341,17 @@ for i in range(1,250):
 #### Web 37
 提示：union,命令执行
 * 解题思路：
+(做了两个月crypto回来发现web题没有了好多？)
+
+#### Simple_SSTI_1
+* 解题思路：速查SSTI是什么。`SSTI 即服务端模板注入攻击，服务端接受用户输入，将其作为 Web 应用模板的一部分，渲染编译后执行了恶意内容，导致敏感信息泄露、代码执行等。`
+差不多看懂了，F12看一眼页面源码，源码里有提示 `<!-- You know, in the flask, We often set a secret_key variable.-->`。
+这里执行IP/?flag={{2*2}}可以执行，证明有渲染漏洞。按照提示，用config查看SECRET_KEY值。（/?flag={{config['SECRET_KEY']}}）
+
+#### Simple_SSTI_2
+* 解题思路：这个源码没提示了，那就先试试上一道题的吧。
+flag={{2*2}}依然能执行，漏洞还在这里。
+收集到了专门的工具：tplmap，相当好用。
+
+#### Flask_FileUpload
+* 解题思路：这个考点还挺多，一个是上传绕过（py在黑名单里但是py3不在），然后是上传py文件让服务器执行并返回想要的内容(os.system('ls'))。以及如何用python获取上一级目录内文件（os.system('cat ../flag')）。
