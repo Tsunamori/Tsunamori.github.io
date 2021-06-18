@@ -36,7 +36,7 @@ customize:
 widgets: # default use category only
     - category
     # - recent_posts
-    # - archive
+    - archive
     # - tag
     # - tagcloud
     # - links
