@@ -309,3 +309,11 @@ print(message)
 然而这只给图没给文字版音符，怎么看怎么不能是让自己抄一遍。
 看了WP（ref:https://blog.csdn.net/weixin_45696568/article/details/111413521），才发现是转简谱？
 服了，不学音乐人不配解题。
+
+#### funny number
+str(flag).encode(), byteorder='little'
+
+int a
+a = str (b)[-175:]
+b = int.from_bytes(c) << 10000  
+c =
