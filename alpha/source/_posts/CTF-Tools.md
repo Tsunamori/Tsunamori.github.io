@@ -15,32 +15,25 @@ categories: [100 Cyber security, 120 CTF]
 1. CTF综合工具：https://www.ctftools.com/down/ （看起来就很全）
 1. 文本处理（大小写、去重、替换、排序）：https://www.iamwawa.cn/daxiaoxie.html
 
-
-<<<<<<< Updated upstream
 ## 信息泄漏
-=======
-### 信息泄漏
->>>>>>> Stashed changes
 
 #### 查看常用CTF文件是否存在于网站中
 https://github.com/WangYihang/SourceLeakHacker （扫目录不如dirsearch但更偏向于扫专门的flag文件啥的）
 
 #### 常规git泄漏
-https://github.com/BugScanTeam/GitHack
+1. https://github.com/BugScanTeam/GitHack （可能会卡死or因为branch名字重复报错？）
+1. https://github.com/WangWen-Albert/JGitHack.git
+1. wget -r http://ip_address/.git 下载git目录文件（内容会更多）
+git reflog 恢复log记录
+git show ab34cd(查看各个commit的内容记录。)
 
-<<<<<<< HEAD
 ## 漏洞利用
 
 #### SSTI/flask模板注入
 https://github.com/epinna/tplmap （python2环境，配环境有点麻烦，但装好就相当好使）
 
-=======
-<<<<<<< Updated upstream
->>>>>>> 48e6b287eb9e8384b6db52752c1b3e52aa6feb7c
+
 ## 密码加解密
-=======
-### 密码加解密
->>>>>>> Stashed changes
 
 #### 摩斯密码
 http://ctf.ssleye.com/morse.html （有特殊符号的时候好用一点）
