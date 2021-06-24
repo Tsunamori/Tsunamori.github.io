@@ -181,7 +181,7 @@
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                62
+                63
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -279,6 +279,15 @@
                             121 Web
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/CTF_PHP-RCE/">CTF PHP-RCE</a></li>  <li class="file"><a href="/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/">错题wp集</a></li>  <li class="file"><a href="/wiki/CTF_PHP/">CTF PHP</a></li>  <li class="file"><a href="/wiki/CTF_back-up-logs/">CTF back-up-logs</a></li>  <li class="file"><a href="/wiki/CTF_MD5/">CTF MD5</a></li>  <li class="file"><a href="/wiki/CTF_SQLI/">CTF SQLI</a></li>  <li class="file"><a href="/wiki/WP-Bugku-Web/">WP-BugKu-Web</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            123 Reverse
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WP-Bugku-Reverse/">WP-Bugku-Reverse</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -428,7 +437,7 @@
     <div class="widget-wrap">
         <h3 class="widget-title"><span>archives</span></h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">56</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">56</span></li></ul>
         </div>
     </div>
 
@@ -437,6 +446,112 @@
 </aside>
             
             <section id="main">
+        <article id="post-Sensitive-info-leaks" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/">110 Bug bounty</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/">112 Ideas</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Summary/" rel="tag">Summary</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Sensitive-info-leaks/">
+            <time datetime="2021-04-14T06:42:34.000Z" itemprop="datePublished">2021-04-14</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/Sensitive-info-leaks.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/Sensitive-info-leaks.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/Sensitive-info-leaks.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Sensitive-info-leaks/">Sensitive info leaks</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="Github-recon"><a href="#Github-recon" class="headerlink" title="Github recon"></a>Github recon</h2><ol>
+<li><p>steps</p>
+<ol>
+<li>Check github with company name for API keys or passswords.</li>
+<li>Enumerate the employees of the company from linkedin and twitter and check their repositories on github for sensitive information.</li>
+<li>Check source code of main website and subdomains for github links in the html comments or anywhere. Search using ctl-F and search for keyword github</li>
+</ol>
+</li>
+<li><p>tools</p>
+<ol>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/BishopFox/GitGot">https://github.com/BishopFox/GitGot</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/hisxo/gitGraber">https://github.com/hisxo/gitGraber</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/tillson/git-hound">https://github.com/tillson/git-hound</a></li>
+<li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://securitytrails.com/blog/github-dorks">https://securitytrails.com/blog/github-dorks</a></li>
+</ol>
+</li>
+<li><p>Github dorks</p>
+</li>
+</ol>
+<ul>
+<li>GitHub Dorks for Finding Files<br>  filename:manifest.xml<br>  filename:travis.yml<br>  filename:vim_settings.xml<br>  filename:database<br>  filename:prod.exs NOT prod.secret.exs<br>  filename:prod.secret.exs<br>  filename:.npmrc _auth<br>  filename:.dockercfg auth<br>  filename:WebServers.xml<br>  filename:.bash_history<br>  filename:sftp-config.json<br>  filename:sftp.json path:.vscode<br>  filename:secrets.yml password<br>  filename:.esmtprc password<br>  filename:passwd path:etc<br>  filename:dbeaver-data-sources.xml<br>  path:sites databases password<br>  filename:config.php dbpasswd<br>  filename:prod.secret.exs<br>  filename:configuration.php JConfig password<br>  filename:.sh_history<br>  shodan_api_key language:python<br>  filename:shadow path:etc<br>  JEKYLL_GITHUB_TOKEN<br>  filename:proftpdpasswd<br>  filename:.pgpass<br>  filename:idea14.key<br>  filename:hub oauth_token<br>  HEROKU_API_KEY language:json<br>  HEROKU_API_KEY language:shell<br>  SF_USERNAME salesforce<br>  filename:.bash_profile aws<br>  extension:json api.forecast.io<br>  filename:.env MAIL_HOST=smtp.gmail.com<br>  filename:wp-config.php<br>  extension:sql mysql dump<br>  filename:credentials aws_access_key_id<br>  filename:id_rsa or filename:id_dsa<br>GitHub Dorks for Finding Languages<br>  language:python username<br>  language:php username<br>  language:sql username<br>  language:html password<br>  language:perl password<br>  language:shell username<br>  language:java api<br>  HOMEBREW_GITHUB_API_TOKEN language:shell<br>GiHub Dorks for Finding API Keys, Tokens and Passwords<br>  api_key<br>  “api keys”<br>  authorization_bearer:<br>  oauth<br>  auth<br>  authentication<br>  client_secret<br>  api_token:<br>  “api token”<br>  client_id<br>  password<br>  user_password<br>  user_pass<br>  passcode<br>  client_secret<br>  secret<br>  password hash<br>  OTP<br>  user auth<br>GitHub Dorks for Finding Usernames<br>  user:name (user:admin)<br>  org:name (org:google type:users)<br>  in:login ( in:login)<br>  in:name ( in:name)<br>  fullname:firstname lastname (fullname: )<br>  in:email (data in:email)<br>GitHub Dorks for Finding Information using Dates<br>  created:&lt;2012–04–05<br>  created:&gt;=2011–06–12<br>  created:2016–02–07 location:iceland<br>  created:2011–04–06..2013–01–14  in:username<br>GitHub Dorks for Finding Information using Extension<br>  extension:pem private<br>  extension:ppk private<br>  extension:sql mysql dump<br>  extension:sql mysql dump password<br>  extension:json [api.forecast.io] (<a target="_blank" rel="external nofollow noopener noreferrer" href="http://api.forecast.io/">http://api.forecast.io/</a>)<br>  extension:json [mongolab.com] (<a target="_blank" rel="external nofollow noopener noreferrer" href="http://mongolab.com/">http://mongolab.com/</a>)<br>  extension:yaml [mongolab.com] (<a target="_blank" rel="external nofollow noopener noreferrer" href="http://mongolab.com/">http://mongolab.com/</a>)<br>  [WFClient] Password= extension:ica<br>  extension:avastlic “[support.avast.com] (<a target="_blank" rel="external nofollow noopener noreferrer" href="http://support.avast.com/)%E2%80%9D">http://support.avast.com/)”</a><br>  extension:json googleusercontent client_secret</li>
+</ul>
+<p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all</a></p>
+<h2 id="Google-recon"><a href="#Google-recon" class="headerlink" title="Google recon"></a>Google recon</h2><ol>
+<li>Google dorks <a target="_blank" rel="external nofollow noopener noreferrer" href="https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks">https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/google_dorks</a></li>
+</ol>
+<h2 id="Shodan-recon"><a href="#Shodan-recon" class="headerlink" title="Shodan recon"></a>Shodan recon</h2><ol>
+<li>Big IP shodan Search:-<br><code>http.title:&quot;BIG-IP&amp;reg;-Redirect&quot; org:Org</code></li>
+<li>CVE 2020-3452<br><code>http.html_hash:-628873716 “set-cookie: webvpn;”</code></li>
+<li>CVE CVE-2019-11510<br><code>http.html:/dana-na/</code></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-SSTI" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -1220,100 +1335,6 @@
         
             <ol>
 <li><a target="_blank" rel="external nofollow noopener noreferrer" href="https://kathan19.gitbook.io/howtohunt/oauth/oauth">https://kathan19.gitbook.io/howtohunt/oauth/oauth</a></li>
-</ol>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Misconfigurations" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/100-Cyber-security/">100 Cyber security</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/">110 Bug bounty</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/">112 Ideas</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link-link" href="/tags/Summary/" rel="tag">Summary</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Misconfigurations/">
-            <time datetime="2021-04-14T06:10:28.000Z" itemprop="datePublished">2021-04-14</time>
-        </a>
-    </div>
-
-
-                        
-                            <i class="fa fa-bar-chart"></i>
-                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
-                        
-                        
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/Misconfigurations.md"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/Misconfigurations.md"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/Misconfigurations.md"> History </a>
-                            </div>
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Misconfigurations/">Misconfigurations</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <ol>
-<li><p>default credential n admin panel</p>
-<ul>
-<li>default credentials basics<br>default software configurations, ie.:</li>
-</ul>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">https:&#x2F;&#x2F;www.target.com&#x2F;admin</span><br><span class="line">https:&#x2F;&#x2F;www.target.com&#x2F;admin-console</span><br><span class="line">https:&#x2F;&#x2F;www.target.com&#x2F;console</span><br><span class="line">https:&#x2F;&#x2F;admin.target.com</span><br><span class="line">https:&#x2F;&#x2F;admin-console.target.com</span><br><span class="line">https:&#x2F;&#x2F;console.target.com</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>get access from third party<ul>
-<li>search the service default credentials if the admin is working on a third party</li>
-</ul>
-</li>
-<li>bypass to get access to login page<ul>
-<li>when visiting admin login page is denied, use header injection to bypass, eg, <code>X-Orginal-URL: /admin</code> or <code>X-Rewrite-URL:/admin</code></li>
-</ul>
-</li>
-</ul>
-</li>
 </ol>
 
             </div>

@@ -139,3 +139,13 @@ http://www.atoolbox.net/Tool.php?Id=850
 
 #### 音符加密
 https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue
+
+## 逆向
+
+#### IDA Pro
+1. IDA里面十六进制转字符的快捷键：R
+1. 汇编转代码：F5
+#### AndroidKiller
+1. 解压包报错的解决办法：
+https://blog.csdn.net/buzul/article/details/108733151
+https://www.bilibili.com/read/cv1785046/

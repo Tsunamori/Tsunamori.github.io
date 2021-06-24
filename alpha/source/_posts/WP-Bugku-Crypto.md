@@ -311,9 +311,31 @@ print(message)
 服了，不学音乐人不配解题。
 
 #### funny number
+* 解题思路：
+```
 str(flag).encode(), byteorder='little'
 
 int a
 a = str (b)[-175:]
 b = int.from_bytes(c) << 10000  
-c =
+c = str(flag).encode(), byteorder='little'
+```
+拆到这里，有两个难点，一个是byteorder='little'该如何反转得出flag，另一个是左移10000位的后175位该怎么反推。
+关键词，模逆运算。
+直接上大佬的代码吧，为数不多的看了WP也不会的题。
+```
+from gmpy2 import invert
+
+n = pow(5,175)
+p = 5845718273413614238047854434058144506973237928951593664100212455023083304425941087047510727554535833686148194478724602632928856425119454505382766186798132132909079456410238976
+
+y = p // pow(2,175)
+k = pow(2, 9825, n)
+kinv = int(invert(k, n))
+t = (y * kinv) % n
+print(t)
+#t=int.from_bytes(str(s).encode(), byteorder='little')
+
+flag = bytes.fromhex(hex(t)[2:])[::-1]
+print(flag)
+```
