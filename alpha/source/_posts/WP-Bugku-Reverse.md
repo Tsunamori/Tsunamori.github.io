@@ -70,6 +70,37 @@ int __cdecl main(int argc, const char **argv, const char **envp)
   return 0;
 }
 ```
-可以看到关键在V5这个变量，而这个变量在山脉声明了，v5 = _mm_loadu_si128((const __m128i *)&xmmword_413E34);。
+可以看到关键在V5这个变量，而这个变量在前面声明了，v5 = _mm_loadu_si128((const __m128i *)&xmmword_413E34);。
 双击跳转回汇编区，找到xmmword_413E34值（有两段），按R键转换成字符串拼接，得到flag。
 1. 稍微磨合了一下OD，发现如果会用的话这个可能也很方便。OD打开文件，汇编区右键->查找->所有参考文本字串，由于我们用IDA看过了整个流程，所以我们知道第一行的ASCII “%s”是获取flag对比时的文本。双击跳转回汇编，阅读汇编内容，这里涉及了eax ecx两个值，在差不多的地方下个硬件断点（右键->断点->硬件执行），保证能看到这两个值里面是什么内容就可以，点红色三角运行程序，输入任意值，到断点自动停止，查看寄存器中两个值的内容，得到flag。
+
+#### 游戏过关
+* 解题思路：想办法利用回环创造3个连在一起（1-8是个回环，8和1是串联的）的灭状态灯，再点亮。
+
+#### easy_vb
+* 解题思路：IDA打开，阅读汇编码，从` push    offset aMctfN3tRev1sE4 `找到flag。（一开始还以为这是个假flag，因为提示给的是flag{}，结果读了一遍hex没找到其它关键内容。正确flag就是把这个{}前面改成flag就好了）
+
+#### Timer
+* 解题思路：鉴于是个APK文件，开jadx-gui看一下MainActivity，找到关键部分：
+```
+            public void run() {
+                MainActivity.this.t = System.currentTimeMillis();
+                MainActivity.this.now = (int) (MainActivity.this.t / 1000);
+                MainActivity.this.t = 1500 - (MainActivity.this.t % 1000);
+                tv2.setText("AliCTF");
+                if (MainActivity.this.beg - MainActivity.this.now <= 0) {
+                    tv1.setText("The flag is:");
+                    tv2.setText("alictf{" + MainActivity.this.stringFromJNI2(MainActivity.this.k) + "}");
+                }
+                if (MainActivity.is2(MainActivity.this.beg - MainActivity.this.now)) {
+                    MainActivity.this.k += 100;
+                } else {
+                    MainActivity mainActivity = MainActivity.this;
+                    mainActivity.k--;
+                }
+                tv1.setText("Time Remaining(s):" + (MainActivity.this.beg - MainActivity.this.now));
+                handler.postDelayed(this, MainActivity.this.t);
+            }
+        }, 0);
+    }
+```
