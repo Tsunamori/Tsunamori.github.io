@@ -82,6 +82,7 @@ python3 doser.py -t 999 -g 'https://site.com/fullUrlFromLoadsxploit'
 ### WP User Enumeration
   * site.com/wp-json/wp/v2/users/
   * mostly not acceptable, can be used to extend the impact tho
+  * /wp/?author=1
 
 ## Dedecms
 
