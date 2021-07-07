@@ -19,3 +19,4 @@ Mindmap https://kathan19.gitbook.io/howtohunt/password-reset-functionality/passw
       3. email= victim@gmail.com |email=attacker@gmil.com
       4. email= victim@gmail.com%0d%0acc:attacker@gmil.com
       5. email= victim@gmail.com&code= my password reset token
+1. https://docs.google.com/presentation/d/1QzBl3k3n2q44ULyfZgr_gPZexj8nF5vD8JrS5AUJRbs/edit#slide=id.ga30203dab9_1_64

