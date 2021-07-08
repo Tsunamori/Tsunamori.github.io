@@ -261,8 +261,8 @@ print(''.join(temp))
 题目：  y = 17x-8 flag{szzyfimhyzd}
 * 解题思路：题目提示了，是仿射密码（Affine cipher）。
 
-#### Crack it
-* 解题思路：使用john the riper一步搞定，hashcat在超过32位的win hash上真不行。
+#### Crack it($6$ shadow hash crack)
+* 解题思路：使用john the ripper一步搞定，hashcat在超过32位的win hash上真不行。
 
 #### RSA
 * 解题思路：恶补了一下rsa的知识，ref：https://zhuanlan.zhihu.com/p/76017554

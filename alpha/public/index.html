@@ -922,8 +922,8 @@
 <ul>
 <li>解题思路：题目提示了，是仿射密码（Affine cipher）。</li>
 </ul>
-<h4 id="Crack-it"><a href="#Crack-it" class="headerlink" title="Crack it"></a>Crack it</h4><ul>
-<li>解题思路：使用john the riper一步搞定，hashcat在超过32位的win hash上真不行。</li>
+<h4 id="Crack-it-6-shadow-hash-crack"><a href="#Crack-it-6-shadow-hash-crack" class="headerlink" title="Crack it($6$ shadow hash crack)"></a>Crack it($6$ shadow hash crack)</h4><ul>
+<li>解题思路：使用john the ripper一步搞定，hashcat在超过32位的win hash上真不行。</li>
 </ul>
 <h4 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h4><ul>
 <li>解题思路：恶补了一下rsa的知识，ref：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://zhuanlan.zhihu.com/p/76017554">https://zhuanlan.zhihu.com/p/76017554</a><br>但是由于题目里N特别大，分解不好搞，查了一下，适合使用wiener attack的方法来解。<br>由于Rsactftools有更新，所以利用n,e,c的方式和之前的不一样了，使用方法参照 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Ganapati/RsaCtfTool/issues/247">https://github.com/Ganapati/RsaCtfTool/issues/247</a> 。</li>
