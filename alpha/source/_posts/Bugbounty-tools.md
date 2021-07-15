@@ -12,3 +12,9 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. oneforall
 1. censys
 1. google
+
+### Bugbounty_Cheatsheets
+1. https://github.com/EdOverflow/bugbounty-cheatsheet
+
+### 综合资源
+1. https://github.com/djadmin/awesome-bug-bounty
