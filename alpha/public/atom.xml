@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2021-06-28T07:33:01.486Z</updated>
+  <updated>2021-07-15T09:27:13.926Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Game of hacks 试玩</title>
+    <link href="https://tsunamori.github.io/wiki/Game-of-hacks-%E8%AF%95%E7%8E%A9/"/>
+    <id>https://tsunamori.github.io/wiki/Game-of-hacks-%E8%AF%95%E7%8E%A9/</id>
+    <published>2021-07-15T08:44:14.000Z</published>
+    <updated>2021-07-15T09:27:13.926Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>从Awesome-hacking_Cyber-skills看到的练习网站，粗略看了一下描述是关于代码审计的，正好一直在考虑提升一下代码审计的技能，最近就来试玩一下，顺便记录WP。</p><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>一开始有难度选项，分别是beginner、intermediate和advanced。嗯，十分正常的分类。另外要选代码语言，一共十种，我比较在意的Android、Java、PHP、Python、.NET都在，令人满意。<br>看了题目大概是每次随机抽五道题+计时+提供选项，所以WP就先简单记一下代码，最后整理思路。</p><h3 id="PHP-代码审计"><a href="#PHP-代码审计" class="headerlink" title="PHP 代码审计"></a>PHP 代码审计</h3><h4 id="Beginner"><a href="#Beginner" class="headerlink" title="Beginner"></a>Beginner</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int i;</span><br><span class="line">char inLine[64];</span><br><span class="line">cin &gt;&gt; inLine; &#x2F;&#x2F; 将cin的二进制码向右移动inLine位（或将cin十进制除以2 inLine次）,但是在这里没有用到。</span><br><span class="line">i &#x3D; atoi (inLine); &#x2F;&#x2F; atoi()：字符串转换整数</span><br><span class="line">sleep(i);</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Dim myPassWord As String</span><br><span class="line">myPassWord &#x3D; &quot;12345&quot;</span><br></pre></td></tr></table></figure><p>use of hardcoded password</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Private Sub cmdRunNotePad_Click()</span><br><span class="line">Dim str As String</span><br><span class="line">MyVar &#x3D; window.Text()</span><br><span class="line">Sleep myVar+1</span><br><span class="line">dblNotePadID &#x3D; Sleep(myVar)</span><br><span class="line">End Sub</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$dn &#x3D; $_GET[&#39;host&#39;];</span><br><span class="line">$filter&#x3D;&quot;(|(sn&#x3D;$person*)(givenname&#x3D;$person*))&quot;;</span><br><span class="line">$justthese &#x3D; array(&quot;ou&quot;, &quot;sn&quot;, &quot;givenname&quot;, &quot;mail&quot;);</span><br><span class="line">$sr&#x3D;ldap_search($ds, $dn, $dn, $justthese);</span><br><span class="line">$info &#x3D; ldap_get_entries($ds, $sr);</span><br><span class="line">echo $info[&quot;count&quot;].&quot; entries returned</span><br><span class="line">&quot;;?&gt;</span><br></pre></td></tr></table></figure><p>LDAP injection</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String url &#x3D; req.getRequestURL().toString();</span><br><span class="line">RequestDispatcher disp &#x3D; req.getRequestDispatcher(url.substring(url.lastIndexOf(req.getContextPath() + &quot;&#x2F;&quot;)</span><br><span class="line">+ req.getContextPath().length()));</span><br><span class="line">disp.forward(request, response);</span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h3 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h3&gt;&lt;p&gt;从Awesome-hacking_Cyber-skills看到的练习网站，粗略看了一下描述是关于代码审计的，正好一直在考虑提升一下代码审计的</summary>
+      
+    
+    
+    
+    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
+    
+    <category term="140 Practices" scheme="https://tsunamori.github.io/categories/100-Cyber-security/140-Practices/"/>
+    
+    
+    <category term="靶场" scheme="https://tsunamori.github.io/tags/%E9%9D%B6%E5%9C%BA/"/>
+    
+  </entry>
   
   <entry>
     <title>WP-Bugku-Reverse</title>
@@ -564,34 +590,6 @@
     
     
     <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>JavaScript</title>
-    <link href="https://tsunamori.github.io/wiki/JavaScript/"/>
-    <id>https://tsunamori.github.io/wiki/JavaScript/</id>
-    <published>2021-04-22T06:33:21.000Z</published>
-    <updated>2021-06-18T06:04:54.784Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="JavaScript原型链污染攻击"><a href="#JavaScript原型链污染攻击" class="headerlink" title="JavaScript原型链污染攻击"></a>JavaScript原型链污染攻击</h3><p><a href="https://xz.aliyun.com/t/7182">https://xz.aliyun.com/t/7182</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h3 id=&quot;JavaScript原型链污染攻击&quot;&gt;&lt;a href=&quot;#JavaScript原型链污染攻击&quot; class=&quot;headerlink&quot; title=&quot;JavaScript原型链污染攻击&quot;&gt;&lt;/a&gt;JavaScript原型链污染攻击&lt;/h3&gt;&lt;p&gt;&lt;a href=&quot;h</summary>
-      
-    
-    
-    
-    <category term="100 Cyber security" scheme="https://tsunamori.github.io/categories/100-Cyber-security/"/>
-    
-    <category term="110 Bug bounty" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/"/>
-    
-    <category term="112 Ideas" scheme="https://tsunamori.github.io/categories/100-Cyber-security/110-Bug-bounty/112-Ideas/"/>
-    
-    
-    <category term="Summary" scheme="https://tsunamori.github.io/tags/Summary/"/>
     
   </entry>
   

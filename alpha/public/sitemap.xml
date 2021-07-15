@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tsunamori.github.io/wiki/Game-of-hacks-%E8%AF%95%E7%8E%A9/</loc>
+    
+    <lastmod>2021-07-15</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tsunamori.github.io/wiki/useful-books/</loc>
     
     <lastmod>2021-07-15</lastmod>
@@ -528,6 +535,13 @@
     <priority>0.6</priority>
   </url>
   
+  <url>
+    <loc>https://tsunamori.github.io/tags/%E9%9D%B6%E5%9C%BA/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
 
   
   <url>
@@ -594,13 +608,6 @@
   </url>
   
   <url>
-    <loc>https://tsunamori.github.io/categories/100-Cyber-security/140-Books/</loc>
-    <lastmod>2021-07-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/categories/400-ICS-security/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
@@ -630,6 +637,13 @@
   
   <url>
     <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/123-Reverse/</loc>
+    <lastmod>2021-07-15</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/categories/100-Cyber-security/140-Practices/</loc>
     <lastmod>2021-07-15</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
