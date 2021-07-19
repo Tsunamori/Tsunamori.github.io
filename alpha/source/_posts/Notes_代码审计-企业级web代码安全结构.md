@@ -30,3 +30,15 @@ if($user=='admin'){
   echo 'true';
 }
     ```
+1. allow_url_ianclude(是否允许包含远程文件)：在该配置为on的情况下，可以直接包含远程文件，当存在include($var)且$var可控的情况下，可以直接控制$var变量来执行PHP代码。allow_url_ianclude在PHP5.2.0后默认设置为off，配置范围为PHP_INI_ALL。与之类似的配置有allow_url_fopen，配置是否允许打开远程文件，但安全隐患没有前者大。
+    代码实例：
+    ```
+<?php
+include $_GET['a'];
+    ```
+1. magic_quotes_gpc（魔术引号自动过滤）：该参数在不存在编码或其他特殊绕过的情况下，可以使很多漏洞无法利用。当该参数被开启时（选项设置为on），会自动在GET、POST、COOKIE变量中的单引号（‘）、双引号（“）、反斜杠（\）及空字符（NULL）的前面加上反斜杠（\），但在PHP5中magic_quotes_gps并不会过滤$_SERVER变量，导致很多类似client-ip、referer一类的漏洞能够利用。PHP5.3之后不推荐使用该参数，PHP5.4之后被取消。在PHP版本小于4.2.3时，配置范围是PHP_INI_ALL;在PHP版本大于4.2.3时，是PHP_INI_PERDIR。
+    代码实例：(测试?a=1')
+    ```
+<?php
+echo $_GET['a'];
+    ```
