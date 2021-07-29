@@ -42,3 +42,15 @@ include $_GET['a'];
 <?php
 echo $_GET['a'];
     ```
+1. magic_quotes_runtime(魔术引号自动过滤)：过滤方式同样为加反斜杠，但和magic_quotes_gpc的处理对象不一样。magic_quotes_runtime只对从数据库或文件中获取的数据进行过滤，magic_quotes_runtime在PHP5.4之后被取消，配置范围是PHP_INI_ALL。但该参数仅对部分函数有作用，某些情况下可以被绕过。
+    代码实例：
+    ```
+#1.txt
+1'2"3\4
+
+<?php
+ini_set("magic_quotes_runtime","1");
+echo file_get_contents("1.txt");
+    ```
+1. magic_quotes_sybase(魔术引号自动过滤)：用于自动过滤特殊字符，当设置为on时，会覆盖magic_quotes_gpc=on的配置（使gpc=on失效）。与gpc的共同点是处理对象一致（GET、POST、Cookie)，但该参数仅转义空字符以及把单引号变成双引号，使用率比gpc低。配置范围为PHP_INI_ALL，在PHP5.4.0中移除。（代码实例与gpc相同）
+1. safe_mode（安全模式）：
