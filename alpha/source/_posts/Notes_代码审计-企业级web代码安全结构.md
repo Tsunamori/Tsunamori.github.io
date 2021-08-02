@@ -53,4 +53,11 @@ ini_set("magic_quotes_runtime","1");
 echo file_get_contents("1.txt");
     ```
 1. magic_quotes_sybase(魔术引号自动过滤)：用于自动过滤特殊字符，当设置为on时，会覆盖magic_quotes_gpc=on的配置（使gpc=on失效）。与gpc的共同点是处理对象一致（GET、POST、Cookie)，但该参数仅转义空字符以及把单引号变成双引号，使用率比gpc低。配置范围为PHP_INI_ALL，在PHP5.4.0中移除。（代码实例与gpc相同）
-1. safe_mode（安全模式）：
+1. safe_mode（安全模式）：是PHP内嵌的一种安全机制，配置范围为PHP_INI_SYSTEM，PHP5.4之后被取消（取消原因是，PHP开发者认为在PHP语言机制上试图解决安全问题是一件不合适的事情，虽然safe_mode在一定程度上对共享主机有效，但同时也带来了不少误报，与其在PHP上解决权限安全问题，不如使用linux默认的权限限制机制或其它层级的解决办法）。该参数效果为，所有文件操作函数都会受到限制，非文件所有者不能对该文件进行操作（如include()），如果有一些脚本文件放在非Web服务启动用户所有的目录下，需要利用include等函数进行加载，可以使用safe_mode_include_dir来配置可包含的路径。此外，通过函数popen()、system()以及exec()等函数执行命令或程序会提示错误，如果需要使用外部脚本，可以集中存放，然后用safe_node_exec_dir来指向存放目录。
+    代码实例：
+    ```
+# echo `whoami`; 执行命令失败的回显提示
+Warning: shell_exec() [function, shell_exec]: Cannot execute using backquotes in Safe Mode ...
+    ```
+1. open_basedir（PHP可访问目录）：用于限制PHP只能访问哪些目录，通常只需要设置Web文件目录即可，如果需要加载外部脚本，也需要把所在路径加入该指令中，多个目录以分号分割。需要注意，指定限制实际上是前缀而不是目录名，如配置open_basedir=/www/a，那么/www/a和/www/ab都可以访问，所以为了避免该现象发生，需要用斜线结束路径名，如/www/a/。当参数激活，执行脚本访问其它文件时都需要验证文件路径，所以会影响执行效率。该指令配置范围在PHP<5.2.3时是PHP_INI_SYSTEM，在PHP>=5.2.3时是PHP_INI_ALL。
+1. disable_functions
