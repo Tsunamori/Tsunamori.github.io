@@ -96,5 +96,39 @@ Warning: shell_exec() [function, shell_exec]: Cannot execute using backquotes in
 1. `函数集文件`，通常命名中包含functions或者common等关键字，这些文件内是一些公共函数，提供给其它文件统一调用，所以大多数文件会在文件头包含其它文件。寻找这些文件的一个技巧就是打开index.php或一些功能性文件，在头部一般都能找到。
 1. `配置文件`，通常命名中包含config关键字，包括Web程序运行必须的功能性配置选项及数据库等配置信息，从该文件中可以了解程序的小部分功能，另外看这个文件时注意观察配置文件中参数值是用单引号还是双引号，如果是双引号，则很可能存在代码执行漏洞。（如利用PHP可变变量（$$a）的特性执行代码，ref：https://www.cnblogs.com/Cl0ud/p/12336834.html）
 1. `安全过滤文件`，该文件关系到挖掘到的可疑点能否利用，通常命名中有filter、safe、check等关键字。这类文件主要作用是针对参数进行过滤，比较常见的是针对SQL注入和XSS过滤，还有文件路径、执行的系统命令的参数，其它相对少见。而目前大多数应用会在程序入口循环对所有参数使用addslashes()进行过滤。
-1. `index文件`，是一个程序的人口文件，通过阅读该文件可大致了解整个程序的架构、运行流程、包含的文件，以及核心文件有哪些。而不同的目录的index文件也有不同的实现方式，最好先将核心目录的index文件都简单读一遍。
+1. `index文件`，是一个程序的入口文件，通过阅读该文件可大致了解整个程序的架构、运行流程、包含的文件，以及核心文件有哪些。而不同的目录的index文件也有不同的实现方式，最好先将核心目录的index文件都简单读一遍。
 学习代码审计前期建议先下载一些小应用来读，积累经验后，再去读开源框架。
+
+#### 根据功能点定向审计
+先简单黑盒测试一下，再通过发现的容易出问题的功能去阅读该功能点的源码，提高审计速度。
+1. 文件上传功能：任意上传、SQL注入
+1. 文件管理功能：任意文件操作、XSS漏洞
+1. 登录认证功能：任意用户登录
+1. 找回密码功能：验证码爆破、验证凭证算法
+
+### 漏洞挖掘与防范（基础篇）
+
+#### SQL注入
+
+##### 挖掘经验
+常出现在登录页面、获取HTTP头（user-agent/client-ip等）、订单处理等业务相对复杂的地方，登录页面注入大多出现在HTTP头的client-ip和x-forward-for，用于记录登录IP地址。另外在订单系统内，由于订单涉及购物车等多个交互，经常会发生二次注入，通读代码时可着重关注这几个地方。
+1. 普通注入：指最容易利用的SQL注入漏洞，有int型和string型，在string型注入中需要使用单或双引号闭合。数据库操作存在一些关键字，如select from、mysql_connect、mysql_query、mysql_fetch_row等，查询方式还有update、incert、delete，只需要在白盒审计中查找这些关键字即可定向挖掘SQL注入。
+1. 编码注入：程序在进行一些操作前经常会进行编码处理，而做编码处理的函数可能会存在问题。通过输入转码函数不兼容的特殊字符，即可导致输出字符变成有害数据，在SQL注入里，最常见的编码注入是MySQL宽字节以及urldecode/rawurldecode函数导致的。
+    * 宽字节注入：使用PHP连接MySQL的时候，当设置`set character_set_client=gbk`时会导致一个编码转换的注入问题，当存在该漏洞时，注入参数里带入`%df%27`，即可把程序中过滤的`\(%5c)`吃掉。而通常都不是直接设置`set character_set_client=gbk`，而是设置`SET NAMES ‘gbk’`，同样存在漏洞。官方建议是使用mysql_set_charset来设置编码，只要在后面合理的使用mysql_real_escape_string还是可以解决该漏洞的。对宽字节注入的挖掘方法比较简单，搜索`SET NAMES`、`character_set_client=gbk`、`mysql_set_charset('gbk')`。该漏洞的解决方法如以下三种，比较推荐一和三：
+        * 在执行查询前先执行`SET NAMES 'gbk', character_set_client=binary`
+        * 使用mysql_set_charset('gbk')设置编码，然后使用mysql_real_escape_string()过滤。
+        * 使用pdo方式，在PHP5.3.6及以下版本中需要设置`setAttribute(PDO::ATTR_EMULATE_PREPARES,false);`，来禁用prepared statements的仿真效果。
+    * 二次urlencode注入：只要字符被进行转换就有可能产生漏洞。现在的Web程序大多会进行参数过滤，通常使用addslashes()、mysql_real_escape_string()、mysql_escape_string()函数或者开启GPC的方式来防止注入，也就是给单引号、双引号、反斜杠（\）和NULL加上反斜杠转义。如果某处使用了urldecode或者rawurldecode函数，则会导致二次加码生成单引号而引发注入。该漏洞可以通过搜索urldecode和rawurldecode函数来挖掘。
+
+##### 漏洞防范
+1. gpc/runtime魔术引号：通常数据污染有两种方式，一种是应用被动接收参数，另一种是主动获取参数。利用magic_quotes_gpc和magic_quotes_runtime可以防止部分SQL注入（对int型注入没有太大作用）
+1. 过滤函数和类：有两种使用场景，一种是程序入口统一过滤，框架程序使用这种方式比较多，另一种是在程序进行SQL语句运行前使用，除了PHP内置的一些过滤单引号等函数外，还有一些开源类过滤union、select等关键字。
+    * addslashes函数：过滤单引号、双引号、反斜杠以及空字符NULL，大多被用在程序入口，判断如果没有开启GPC则使用该函数进行过滤。不过它的参数必须是string类，所以可能会存在通过数组绕过的漏洞。
+    * mysql_[real_]escape_string函数：这两个函数都是对字符串进行过滤，只存在于大于PHP4.03的版本，[`\x00`]、[`\n`]、[`\r`]、[`\`]、[`'`]、[`"`]、[`\xla`]会受到影响。两个函数唯一不一样的地方在于mysql_real_escape_string接受的是一个连接句柄并根据当前字符集转移字符串，推荐使用。
+    * intval等字符转换：上述方式在int类型注入时效果不会，比如可以通过报错或盲注等方式来绕过，这时候就要用到intval函数了。intval的作用是将变量转换成int类型，这里举例intval是要表达一种利用参数类型白名单的方式来防止漏洞，对应的还有很多如floatval等。
+1. PDO prepare预编译：通过预编译的方式来处理数据库查询。当PHP版本<5.3.6时，使用PHP本地模拟prepare再把完整的SQL语句发送给MySQL服务器，且使用set names 'gbk'时，仍然存在宽字节SQL注入，因为PHP和MySQL编码不一致。正确的写法应该是使用ATTR_EMULATE_PREPARES来禁用PHP本地模拟prepare。
+
+#### XSS漏洞
+
+##### 挖掘经验
+挖掘XSS漏洞关键在于寻找没有被过滤的参数，且这些参数传入至输出函数。常用输出函数列表如下：`print、print_r、echo、printf、sprintf、die、var_dump、var_export`，寻找带有变量的这些函数即可。另外在代码审计中，浏览器环境对XSS漏洞利用影响非常大。
