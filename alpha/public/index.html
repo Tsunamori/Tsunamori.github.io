@@ -603,7 +603,27 @@
 </li>
 <li>PDO prepare预编译：通过预编译的方式来处理数据库查询。当PHP版本&lt;5.3.6时，使用PHP本地模拟prepare再把完整的SQL语句发送给MySQL服务器，且使用set names ‘gbk’时，仍然存在宽字节SQL注入，因为PHP和MySQL编码不一致。正确的写法应该是使用ATTR_EMULATE_PREPARES来禁用PHP本地模拟prepare。</li>
 </ol>
-<h4 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h4><h5 id="挖掘经验-1"><a href="#挖掘经验-1" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>挖掘XSS漏洞关键在于寻找没有被过滤的参数，且这些参数传入至输出函数。常用输出函数列表如下：<code>print、print_r、echo、printf、sprintf、die、var_dump、var_export</code>，寻找带有变量的这些函数即可。另外在代码审计中，浏览器环境对XSS漏洞利用影响非常大。</p>
+<h4 id="XSS漏洞"><a href="#XSS漏洞" class="headerlink" title="XSS漏洞"></a>XSS漏洞</h4><h5 id="挖掘经验-1"><a href="#挖掘经验-1" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>挖掘XSS漏洞关键在于寻找没有被过滤的参数，且这些参数传入至输出函数。常用输出函数列表如下：<code>print、print_r、echo、printf、sprintf、die、var_dump、var_export</code>，寻找带有变量的这些函数即可。另外在代码审计中，浏览器环境对XSS漏洞利用影响非常大。通读代码时可多关注各处设置资料、文章发表、留言等富文本区域，这种地方存在的XSS通常是存储型的。</p>
+<h5 id="反射型-XSS"><a href="#反射型-XSS" class="headerlink" title="反射型 XSS"></a>反射型 XSS</h5><p>直接通过外部输入在浏览器端输出触发，该种漏洞比较容易通过扫描器黑盒审计发现。白盒审计中，只需要寻找带有参数的输出参数，根据输出参数对输出内容回溯输入参数，观察有没有经过过滤。</p>
+<h5 id="存储型XSS"><a href="#存储型XSS" class="headerlink" title="存储型XSS"></a>存储型XSS</h5><p>把利用代码保存在数据库或文件中，当Web程序读取利用代码并输出在页面上时执行利用代码。比反射型容易利用，较为隐蔽且不用考虑绕过浏览器过滤。挖掘时也是需要寻找未过滤的输入点和未过滤的输出函数（可能完全不在同一个业务流中），可以根据当前代码功能去猜，或追寻数据有在哪里被操作，使用表名、字段名去代码里搜索。</p>
+<h5 id="漏洞防范-1"><a href="#漏洞防范-1" class="headerlink" title="漏洞防范"></a>漏洞防范</h5><ol>
+<li>特殊字符HTML实体转码。</li>
+<li>标签事件属性黑白名单。</li>
+</ol>
+<h4 id="CSRF漏洞"><a href="#CSRF漏洞" class="headerlink" title="CSRF漏洞"></a>CSRF漏洞</h4><h5 id="挖掘经验-2"><a href="#挖掘经验-2" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>主要用于越权操作，所以漏洞会出现在有权限控制的地方。黑盒挖洞可以先搭建环境，打开几个有非静态操作的页面，抓包看看有没有token，没有token就不带referer直接请求该页面，返回数据一样的话，可能存在CSRF漏洞。白盒审计，通读代码时看看被大量引用的基础文件（核心文件）、你比较关心的功能点代码内有没有验证token和referer相关的代码，或者直接搜索token关键字。</p>
+<h5 id="漏洞防范-2"><a href="#漏洞防范-2" class="headerlink" title="漏洞防范"></a>漏洞防范</h5><ol>
+<li>增加token/referer验证避免img标签请求的水坑攻击。</li>
+<li>增加验证码。（比较麻烦，更适用于敏感操作页面）</li>
+</ol>
+<h3 id="漏洞挖掘与防范（进阶篇）"><a href="#漏洞挖掘与防范（进阶篇）" class="headerlink" title="漏洞挖掘与防范（进阶篇）"></a>漏洞挖掘与防范（进阶篇）</h3><h4 id="文件操作漏洞"><a href="#文件操作漏洞" class="headerlink" title="文件操作漏洞"></a>文件操作漏洞</h4><h5 id="文件包含漏洞"><a href="#文件包含漏洞" class="headerlink" title="文件包含漏洞"></a>文件包含漏洞</h5><p>文件包涵函数有include()、include_once()（前两个在包含文件时即使遇到错误，下面的代码仍然执行）、require()、require_once()（这两个在包含文件时遇到错误会报错退出程序）。</p>
+<h6 id="挖掘经验-3"><a href="#挖掘经验-3" class="headerlink" title="挖掘经验"></a>挖掘经验</h6><p>文件包含漏洞大多出现在模块加载、模板加载以及cache调用的地方。在挖掘漏洞时可以跟踪程序运行流程，看模块加载包含的文件是否可控等，另一个是直接搜索上文四个函数来回溯寻找可控变量。一般该类漏洞都是本地文件包含，大多需要截断。</p>
+<h6 id="本地文件包含"><a href="#本地文件包含" class="headerlink" title="本地文件包含"></a>本地文件包含</h6><p>本地文件包含（local file include，LFI），大多出现在模块加载、模板加载和cache调用，有多种利用方式，如上传一个允许上传的文件格式的文件再包含以执行代码，包含PHP上传的临时文件，在请求URL或ua里面加入要执行的代码，WebServer记录到日志后再包含WebServer的日志，还有像Linux下可以包含/proc/self/environ文件。</p>
+<h6 id="远程文件包含"><a href="#远程文件包含" class="headerlink" title="远程文件包含"></a>远程文件包含</h6><p>远程文件包含（remote file include, RFI），需要设置allow_url_include = On，相比于本地包含来说更容易利用，但出现频率不高。</p>
+<h6 id="文件包含截断"><a href="#文件包含截断" class="headerlink" title="文件包含截断"></a>文件包含截断</h6><ol>
+<li>使用<code>%00</code>截断，最古老的方法，受限于GPC和addslashes等函数的过滤，另外PHP5.3之后的版本已经全面修复，不能使用该方法了。</li>
+<li>使用多个英文句号<code>.</code>和反斜杠<code>/</code>来阶段，不受GPC限制，但同样在PHP5.3之后被修复。</li>
+<li>远程文件包含时利用问号<code>？</code>来伪截断，不受GPC和PHP版本限制，只要能返回代码给包含函数就能执行。在HTTP协议里，访问<a target="_blank" rel="external nofollow noopener noreferrer" href="http://remotehost/i.txt%E5%92%8C%E8%AE%BF%E9%97%AEhttp://remotehost/i.txt?.php%E8%BF%94%E5%9B%9E%E7%9A%84%E7%BB%93%E6%9E%9C%E6%98%AF%E4%B8%80%E6%A0%B7%E7%9A%84%EF%BC%8C%E5%9B%A0%E4%B8%BAWebServer%E6%8A%8A%E9%97%AE%E5%8F%B7%E4%B9%8B%E5%90%8E%E7%9A%84%E5%86%85%E5%AE%B9%E5%BD%93%E6%88%90%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%EF%BC%8C%E8%80%8Ctxt%E4%B8%8D%E5%9C%A8WebServer%E9%87%8C%E8%A7%A3%E6%9E%90%EF%BC%8C%E5%8F%82%E6%95%B0%E5%AF%B9%E8%AE%BF%E9%97%AEi.txt%E8%BF%94%E5%9B%9E%E7%9A%84%E5%86%85%E5%AE%B9%E4%B8%8D%E5%BD%B1%E5%93%8D%EF%BC%8C%E5%AE%9E%E7%8E%B0%E4%BC%AA%E6%88%AA%E6%96%AD%E3%80%82">http://remotehost/i.txt和访问http://remotehost/i.txt?.php返回的结果是一样的，因为WebServer把问号之后的内容当成请求参数，而txt不在WebServer里解析，参数对访问i.txt返回的内容不影响，实现伪截断。</a></li>
+</ol>
 
             </div>
         
