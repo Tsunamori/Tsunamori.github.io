@@ -487,7 +487,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">
-            <time datetime="2021-07-17T02:05:28.000Z" itemprop="datePublished">2021-07-17</time>
+            <time datetime="2021-07-17T15:05:28.000Z" itemprop="datePublished">2021-07-17</time>
         </a>
     </div>
 
@@ -661,7 +661,16 @@
 <li>对命令执行函数的参数做白名单限制。（通用修复方法）</li>
 </ol>
 <h3 id="漏洞挖掘与防范（深入篇）"><a href="#漏洞挖掘与防范（深入篇）" class="headerlink" title="漏洞挖掘与防范（深入篇）"></a>漏洞挖掘与防范（深入篇）</h3><h4 id="变量覆盖漏洞"><a href="#变量覆盖漏洞" class="headerlink" title="变量覆盖漏洞"></a>变量覆盖漏洞</h4><p>变量覆盖指的是可以用我们自定义的参数值替换程序原有的变量值，通常需要结合程序的其它功能来实现完整攻击。<br>该类漏洞大多由函数使用不当导致，常引发漏洞的函数有：extract()函数和parse_str()，import_request_variables()函数则是用于未开启全局变量注册时，调用该函数相当于开启了全局变量注册，在PHP5.4后该函数已经被取消。另外部分应用利用$$的方式注册变量没验证已有变量导致覆盖，这些应用在使用外部传递进来的参数时不是用类似于<code>$_GET[&#39;key&#39;]</code>这样原始的数组变量，而是把里面的key注册成一个变量$key，注册过程中没有验证该变量是否已经存在，所以会导致变量覆盖。</p>
-<h5 id="挖掘经验-9"><a href="#挖掘经验-9" class="headerlink" title="挖掘经验"></a>挖掘经验</h5>
+<h5 id="挖掘经验-9"><a href="#挖掘经验-9" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>由于变量覆盖漏洞通常要结合其他功能代码来实现完整攻击，所以挖掘可用的变量覆盖漏洞还要考虑究竟哪些变量可以被覆盖并且后面有被使用。<br>由函数导致的变量覆盖比较好挖掘，寻找参数带有变量的extract()、parse_str()函数，回溯变量是否可控。import_request_variables()则只需要找没有初始化且操作前没有赋值的变量，就可以大胆的提交该变量作为参数，另外只要写在该函数前的变量，不管是否已经初始化都可以覆盖，不过该函数只在PHP4-4.1.0以及5-5.4.0可用。<br>关于国内很多程序使用$$符号注册变量会导致变量覆盖，可以直接搜索$$去挖掘，不过建议挖掘前应通读核心文件。</p>
+<h6 id="函数使用不当"><a href="#函数使用不当" class="headerlink" title="函数使用不当"></a>函数使用不当</h6><ol>
+<li>extract()（最常见）：将数组中的键值对注册成变量，函数结构如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int extract (array &amp;$var_array [, int $extract_type &#x3D; EXTR_OVERWRITE [, string $prefix &#x3D; NULL]])</span><br></pre></td></tr></table></figure>
+ 该函数有3种可能会覆盖已有变量，第一种是第二个参数为EXTR_OVERWRITE，它表示如果有冲突，则覆盖已有变量；第二种是只传入第一个参数，默认为EXTR_OVERWRITE模式；第三种则是第二个参数为EXTR_IF_EXISTS，表示仅在当前符号表中已有同名变量时，覆盖它们的值，其它的都不注册新变量。</li>
+<li>parse_str()：解析字符串并注册成变量，在注册变量前不会验证当前变量是否已经存在，所以会直接覆盖掉已有变量。该函数有两个参数： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void parse_str(string $str [, array &amp;$arr])</span><br></pre></td></tr></table></figure>
+ 其中$str是必须的，代表要解析注册成变量的字符串，形式为“a=1”，经过函数后会注册变量$a并赋值1。第二个参数$arr是一个数组，当第二个参数存在时，注册的变量会放在这个数组内，但如果该数组内原先就存在相同的键（key），则会覆盖原有键值。</li>
+<li>import_request_variables()：作用是把GET、POST、COOKIE的参数注册成变量，用在register_globals被禁止的时候，需要PHP4.1-5.4之间的版本。不过建议不开globals的时候也不要使用该函数，容易造成变量覆盖。</li>
+</ol>
+<h6 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="$$变量覆盖"></a>$$变量覆盖</h6><p>由于双$导致原变量被覆盖，在漏洞代码之前的变量都可以被覆盖。</p>
+
             </div>
         
         <footer class="article-footer">
@@ -698,7 +707,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">
-            <time datetime="2021-07-15T21:44:14.000Z" itemprop="datePublished">2021-07-16</time>
+            <time datetime="2021-07-15T21:44:14.000Z" itemprop="datePublished">2021-07-15</time>
         </a>
     </div>
 
@@ -886,7 +895,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Web-cache-posioning/">
-            <time datetime="2021-06-21T01:27:26.000Z" itemprop="datePublished">2021-06-21</time>
+            <time datetime="2021-06-21T01:27:26.000Z" itemprop="datePublished">2021-06-20</time>
         </a>
     </div>
 
@@ -1042,7 +1051,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Bugbounty-tools/">
-            <time datetime="2021-05-27T19:20:19.000Z" itemprop="datePublished">2021-05-28</time>
+            <time datetime="2021-05-27T19:20:19.000Z" itemprop="datePublished">2021-05-27</time>
         </a>
     </div>
 
@@ -1391,7 +1400,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/WP-Bugku-Web/">
-            <time datetime="2021-05-08T03:43:54.000Z" itemprop="datePublished">2021-05-08</time>
+            <time datetime="2021-05-08T03:43:54.000Z" itemprop="datePublished">2021-05-07</time>
         </a>
     </div>
 
