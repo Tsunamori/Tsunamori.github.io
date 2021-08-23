@@ -31,7 +31,7 @@ if($user=='admin'){
 }
     ```
 1. allow_url_include(是否允许包含远程文件)：在该配置为on的情况下，可以直接包含远程文件，当存在include(`$var`)且$var可控的情况下，可以直接控制$var变量来执行PHP代码。allow_url_include在PHP5.2.0后默认设置为off，配置范围为PHP_INI_ALL。与之类似的配置有allow_url_fopen，配置是否允许打开远程文件，但安全隐患没有前者大。
-    代码实例：(实验环境php5.2.17，payload：a=http://127.0.0.1:80/test/info.txt，info.txt内容为`<?php phpinfo();?>`)
+    代码实例：(实验环境php5.2.17，payload：a=http://127.0.0.1:80/test/info.txt ，info.txt内容为`<?php phpinfo();?>`)
     ```
 <?php
 include $_GET['a'];
@@ -171,7 +171,7 @@ Warning: shell_exec() [function, shell_exec]: Cannot execute using backquotes in
 ###### 文件包含截断
 1. 使用`%00`截断，最古老的方法，受限于GPC和addslashes等函数的过滤，另外PHP5.3之后的版本已经全面修复，不能使用该方法了。
 1. 使用多个英文句号`.`和反斜杠`/`来阶段，不受GPC限制，但同样在PHP5.3之后被修复。
-1. 远程文件包含时利用问号`？`来伪截断，不受GPC和PHP版本限制，只要能返回代码给包含函数就能执行。在HTTP协议里，访问http://remotehost/i.txt和访问http://remotehost/i.txt?.php返回的结果是一样的，因为WebServer把问号之后的内容当成请求参数，而txt不在WebServer里解析，参数对访问i.txt返回的内容不影响，实现伪截断。
+1. 远程文件包含时利用问号`？`来伪截断，不受GPC和PHP版本限制，只要能返回代码给包含函数就能执行。在HTTP协议里，访问http://remotehost/i.txt和访问http://remotehost/i.txt?.php 返回的结果是一样的，因为WebServer把问号之后的内容当成请求参数，而txt不在WebServer里解析，参数对访问i.txt返回的内容不影响，实现伪截断。
 
 ##### 文件读取（下载）漏洞
 
@@ -197,7 +197,7 @@ Warning: shell_exec() [function, shell_exec]: Cannot execute using backquotes in
 ###### 通用文件操作防御
 1. 合理的权限管理。
 1. 以加密等方式替代直接将文件名作为下载参数的操作。
-1. 避免目录跳转，禁止参数中携带`..、/、\`来跳转目录。
+1. 避免目录跳转，禁止参数中携带`..`、`/`、`\`来跳转目录。
 
 ###### 文件上传漏洞防范
 1. 白名单过滤文件扩展名，使用in_array或`===`来对比扩展名。
@@ -271,7 +271,7 @@ popen()、proc_open()函数不会直接返回执行结果，而是返回一个�
 ##### 挖掘经验
 由于变量覆盖漏洞通常要结合其他功能代码来实现完整攻击，所以挖掘可用的变量覆盖漏洞还要考虑究竟哪些变量可以被覆盖并且后面有被使用。
 由函数导致的变量覆盖比较好挖掘，寻找参数带有变量的extract()、parse_str()函数，回溯变量是否可控。import_request_variables()则只需要找没有初始化且操作前没有赋值的变量，就可以大胆的提交该变量作为参数，另外只要写在该函数前的变量，不管是否已经初始化都可以覆盖，不过该函数只在PHP4-4.1.0以及5-5.4.0可用。
-关于国内很多程序使用$$符号注册变量会导致变量覆盖，可以直接搜索$$去挖掘，不过建议挖掘前应通读核心文件。
+关于国内很多程序使用`$$`符号注册变量会导致变量覆盖，可以直接搜索`$$`去挖掘，不过建议挖掘前应通读核心文件。
 
 ###### 函数使用不当
 1. extract()（最常见）：将数组中的键值对注册成变量，函数结构如下：
