@@ -172,3 +172,96 @@ Warning: shell_exec() [function, shell_exec]: Cannot execute using backquotes in
 1. 使用`%00`截断，最古老的方法，受限于GPC和addslashes等函数的过滤，另外PHP5.3之后的版本已经全面修复，不能使用该方法了。
 1. 使用多个英文句号`.`和反斜杠`/`来阶段，不受GPC限制，但同样在PHP5.3之后被修复。
 1. 远程文件包含时利用问号`？`来伪截断，不受GPC和PHP版本限制，只要能返回代码给包含函数就能执行。在HTTP协议里，访问http://remotehost/i.txt和访问http://remotehost/i.txt?.php返回的结果是一样的，因为WebServer把问号之后的内容当成请求参数，而txt不在WebServer里解析，参数对访问i.txt返回的内容不影响，实现伪截断。
+
+##### 文件读取（下载）漏洞
+
+###### 挖掘经验
+文件读取漏洞比较容易寻找，一种方式是可以先黑盒看功能点对应的文件，再去读文件源码。另一种是搜索文件读取的函数（`file_get_contents()、highlight_file()、fopen()、readfile()、fread()、fgetss()、fgets()、parse_ini_file()、show_source()、file()`），看有无可直接或间接控制的变量，除了正常读取文件的函数之外，另外一些其他功能的函数也可以用于读取文件，如include()等。
+
+##### 文件上传漏洞
+
+###### 挖掘经验
+挖掘简单，上传点常调用同一个上传类，上传函数又只有move_uploaded_file()这一个，所以最快方法就是直接搜索该函数，再去看调用的代码存不存在未限制上传格式或者可以绕过，其中问题较多的是黑名单限制文件格式以及未更改文件名的方式，在未改名的情况下，在Apache利用其向前寻找解析格式和IIS6的分号解析bug都可以执行代码。
+1. 未过滤或本地过滤：共同点是都未在服务器端过滤。
+1. 黑名单扩展名过滤：出现较少，存在限制的扩展名不够全、验证扩展名的方式存在问题可直接绕过或截断。
+1. 文件头、content-type验证绕过：早期出现较多，上传文件时，如果直接上传一个非图片文件会被提示不是图片文件，但只要在文件头里加上`GIF89a`后上传，则验证通过。这是因为程序用了如getimagesize()函数等。content-type是在http request请求头内，所以可以被攻击者修改，而早期的一些程序只是单纯的验证了这个值。
+
+##### 文件删除漏洞
+常出现在有文件管理功能的应用上，原理和文件读取差不多，只不过利用的函数不一样，一般因为删除的文件名可以用`../`跳转，或者没有限制当前用户权限。
+
+###### 挖掘经验
+。挖掘漏洞可以先去找相应的功能点，黑盒测试一下能不能删除某个文件，如果删除不了，再去从执行流程追踪提交的文件名参数的传递过程。如果纯白盒挖，也可以去搜索带有变量参数的unlink()，采取回溯变量的方式。
+
+##### 文件操作漏洞防范
+
+###### 通用文件操作防御
+1. 合理的权限管理。
+1. 以加密等方式替代直接将文件名作为下载参数的操作。
+1. 避免目录跳转，禁止参数中携带`..、/、\`来跳转目录。
+
+###### 文件上传漏洞防范
+1. 白名单过滤文件扩展名，使用in_array或`===`来对比扩展名。
+1. 保存上传文件时重命名文件，文件名采用时间戳的拼接随机数的MD5值保存方式`md5(time()+rand(1,10000))`
+
+#### 代码执行漏洞
+
+##### 挖掘经验
+eval()和assert()函数导致的代码执行漏洞大多是因为载入缓存或者模板以及对变量的处理不严格导致。
+preg_replace()函数代码执行需要存在/e参数，这个函数原本是用来处理字符串的，因此漏洞出现最多的是在对字符串的处理，比如URL、HTML标签以及文章内容等过滤功能。
+call_user_func()和call_user_func_array()函数的功能是调用函数，多用在框架里面动态调用函数，所以一般比较小的程序不常出现该类代码执行。array_map()函数的作用是调用函数并且除第一个参数外其它参数为数组，通常会写死第一个参数，即调用的参数，类似这三个函数功能的函数还有很多。
+还有一类非常常见的是动态函数的代码执行，如`$_GET($_POST["xx"])`。
+
+##### 代码执行函数
+1. eval和assert函数：用于动态执行函数，所以它们的参数就是PHP代码。
+1. preg_replace函数：对字符串进行正则处理。
+1. 调用函数过滤不严：数十个函数有调用其它函数的功能，如果传入的函数名可控，那么就可以调用意外的函数来执行需要的代码，即存在代码执行漏洞。这些函数有：
+```
+call_user_func()、call_user_func_array()、array_map()、
+usort()、uasort()、uksort()、array_filter()、
+array_reduce()、array_diff_uassoc()、array_diff_ukey()、
+array_udiff()、array_udiff_assoc()、array_udiff_uassoc()、
+array_intersect_assoc()、array_intersect_uassoc、
+array_uintersect()、array_uintersect_assoc()、
+array_uintersect_uassoc()、array_walk()、array_walk_recursive()、
+xml_set_character_data_handler()、xml_set_default_handler()、
+xml_set_element_handler()、xml_set_end_namespace_decl_handler()、
+xml_set_external_entity_ref_handler()、xml_set_notation_decl_handler()、
+xml_set_processing_instruction_handler()、
+xml_set_start_namespace_decl_handler()、
+xml_set_unparsed_entity_decl_handler()、stream_filter_register()、
+set_error_handler()、register_shutdown_function()、register_tick_function()
+```
+
+##### 动态函数执行
+由于PHP的特性，PHP函数可以直接由字符串拼接，加大了安全控制的难度。PHP动态函数写法为`变量（参数）`，例如：
+```
+<?php
+$_GET['a']($_GET['b']);# poc:?a=assert&b=phpinfo()
+?>
+```
+想要挖掘这种形式的代码执行漏洞，需要找可控的动态函数名。
+
+##### 漏洞防范
+采用参数白名单过滤，这里的白名单并不是说完全固定为参数，可以结合正则表达式来进行白名单限制。
+
+#### 命令执行漏洞
+代码执行漏洞指的是可以执行PHP脚本代码，而命令执行漏洞指的是可以执行系统或应用指令（如CMD命令或bash命令）的漏洞。PHP的命令执行漏洞主要基于一些函数的参数过滤不严导致，可以执行命令的函数有system()、exec()、shell_exec()、passthru()、pcntl_exec()、popen()、proc_open()这七个函数，另外反引号也可以执行命令，不过实际上这种方式也是调用的shell_exec()函数。PHP命令执行继承了WebServer用户权限，一般该权限都可以向Web目录写文件。
+
+##### 挖掘经验
+该漏洞多出现在包含环境包的应用里，一般这类产品会有额外的脚本来协助处理日志及数据库等，web应用会有比较多的点之间使用system()、exec()、shell_exec()、passthru()、pcntl_exec()、popen()、proc_open()等函数执行系统命令来调用这些脚本，可以直接在代码中搜索这几个函数，收获应该会不少。除了这类应用，还有一些调用外部程序的功能也会出命令执行漏洞，由于特征明显，可以直接搜索函数名进行挖掘。
+
+
+###### 命令执行函数
+上述的函数中，sustem()、exec()、shell_exec()、passthru()以及反引号是可以直接传入命令并返回执行结果。
+popen()、proc_open()函数不会直接返回执行结果，而是返回一个文件指针。
+
+###### 反引号命令执行
+反引号执行命令是调用的shell_exec()函数。
+
+##### 漏洞防范
+1. 使用PHP自带的命令防注入函数，包括escapeshellcmd()（过滤整条命令）和escapeshellarg()（保证传入命令执行函数的参数确实是以字符串参数形式存在，不能被注入）。
+2. 对命令执行函数的参数做白名单限制。（通用修复方法）
+
+### 漏洞挖掘与防范（深入篇）
+
+#### 变量覆盖漏洞
