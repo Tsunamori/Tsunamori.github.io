@@ -487,7 +487,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">
-            <time datetime="2021-07-17T15:05:28.000Z" itemprop="datePublished">2021-07-17</time>
+            <time datetime="2021-07-17T02:05:28.000Z" itemprop="datePublished">2021-07-17</time>
         </a>
     </div>
 
@@ -670,7 +670,61 @@
 <li>import_request_variables()：作用是把GET、POST、COOKIE的参数注册成变量，用在register_globals被禁止的时候，需要PHP4.1-5.4之间的版本。不过建议不开globals的时候也不要使用该函数，容易造成变量覆盖。</li>
 </ol>
 <h6 id="变量覆盖"><a href="#变量覆盖" class="headerlink" title="$$变量覆盖"></a>$$变量覆盖</h6><p>由于双$导致原变量被覆盖，在漏洞代码之前的变量都可以被覆盖。</p>
-
+<h5 id="漏洞防范-5"><a href="#漏洞防范-5" class="headerlink" title="漏洞防范"></a>漏洞防范</h5><p>最常见漏洞点是做变量注册以及赋值给变量的时候没有验证变量是否存在，所以推荐使用原始的变量数组，如$_GET、$_POST，或者在注册变量前一定要验证变量是否存在。</p>
+<h6 id="使用原始变量"><a href="#使用原始变量" class="headerlink" title="使用原始变量"></a>使用原始变量</h6><p>由于上述变量覆盖漏洞是在进行变量注册时导致，所以要解决变量覆盖的问题，最直接的方法就是不进行变量注册，直接使用原生的$_GET、$_POST等数组变量进行操作，如果考虑到程序可读性等原因，需要注册个别变量，可以直接在代码中定义变量，然后再把请求中的值赋值给它。</p>
+<h6 id="验证变量存在"><a href="#验证变量存在" class="headerlink" title="验证变量存在"></a>验证变量存在</h6><p>如果一定要用前面几种方式注册变量，可以在注册变量前先判断变量是否存在，如使用extract()函数则可以配置第二个参数为EXTR_SKIP。使用parse_str()函数注册变量钱需要自行通过代码判断变量是否存在。不建议使用import_request_variables()注册全局变量，会导致变量不可控。最重要的，自行申明的变量一定要初始化，不然即便注册在执行代码前也能被覆盖。</p>
+<h4 id="逻辑处理漏洞"><a href="#逻辑处理漏洞" class="headerlink" title="逻辑处理漏洞"></a>逻辑处理漏洞</h4><p>此次指程序在业务逻辑上的漏洞。</p>
+<h5 id="挖掘经验-10"><a href="#挖掘经验-10" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>漏洞大多存在于逻辑处理及业务流程中，没有特别明显的关键字用于快速定位，挖掘技巧通常是通读功能点源码，熟悉业务流程，可关注程序是否可重复安装、修改密码处是否可越权修改其它用户密码、找回密码验证码是否可暴力破解以及修改其它用户密码、cookie是否可预测或cookie验证是否可绕过等。</p>
+<h6 id="等于与存在判断绕过"><a href="#等于与存在判断绕过" class="headerlink" title="等于与存在判断绕过"></a>等于与存在判断绕过</h6><p>判断函数存在漏洞时，可以逃逸判断函数绕过逻辑。常见存在漏洞的判断函数有：</p>
+<ol>
+<li>in_array()：用于判断一个值是否在某个数组列表里，该函数存在一个问题，比较前会自动做类型转换，实现输入参数并不全等于数组任意值时，也可以实现绕过并注入。</li>
+<li>is_numeric()：用于判断一个变量是否为数字，检查通过返回true，否则返回false。该函数存在一个问题，当传入参数为hex时则直接通过并返回true，而mysql是可以直接使用hex编码代替字符串名为的。所以这里虽然不能直接注入SQL语句，但存在二次注入和XSS等漏洞隐患，比如当我们提交<code>&lt;script&gt;alert(1)&lt;/script&gt;</code>的hex编码时，效果相同。如果程序有其它地方调用该值并直接输出，则有可能执行代码触发XSS漏洞。</li>
+<li>双等于和三等于：双等于在判断等于前会先做变量类型转换，三等于则不会，所以双等于存在安全风险。</li>
+</ol>
+<h6 id="账户体系中的越权漏洞"><a href="#账户体系中的越权漏洞" class="headerlink" title="账户体系中的越权漏洞"></a>账户体系中的越权漏洞</h6><p>漏洞分为水平越权和垂直越权，但漏洞原理相同，都是账户体系在判断权限时不严格导致存在绕过漏洞。这一类绕过通常发生在cookie验证不严、简单判断用户提交的参数，归根结底，都是因为参数在客户端提交，服务端未严格校验。</p>
+<h6 id="未exit或return引发的安全问题"><a href="#未exit或return引发的安全问题" class="headerlink" title="未exit或return引发的安全问题"></a>未exit或return引发的安全问题</h6><p>某些情况下，在经过if条件判断之后，要么继续执行if后面的代码，要么在if流程内退出当前操作，但该退出行为，有不少程序忘记写return、die()、或者exit()，导致程序继续执行。</p>
+<h6 id="常见支付漏洞"><a href="#常见支付漏洞" class="headerlink" title="常见支付漏洞"></a>常见支付漏洞</h6><p>最常见支付漏洞有四种，第1、2、3种比较简单，分别是客户端可修改单价、总价和购买数量，服务器端未严格校验导致。部分商城程序是直接由单价和数量计算总价，但并没有验证这两个数字是否小于0。这种形式的支付漏洞，可以通过寻找支付代码并看代码过滤情况挖掘。<br>还有一种是以重复发包来利用时间差，少量钱多次购买，如使用手机给腾讯发送购买QQ业务的短信再快速取消。这类漏洞可从判断余额及扣费功能代码处寻找。</p>
+<h5 id="漏洞防范-6"><a href="#漏洞防范-6" class="headerlink" title="漏洞防范"></a>漏洞防范</h5><ol>
+<li>深入熟悉业务逻辑。</li>
+<li>多熟悉函数的功能和差异。</li>
+</ol>
+<h4 id="会话认证漏洞"><a href="#会话认证漏洞" class="headerlink" title="会话认证漏洞"></a>会话认证漏洞</h4><h5 id="挖掘经验-11"><a href="#挖掘经验-11" class="headerlink" title="挖掘经验"></a>挖掘经验</h5><p>在cookie验证上出现几率较高，通常是没有使用session认证，而是将用户信息直接保存在cookie中，以备程序使用时直接调用。一般这个过程都会有一个统一的函数去调用数据，容易导致SQL注入和越权等漏洞。在挖掘登录认证漏洞时，可以先看程序的登录功能代码，看整个登录过程的业务逻辑有没有可以控制session值或直接绕过密码验证的漏洞；另外需要关注程序验证是否为登录的代码，通俗的说是验证cookie的代码，是不是直接取cookie的值，然后如何判断这个值来验证是否登录。</p>
+<h6 id="cookie认证安全"><a href="#cookie认证安全" class="headerlink" title="cookie认证安全"></a>cookie认证安全</h6><p>cookie可以保存任何字符串，各个浏览器保存cookie字节数大小不一样，一般不超过4096个字节，通常用于保存登录帐号的标识信息。cookie出现问题较多的是cookie的SQL注入等常见漏洞，以及web应用程序在服务端直接读取cookie值来操作当前用户数据，由于cookie可以伪造，从而导致伪造用户身份登录的漏洞。</p>
+<h5 id="漏洞防范-7"><a href="#漏洞防范-7" class="headerlink" title="漏洞防范"></a>漏洞防范</h5><p>了解认证的业务逻辑，严格限制输入的异常字符以及避免直接使用客户端提交的内容进行操作。应该结合cookie和session，不能直接从cookie获取参数值进行操作，另外注意设置session时，需要保证客户端不能操作敏感session参数。特别注意敏感数据不要放在cookie中，cookie在浏览器端以及传输过程中都有被窃取的可能性。</p>
+<h3 id="二次漏洞审计"><a href="#二次漏洞审计" class="headerlink" title="二次漏洞审计"></a>二次漏洞审计</h3><h4 id="什么是二次漏洞"><a href="#什么是二次漏洞" class="headerlink" title="什么是二次漏洞"></a>什么是二次漏洞</h4><p>需要先构造好利用代码写入网站保存，在第二次或多次请求后调用攻击代码触发或修改配置触发的漏洞叫做二次漏洞。该漏洞的出现归根结底是开发者在可信数据的逻辑上考虑不全面。</p>
+<h4 id="二次漏洞审计技巧"><a href="#二次漏洞审计技巧" class="headerlink" title="二次漏洞审计技巧"></a>二次漏洞审计技巧</h4><p>虽然二次漏洞写入和触发payload很可能不在同一个地方，但还是可以通过找相关关键字去定位的，只是精准度会稍微降低。大多数二次漏洞的逻辑性比一般的漏洞强的多，所以最好还是把全部代码读一遍，更好的了解业务逻辑和全局配置。<br>业务逻辑越复杂的地方越容易出现二次漏洞，我们可以重点关注购物车、订单、引用数据、文章编辑、草稿等和数据库交互的地方，以及和文件系统交互的系统配置文件（一般需要管理员权限才能操作）。<br>在二次漏洞类型里，可以重点关注SQL注入、XSS。</p>
+<h3 id="代码审计小技巧"><a href="#代码审计小技巧" class="headerlink" title="代码审计小技巧"></a>代码审计小技巧</h3><h4 id="钻GPC等转义的空子"><a href="#钻GPC等转义的空子" class="headerlink" title="钻GPC等转义的空子"></a>钻GPC等转义的空子</h4><p>GPC会自动把提交内容的敏感字符转义导致攻击代码无法执行，但还是存在漏洞：</p>
+<h5 id="SERVER变量"><a href="#SERVER变量" class="headerlink" title="$_SERVER变量"></a>$_SERVER变量</h5><p>在PHP5后，用$_SERVER取到的header字段不受GPC影响，且普通程序员很少会考虑到这些字段。header注入里常见的是user-agent、referer以及client-ip/x-forward-for，因为大多数Web应用都会记录访问者的IP以及referer等信息，同样的$_FILES变量也不受GPC保护。</p>
+<h5 id="编码转换问题"><a href="#编码转换问题" class="headerlink" title="编码转换问题"></a>编码转换问题</h5><p>宽字节注入就是一种非常典型的编码转换问题导致绕过GPC的方式。不仅是PHP与MySQL交互过程中会发生编码转换导致问题，PHP自带的编码转换函数也会发生问题，比如mb_convert_encoding()、iconv()，也就是只要发生编码转换就有可能会出现问题。</p>
+<h4 id="神奇的字符串"><a href="#神奇的字符串" class="headerlink" title="神奇的字符串"></a>神奇的字符串</h4><h5 id="字符处理函数报错信息泄漏"><a href="#字符处理函数报错信息泄漏" class="headerlink" title="字符处理函数报错信息泄漏"></a>字符处理函数报错信息泄漏</h5><p>页面的报错信息通常能泄漏文件绝对路径、代码、变量及函数等信息，页面报错有很多情况，但不是所有情况页面都会出现错误信息，显示错误信息需要在PHP配置文件中打开并设置等级。<br>大多数错误提示会显示文件路径，可以获取Web路径。由于用户提交数据在后端大多是以字符串方式处理，所以利用字符串处理函数报错成了必不可少的方法，对于利用参数来报错的方式，给函数传入不同类型的变量是最实用的方式。</p>
+<h5 id="字符串截断"><a href="#字符串截断" class="headerlink" title="字符串截断"></a>字符串截断</h5><p>截断利用最多的是在文件操作上面，通常用来利用文件包含漏洞和文件上传漏洞，<code>%00</code>即NULL会被GPC和addslashes()过滤掉，所以利用<code>%00</code>截断需要GPC关闭以及不被addslashes()函数过滤，另外PHP5.3之后也不能用这种方式截断。</p>
+<ol>
+<li>iconv字符编码转换截断：如从UTF-8转换到GBK，部分代码不能被成功转换（chr(128)-chr(255)之间），在利用该函数转码时，遇到不能处理的字符串时后续字符串不会被处理。</li>
+</ol>
+<h4 id="php-输入输出流"><a href="#php-输入输出流" class="headerlink" title="php://输入输出流"></a>php://输入输出流</h4><h4 id="PHP代码解析标签"><a href="#PHP代码解析标签" class="headerlink" title="PHP代码解析标签"></a>PHP代码解析标签</h4><ol>
+<li>最标准的<?php?></li>
+<li>脚本标签：<script language="php"></script>，可以正常解析PHP代码</li>
+<li>短标签：<?...?>，使用短标签需要在php.ini中设置short_open_tag=on，默认为on状态。</li>
+<li>asp标签&lt;%…%&gt;，在PHP3.0.4后可用，需要在php.ini中设置asp_tags=on，默认为off。<br>通常用于绕过<?php?>标签过滤以留后门及绕过Web程序或waf写入webshell。</li>
+</ol>
+<h4 id="fuzz漏洞发现"><a href="#fuzz漏洞发现" class="headerlink" title="fuzz漏洞发现"></a>fuzz漏洞发现</h4><h4 id="不严谨的正则表达式"><a href="#不严谨的正则表达式" class="headerlink" title="不严谨的正则表达式"></a>不严谨的正则表达式</h4><ol>
+<li>没有用<code>^</code>和<code>$</code>限定匹配开始位置</li>
+<li>特殊字符未转义，匹配特殊字符的原字符时需要使用反斜杠<code>\</code>来进行转义，不然<code>.</code>则可以用来表示任何字符，存在安全隐患。</li>
+</ol>
+<h4 id="十余种MySQL报错注入"><a href="#十余种MySQL报错注入" class="headerlink" title="十余种MySQL报错注入"></a>十余种MySQL报错注入</h4><p>利用报错注入最快拿到注入的数据。</p>
+<ol>
+<li>floor():<code>id=1 and (select 1 from (select count(*),concat(user(),floor(rand(0)*2))x from information_schema.tables group by x)a)</code></li>
+<li>extractvalue():<code>id=1 and (extractvalue(1, concat(0x5c, (select user()))))</code></li>
+<li>updatexml():<code>id=1 AND (updatexml(1,concat(0x5e24,(select user()),0x5e24),1))</code></li>
+<li>GeometryCollection():<code>id=1 AND GeometryCollection((select * from(select * from(select user())a)b))</code></li>
+<li>polygon():<code>id=1 AND polygon((select * from(select * from(select user())a)b))</code></li>
+<li>multipoint():<code>id=1 AND multipoint((select * from(select * from(select user())a)b))</code></li>
+<li>multilinestring():<code>id=1 AND multilinestring((select * from(select * from(select user())a)b))</code></li>
+<li>multipolygon():<code>id=1 AND multipolygon((select * from(select * from(select user())a)b))</code></li>
+<li>linestring():<code>id=1 AND linestring((select * from(select * from(select user())a)b))</code></li>
+<li>exp():<code>id=1 and EXP(~(select * from(select user())a))</code></li>
+</ol>
+<h4 id="Windows-FindFirstFile"><a href="#Windows-FindFirstFile" class="headerlink" title="Windows FindFirstFile"></a>Windows FindFirstFile</h4>
             </div>
         
         <footer class="article-footer">
@@ -707,7 +761,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">
-            <time datetime="2021-07-15T21:44:14.000Z" itemprop="datePublished">2021-07-15</time>
+            <time datetime="2021-07-15T21:44:14.000Z" itemprop="datePublished">2021-07-16</time>
         </a>
     </div>
 
@@ -895,7 +949,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Web-cache-posioning/">
-            <time datetime="2021-06-21T01:27:26.000Z" itemprop="datePublished">2021-06-20</time>
+            <time datetime="2021-06-21T01:27:26.000Z" itemprop="datePublished">2021-06-21</time>
         </a>
     </div>
 
@@ -1051,7 +1105,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/Bugbounty-tools/">
-            <time datetime="2021-05-27T19:20:19.000Z" itemprop="datePublished">2021-05-27</time>
+            <time datetime="2021-05-27T19:20:19.000Z" itemprop="datePublished">2021-05-28</time>
         </a>
     </div>
 
@@ -1400,7 +1454,7 @@
     <div class="article-date">
         <i class="fa fa-calendar"></i>
         <a href="/wiki/WP-Bugku-Web/">
-            <time datetime="2021-05-08T03:43:54.000Z" itemprop="datePublished">2021-05-07</time>
+            <time datetime="2021-05-08T03:43:54.000Z" itemprop="datePublished">2021-05-08</time>
         </a>
     </div>
 
