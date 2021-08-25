@@ -24,3 +24,4 @@ bugku info：https://ctf.bugku.com/user/info/id/14330.html （证明我真的见
 喜欢的事物：符合逻辑的推理/2D脑力游戏/智商惊艳的角色/好玩有趣的技术/硬核科幻
 
 博客应该会主要用来整理学习笔记和构建自己的知识库吧，这也是为什么会选择wikitten的原因， wiki格式很合我心意。分类方式沿用了之前工作中构建知识库的模式，刚好解决了wikitten的排序问题。
+P.S.觉得左侧categories的序号看起来很奇怪？那是因为它还没有完全填充好，目录规划可参照该git项目hexo分支内cyber security categories文件。

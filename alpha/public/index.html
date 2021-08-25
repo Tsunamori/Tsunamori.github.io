@@ -724,7 +724,106 @@
 <li>linestring():<code>id=1 AND linestring((select * from(select * from(select user())a)b))</code></li>
 <li>exp():<code>id=1 and EXP(~(select * from(select user())a))</code></li>
 </ol>
-<h4 id="Windows-FindFirstFile"><a href="#Windows-FindFirstFile" class="headerlink" title="Windows FindFirstFile"></a>Windows FindFirstFile</h4>
+<h4 id="Windows-FindFirstFile"><a href="#Windows-FindFirstFile" class="headerlink" title="Windows FindFirstFile"></a>Windows FindFirstFile</h4><p>目前大多数程序会对上传文件名加密，这样我们就无法直接得到上传webshell文件路径，但在windows下时，我们只需要知道文件所在目录，利用win特性就可以访问文件，因为win在搜索文件时使用了FindFirstFile这一个winapi函数去一个文件夹（包括子文件夹）去搜索指定文件。<br>利用方法很简单，只需要将文件名不可知部分之后的字符用<code>&lt;</code>或<code>&gt;</code>代替即可，不过要注意，只使用一个<code>&lt;</code>或<code>&gt;</code>则只能代表一个字符，如果文件名是12345或更长，请求<code>1&lt;</code>或<code>1&gt;</code>都访问不到文件，需要<code>1&lt;&lt;</code>才能访问到，代表继续往下搜索，有点像win的短文件名。<br>目前所有PHP版本都可用，PHP并没有在语言层面禁止使用<code>&lt;&gt;</code>这些特殊字符，从函数层面来讲，可以利用这个特性的函数有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">include() include_once() require() require_once()</span><br><span class="line">fopen() ziparchive::open()</span><br><span class="line">copy()</span><br><span class="line">file_get_contents() parse_ini_file() readfile()</span><br><span class="line">file_put_contents()</span><br><span class="line">mkdir()</span><br><span class="line">tempnam() touch()</span><br><span class="line">move_uploaded_file()</span><br><span class="line">opendir() readdir() rewinddir() closedir()</span><br></pre></td></tr></table></figure>
+
+<h4 id="PHP可变变量"><a href="#PHP可变变量" class="headerlink" title="PHP可变变量"></a>PHP可变变量</h4><p>部分PHP应用在写配置文件或使用preg_replace()函数第二个参数赋值变量时，会用到双引号来代表string类型给变量赋值，存在代码执行漏洞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$a&#x3D;&quot;$&#123;@phpinfo()&#125;&quot;;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+<p>注意，上述代码中的<code>@</code>是必须存在的，不然代码无法执行，但除了该符号外还有其它写法，只要不影响PHP规范就可以执行，举例：</p>
+<ol>
+<li>花括号内第一个字符为空格：<code>$a = &quot;$&#123; phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为TAB：<code>$a = &quot;$&#123;  phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为注释符：<code>$a = &quot;$&#123;/**/phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为回车换行符：<code>$a = &quot;$&#123; phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为加号：<code>$a = &quot;$&#123;+phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为减号：<code>$a = &quot;$&#123;-phpinfo()&#125;&quot;;</code></li>
+<li>花括号内第一个字符为感叹号：<code>$a = &quot;$&#123;!phpinfo()&#125;&quot;;</code><br>除此之外还有一些如<code>~</code>、<code>\</code>等。</li>
+</ol>
+<h2 id="PHP安全编程规范"><a href="#PHP安全编程规范" class="headerlink" title="PHP安全编程规范"></a>PHP安全编程规范</h2><h3 id="参数的安全过滤"><a href="#参数的安全过滤" class="headerlink" title="参数的安全过滤"></a>参数的安全过滤</h3><h4 id="第三方过滤函数与类"><a href="#第三方过滤函数与类" class="headerlink" title="第三方过滤函数与类"></a>第三方过滤函数与类</h4><p>目前大多数程序都有一个统一的参数过滤入口，但对于特定场景和漏洞就不够好用。所以除了总入口，在具体功能点也需要进行过滤。</p>
+<h4 id="内置过滤函数"><a href="#内置过滤函数" class="headerlink" title="内置过滤函数"></a>内置过滤函数</h4><ol>
+<li>SQL注入过滤函数：有addslashes()、mysql_real_escape_string()以及mysql_escape_string()，作用都是给字符串添加反斜杠<code>\</code>来转义掉单引号、双引号、反斜杠以及空字符NULL。addslashes()和mysql_escape_string()都是直接在敏感字符串前加反斜杠，可能会存在宽字节注入绕过的问题，而mysql_real_escape_string()会考虑当前连接数据库的字符集编码，更加安全。</li>
+<li>XSS过滤函数：有htmlspecialchars()和strip_tags()，功能不同，htmlspecialchars作用是将字符串中的特殊字符转换成HTML实体编码，能够干掉大多数的XSS攻击。strip_tags则是用来去掉HTML及PHP标记。</li>
+<li>命令执行过滤函数：有escapeshellcmd()和escapeshellarg()两个函数，escapeshellcmd过滤的字符为下方代码框所示，win下过滤方式则是在这些字符前面加了<code>^</code>符号，linux下则是在这些字符前加了反斜杠。escapeshellarg函数过滤较简单，给所有参数加上一对双引号，强制为字符串。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp;,;,&#96;,|,*,?,~,&lt;,&gt;,^,(,),[,],&#123;,&#125;,$,\,\x0A,\xFF,% 以及单双引号</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="使用安全的加密算法"><a href="#使用安全的加密算法" class="headerlink" title="使用安全的加密算法"></a>使用安全的加密算法</h3><ol>
+<li>对称加密：算法安全性比较高，数据的实际安全性取决于密钥的管理。所以不建议使用对称加密对用户密码进行加密存储。</li>
+<li>非对称加密：安全性比对称加密更好。</li>
+<li>单向加密：不可逆算法，常见如MD系列和sha1，通常用于保存密码和做数字签名，但存在碰撞的问题。</li>
+</ol>
+<h3 id="业务功能安全设计"><a href="#业务功能安全设计" class="headerlink" title="业务功能安全设计"></a>业务功能安全设计</h3><h4 id="验证码"><a href="#验证码" class="headerlink" title="验证码"></a>验证码</h4><h5 id="验证码绕过"><a href="#验证码绕过" class="headerlink" title="验证码绕过"></a>验证码绕过</h5><ol>
+<li>不刷新直接绕过：后端接收一次请求后并没有主动刷新验证码，将验证码和session绑定在一起，为了保证验证码正常使用，会把验证码明文或加密后放在Cookie或POST数据包里，所以每次只要同一个数据包里的两个验证码对应即可绕过。（重复发包利用？）</li>
+<li>暴力破解：验证码能够被爆破，主要是程序没有设置验证码错误次数和超时设定，导致能够不断尝试。</li>
+<li>机器识别：利用机器识别验证码。</li>
+<li>打码平台：人工打码绕过。</li>
+</ol>
+<h6 id="对策"><a href="#对策" class="headerlink" title="对策"></a>对策</h6><ol>
+<li>设置验证码错误次数（最重要）。</li>
+<li>不把验证码放在HTML页面或cookie中。</li>
+<li>验证码设置只能请求一次，请求一次后不管错误与否都在后端程序强制刷新。</li>
+<li>短信或邮件验证码必须要6位以上字母和数字混合，图片或语音验证码需要加强混淆干扰。（短信验证码这条似乎在当前不适用，多数厂商选择限制短时间同IP发包等，但不增加验证码复杂度）</li>
+<li>验证码要动态生成，不能统一生成多次调用。</li>
+</ol>
+<h5 id="验证码资源滥用"><a href="#验证码资源滥用" class="headerlink" title="验证码资源滥用"></a>验证码资源滥用</h5><p>利用大量网站短信验证码未限制获取验证码次数和时间间隔的接口，实现短信/邮箱轰炸。防护比较简单，限制单个手机号在一个时间段内请求接收短信的次数，或限制某一IP在一个时间段内请求接收短信的次数。</p>
+<h4 id="用户登录"><a href="#用户登录" class="headerlink" title="用户登录"></a>用户登录</h4><h5 id="撞库登录"><a href="#撞库登录" class="headerlink" title="撞库登录"></a>撞库登录</h5><p>指登录口没有做登录次数限制，导致可以使用不同的用户及密码不断进行登录尝试，遍历用户密码。撞库漏洞情况有：</p>
+<ol>
+<li>用户名和密码错误次数都无限制。</li>
+<li>单时间段内用户密码错误次数限制。（可以使用单密码和用户名列表撞库）</li>
+<li>单时间段内IP登录错误次数限制。（存在误杀内网用户的可能）<br>比较好的解决方案是使用登录验证码和多因素认证。</li>
+</ol>
+<h5 id="API登录"><a href="#API登录" class="headerlink" title="API登录"></a>API登录</h5><p>免重新登录跳转处存在漏洞，如修改用户参数实现任意登录。对于这种漏洞注意以下安全点：</p>
+<ol>
+<li>登录密钥（clientkey）需要不可预测且不固定，生成key的算法中加入随机字符。</li>
+<li>API接口禁止搜索引擎收录。</li>
+<li>登录密钥当次绑定当前主机，换机器不可用，防止木马和嗅探。</li>
+</ol>
+<h4 id="用户注册"><a href="#用户注册" class="headerlink" title="用户注册"></a>用户注册</h4><ol>
+<li>设计验证码。</li>
+<li>采集用户机器唯一识别码，拦截短时间内多次注册。</li>
+<li>根据帐号格式自学习识别垃圾帐号。</li>
+<li>防止SQL注入漏洞与XSS漏洞（常见）。</li>
+</ol>
+<h4 id="密码找回"><a href="#密码找回" class="headerlink" title="密码找回"></a>密码找回</h4><ol>
+<li>输入用户名/邮箱/手机阶段：抓包修改手机/邮箱参数。</li>
+<li>填写验证码和新密码阶段：<ul>
+<li>验证凭证简单，可以被暴力破解。</li>
+<li>验证凭证算法简单，凭证可以被预测。</li>
+<li>验证凭证直接保存在源码里。</li>
+</ul>
+</li>
+<li>发送新密码阶段：<br>凭证未绑定用户：请求发送至邮箱的找回密码链接时，后端根据uid和key对应判断该链接有效，但将新密码提交到服务器时，服务器端没有判断当前key是否和uid或邮箱匹配，直接修改掉uid或邮箱指定的用户密码。这样只要拦截修改密码的请求包，篡改用户参数即可。所以安全风险点应该注意的有：<ul>
+<li>接收验证码的邮箱和手机号不可由用户控制，应直接从数据库读取。</li>
+<li>加强验证凭证复杂度，防止被暴力破解。</li>
+<li>限制验证凭证错误次数，单用户在一定时间内验证码错误一定次数，强制等待一段时间。</li>
+<li>验证凭证设置失效时间。</li>
+<li>验证凭证不要保存在页面。</li>
+<li>输入用户邮箱或ID、手机号取验证凭证的地方需要设置验证码防止短信炸弹和批量找回等。</li>
+<li>验证凭证跟用户名、用户ID、用户邮箱绑定，找回密码时验证当前凭证是否是当前用户的。</li>
+</ul>
+</li>
+</ol>
+<h4 id="资料查看和修改"><a href="#资料查看和修改" class="headerlink" title="资料查看和修改"></a>资料查看和修改</h4><p>这里主要介绍的是越权漏洞的利用。</p>
+<ol>
+<li>未验证用户权限：直接修改当前资源ID即可访问该资源，没有验证当前资源是否属于当前用户。</li>
+<li>未验证当前登录用户：虽然程序绑定了用户ID和资源ID，但该用户ID是访问资源时直接从cookie或post、get参数里获取，所以可以通过修改成另一用户ID，利用其权限操作资源。<br>上述漏洞较多出现在用户资料修改，及用户资料查看。<br>防御思路有：</li>
+<li>用户资源ID（订单ID、地址ID等）绑定到用户，只允许有权限的用户查看。</li>
+<li>当前用户信息存储到session，不放在request中，避免攻击者修改。</li>
+</ol>
+<h4 id="投票-积分-抽奖"><a href="#投票-积分-抽奖" class="headerlink" title="投票/积分/抽奖"></a>投票/积分/抽奖</h4><p>共同点：<code>单个用户次数存在限制</code>，该限制存在很多绕过方式。<br>通常有几种利用方法：</p>
+<ol>
+<li>cookie或POST请求正文绕过。修改cookie或post请求数据产生绕过。</li>
+<li>基于IP验证。看程序获取IP的方式，如果是client-ip或x_forward_for获取IP，可直接伪造IP绕过。</li>
+<li>基于用户认证。利用批量注册刷票，或在投票时随意修改POST包或cookie里的当前uid、用户名等查看是否能够绕过限制。<br>从上述利用手段可以看到主要三个点是IP、登录用户、cookie，可用性比较高的防御手段如下：</li>
+<li>机器识别码验证。</li>
+<li>操作需要登录，当前用户信息从session读取。</li>
+</ol>
+<h4 id="充值支付"><a href="#充值支付" class="headerlink" title="充值支付"></a>充值支付</h4><p>主要有四种情况：客户端可修改单价、总价和购买数量以及利用时间差多次购买。<br>主要应对手法是：</p>
+<ol>
+<li>保证数据可信，商品单价和总价不可从客户端获取。</li>
+<li>购买数量不能小于等于0。</li>
+<li>账户支付锁定机制，当一个支付操作开始就应该立马锁定当前用户，不能同时两个后端请求对余额进行操作。</li>
+</ol>
+<h4 id="私信及反馈"><a href="#私信及反馈" class="headerlink" title="私信及反馈"></a>私信及反馈</h4><p>除去特殊情况下可以滤去的SQL注入或命令执行等少见漏洞外，最常见的就是XSS漏洞以及越权漏洞。</p>
+
             </div>
         
         <footer class="article-footer">
