@@ -104,3 +104,25 @@ int __cdecl main(int argc, const char **argv, const char **envp)
         }, 0);
     }
 ```
+
+#### 逆向入门
+* 对我来说算是复健题，新学一个小技巧，把图片格式的信息直接输入chrome搜索栏可以生成图片。
+
+#### love
+* shift+F12 通过字符串找关键词定位位置->在该位置调伪代码
+```
+sub_41132F("please enter the flag:", v7);
+sub_411375("%20s", (char)Str);
+v3 = j_strlen(Str);
+v4 = (const char *)sub_4110BE(Str, v3, v14);
+strncpy(Destination, v4, 0x28u);
+v11 = j_strlen(Destination);
+for ( j = 0; j < v11; ++j )
+  Destination[j] += j;
+v5 = j_strlen(Destination);
+if ( !strncmp(Destination, Str2, v5) )
+  sub_41132F("rigth flag!\n", v8);
+else
+  sub_41132F("wrong flag!\n", v8);
+return 0;
+```

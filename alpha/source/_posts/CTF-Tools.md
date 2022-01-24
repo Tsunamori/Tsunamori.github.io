@@ -145,7 +145,12 @@ https://www.qqxiuzi.cn/bianma/wenbenjiami.php?s=yinyue
 #### IDA Pro
 1. IDA里面十六进制转字符的快捷键：R
 1. 汇编转代码：F5
+1. shift+F12 进入字符串
+1. IDA 64位无法F5查看时考虑使用IDA 32位
 #### AndroidKiller
 1. 解压包报错的解决办法：
 https://blog.csdn.net/buzul/article/details/108733151
 https://www.bilibili.com/read/cv1785046/
+
+## Misc
+1. 把图片格式的信息直接输入chrome搜索栏可以生成图片。
