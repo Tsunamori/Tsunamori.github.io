@@ -541,6 +541,7 @@
 <li>将拦截的<code>响应包</code>内容从fail改为success可以实现验证码绕过等（是原理清楚但从来没改过响应包的我），证明校验为前端校验。</li>
 <li>Activity劫持（涉及安卓端命令调用了，目测是比较冷门可挖的）。</li>
 <li>LaunchAnyWhere （<a target="_blank" rel="external nofollow noopener noreferrer" href="https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/%EF%BC%89">https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/）</a></li>
+<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包，目前未知。）。</li>
 </ol>
 <h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><ol>
 <li>发送请求参数被加密时，可解包找公钥。（这怕是不太能防？还是说果然RSA/RSA2不靠谱？）</li>
@@ -557,6 +558,7 @@
 <li>抓包改发送的邮件内容搞钓鱼（有意思的思路）。</li>
 <li>HTTP请求走私（看来还是该多打CTF）</li>
 <li>ip/a/b 会强制跳转到登录口，但ip/a/c不会，则使用ip/a/c/../b绕过跳转。访问xx.jsp会强制转到访问aa.jsp，访问aa.jsp/../../(../多个)/xx.jsp实现绕过过滤。</li>
+<li>查询参数留空，可能会出现一次性相应所有查询内容的问题。（遇到过几次，和同事讨论过，大概是因为留空自动从where里排除了，导致全量查询。算是平时比较难去想到和测试的点。）</li>
 </ol>
 <h2 id="IOT"><a href="#IOT" class="headerlink" title="IOT"></a>IOT</h2><ol>
 <li>MQTT协议越权/未授权</li>
@@ -1801,7 +1803,7 @@
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            Tsunamori &copy; 2021 
+            Tsunamori &copy; 2022 
             <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
             <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
             

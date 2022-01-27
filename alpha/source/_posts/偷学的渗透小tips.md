@@ -33,6 +33,7 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. 将拦截的`响应包`内容从fail改为success可以实现验证码绕过等（是原理清楚但从来没改过响应包的我），证明校验为前端校验。
 1. Activity劫持（涉及安卓端命令调用了，目测是比较冷门可挖的）。
 1. LaunchAnyWhere （https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/）
+1. (这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包，目前未知。）。
 
 ## 小程序
 1. 发送请求参数被加密时，可解包找公钥。（这怕是不太能防？还是说果然RSA/RSA2不靠谱？）
