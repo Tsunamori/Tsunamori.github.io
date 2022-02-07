@@ -17,7 +17,7 @@
 <meta property="og:description" content="(人菜就要多偷学) 简单套路 当请求为数据更新操作（添加、删除、修改等），且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF&#x2F;XSRF攻击（burp自动生成payload） 上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 12345&lt;html&gt;    &lt;body&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-06T01:40:18.000Z">
-<meta property="article:modified_time" content="2022-01-27T08:10:36.353Z">
+<meta property="article:modified_time" content="2022-02-07T02:26:30.811Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="Summary">
 <meta name="twitter:card" content="summary">
@@ -568,6 +568,7 @@
 <li>HTTP请求走私（看来还是该多打CTF）</li>
 <li>ip/a/b 会强制跳转到登录口，但ip/a/c不会，则使用ip/a/c/../b绕过跳转。访问xx.jsp会强制转到访问aa.jsp，访问aa.jsp/../../(../多个)/xx.jsp实现绕过过滤。</li>
 <li>查询参数留空，可能会出现一次性相应所有查询内容的问题。（遇到过几次，和同事讨论过，大概是因为留空自动从where里排除了，导致全量查询。算是平时比较难去想到和测试的点。）</li>
+<li>LDAP 未授权访问 （相比于危害来说，利用未免太过轻松。。。）</li>
 </ol>
 <h2 id="IOT"><a href="#IOT" class="headerlink" title="IOT"></a>IOT</h2><ol>
 <li>MQTT协议越权/未授权</li>
