@@ -23,7 +23,7 @@ JavaScript是动态的，本身不提供一个 `class` 的实现。即便是在 
 1. 浅析javascript原型链污染攻击 https://xz.aliyun.com/t/7182
 1. 再探 JavaScript 原型链污染到 RCE https://xz.aliyun.com/t/7025
 
-知识点解说和题解还是得先看1，p神太帅了。3是一个RCE拓展，（就是预判太跳跃了，大佬太快我跟不上QAQ），值得一读。
+知识点解说和题解还是得先看1，p神太帅了。3是一个RCE拓展，（就是预判太跳跃了，大佬太快我跟不上QAQ）。
 
 关于p神举的js污染样例，我自己又写了一下，实际上得到的是这样的：
 ```
@@ -35,11 +35,6 @@ JavaScript是动态的，本身不提供一个 `class` 的实现。即便是在 
 	<prototype>: {…}
 ​​		b: 2
 ​​		<prototype>: Object { … }
-
->> o2.__proto__
-< {…}
-	b: 2
-	<prototype>: Object { … }
 ```
 
 也就是说，o2的__proto__实际上并没能赋上值，而是赋值给了o2的prototype，所以导致o3被赋值null后无法继承b。
@@ -55,4 +50,4 @@ JavaScript是动态的，本身不提供一个 `class` 的实现。即便是在 
 
 
 ```
-这个时候a2的__proto__就已经赋上值，改变了指针。
+这个时候a2的__proto__就已经赋上值，改变了指针指向。
