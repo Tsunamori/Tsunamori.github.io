@@ -59,6 +59,9 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. ip/a/b 会强制跳转到登录口，但ip/a/c不会，则使用ip/a/c/../b绕过跳转。访问xx.jsp会强制转到访问aa.jsp，访问aa.jsp/../../(../多个)/xx.jsp实现绕过过滤。
 1. 查询参数留空，可能会出现一次性相应所有查询内容的问题。（遇到过几次，和同事讨论过，大概是因为留空自动从where里排除了，导致全量查询。算是平时比较难去想到和测试的点。）
 1. LDAP 未授权访问 （相比于危害来说，利用未免太过轻松。。。）
+1. HOST碰撞（利用难度低，危害高，技术较新）
+1. API接口服务漏洞，关键词wsdl
+
 
 ## IOT
 1. MQTT协议越权/未授权
@@ -83,3 +86,5 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. reverse-sourcemap 还原jsmap （可以用curl命令对付不能直接下载的js.map文件）
 1. wxappUnpacker
 1. 微信小程序加解密脚本：http://82.156.16.24/index.php/2021/05/26/4.html
+1. HOST碰撞 https://github.com/fofapro/Hosts_scan
+1. fiddler（虽然不是脚本工具但是有看到某个大佬用这个抓包，可能有特别之处）
