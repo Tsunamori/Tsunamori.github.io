@@ -61,6 +61,7 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. LDAP 未授权访问 （相比于危害来说，利用未免太过轻松。。。）
 1. HOST碰撞（利用难度低，危害高，技术较新）
 1. API接口服务漏洞，关键词wsdl
+1. 分块传输 bypass waf/ waf缓冲区溢出
 
 
 ## IOT
