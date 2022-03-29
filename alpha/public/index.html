@@ -791,7 +791,10 @@
 <li>将拦截的<code>响应包</code>内容从fail改为success可以实现验证码绕过等（是原理清楚但从来没改过响应包的我），证明校验为前端校验。</li>
 <li>Activity劫持（涉及安卓端命令调用了，目测是比较冷门可挖的）。</li>
 <li>LaunchAnyWhere （<a target="_blank" rel="external nofollow noopener noreferrer" href="https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/%EF%BC%89">https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/）</a></li>
-<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包，目前未知。）。</li>
+<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包）。<ol>
+<li>确认有效的绕过办法1：VirtualXposed + JustTrustMe，已验证可绕过防抓包加固，使用VirtualXposed是否可以绕过防root加固，目前没有样本，暂时未知。</li>
+</ol>
+</li>
 <li>以下是奇怪的root后替换人脸数据的工具：<ol>
 <li>Magisk <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a></li>
 <li>Riru <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/RikkaApps/Riru">https://github.com/RikkaApps/Riru</a></li>

@@ -17,7 +17,7 @@
 <meta property="og:description" content="(人菜就要多学习) 简单套路 当请求为数据更新操作（添加、删除、修改等），且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF&#x2F;XSRF攻击（burp自动生成payload） 上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 12345&lt;html&gt;    &lt;body&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-06T01:40:18.000Z">
-<meta property="article:modified_time" content="2022-03-21T02:27:25.995Z">
+<meta property="article:modified_time" content="2022-03-29T07:43:23.996Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="Summary">
 <meta name="twitter:card" content="summary">
@@ -550,7 +550,10 @@
 <li>将拦截的<code>响应包</code>内容从fail改为success可以实现验证码绕过等（是原理清楚但从来没改过响应包的我），证明校验为前端校验。</li>
 <li>Activity劫持（涉及安卓端命令调用了，目测是比较冷门可挖的）。</li>
 <li>LaunchAnyWhere （<a target="_blank" rel="external nofollow noopener noreferrer" href="https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/%EF%BC%89">https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/）</a></li>
-<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包，目前未知。）。</li>
+<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包）。<ol>
+<li>确认有效的绕过办法1：VirtualXposed + JustTrustMe，已验证可绕过防抓包加固，使用VirtualXposed是否可以绕过防root加固，目前没有样本，暂时未知。</li>
+</ol>
+</li>
 <li>以下是奇怪的root后替换人脸数据的工具：<ol>
 <li>Magisk <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a></li>
 <li>Riru <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/RikkaApps/Riru">https://github.com/RikkaApps/Riru</a></li>
