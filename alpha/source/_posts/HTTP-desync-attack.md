@@ -1,5 +1,5 @@
 ---
-title: HTTP desync attack
+title: HTTP不同步攻击
 toc: true
 date: 2021-04-14 14:00:45
 tags: Summary

@@ -1,5 +1,5 @@
 ---
-title: Rate limit
+title: 频率限制
 toc: true
 date: 2021-04-14 14:15:19
 tags: Summary

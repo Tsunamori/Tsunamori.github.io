@@ -1,5 +1,5 @@
 ---
-title: Misconfigurations
+title: 配置错误
 toc: true
 date: 2021-04-14 14:10:28
 tags: Summary

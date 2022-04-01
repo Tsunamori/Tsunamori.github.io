@@ -1,5 +1,5 @@
 ---
-title: MFA bypass
+title: 多因素验证绕过
 toc: true
 date: 2021-04-14 14:09:50
 tags: Summary

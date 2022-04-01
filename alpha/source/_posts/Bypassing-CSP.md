@@ -1,9 +1,9 @@
 ---
-title: Bypassing CSP
+title: 内容安全策略绕过
 toc: true
 date: 2021-04-14 11:41:53
 tags: Summary
-categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
+categories: [100 Cyber security, 110 Bug bounty, 112 Ideas, 绕过]
 ---
 
 1.  CSP (Content Security Policy) bypass

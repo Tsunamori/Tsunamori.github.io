@@ -1,5 +1,5 @@
 ---
-title: Broken auth and session management
+title: 未闭环的认证session管理
 toc: true
 date: 2021-04-14 11:35:41
 tags: Summary

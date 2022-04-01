@@ -1,5 +1,5 @@
 ---
-title: Open redirection
+title: 重定向
 toc: true
 date: 2021-04-14 14:12:51
 tags: Summary

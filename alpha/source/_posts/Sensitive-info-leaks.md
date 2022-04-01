@@ -1,10 +1,12 @@
 ---
-title: Sensitive info leaks
+title: 敏感信息泄漏
 toc: true
 date: 2021-04-14 14:42:34
 tags: Summary
-categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
+categories: [100 Cyber security, 110 Bug bounty, 112 Ideas, 信息收集]
 ---
+
+# Recon 
 
 ## Github recon
 
@@ -126,3 +128,9 @@ https://kathan19.gitbook.io/howtohunt/sensitive-info-leaks/github_dorks_all
 `http.html_hash:-628873716 “set-cookie: webvpn;”`
 1. CVE CVE-2019-11510
 `http.html:/dana-na/`
+
+## 图片地理信息泄漏
+
+1. EXIF geo data not stripped (sensitive info leaked)
+    * tools
+      http://exif.regex.info/exif.cgi

@@ -1,5 +1,5 @@
 ---
-title: Password reset functionality
+title: 密码重置
 toc: true
 date: 2021-04-14 14:14:26
 tags: Summary

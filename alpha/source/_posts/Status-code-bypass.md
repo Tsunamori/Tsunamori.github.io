@@ -1,5 +1,5 @@
 ---
-title: Status code bypass
+title: 状态码绕过
 toc: true
 date: 2021-04-14 15:23:23
 tags: Summary

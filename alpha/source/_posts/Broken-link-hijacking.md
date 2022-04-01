@@ -1,5 +1,5 @@
 ---
-title: Broken-link hijacking
+title: 空链接劫持
 toc: true
 date: 2021-04-14 11:23:22
 tags: Summary
