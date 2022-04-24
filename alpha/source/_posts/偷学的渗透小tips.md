@@ -68,6 +68,10 @@ categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
 1. HOST碰撞（利用难度低，危害高，技术较新）
 1. API接口服务漏洞，关键词wsdl
 1. 分块传输 bypass waf/ waf缓冲区溢出
+1. dirsearch与burp的简单联动，利用burp的upstream proxy来获取目标目录（跟联动xray的办法差不多，这个联动方式我还找了好久，明明这么简单，为什么没找到太多文章呢）
+    ```
+    python3 dirsearch.py -u http://whateveraa.test -w $HOME/Desktop/pentest/SecLists/Discovery/Web-Content/merged-no-duplicates.txt -e php -x 301,400,403 --proxy http://127.0.0.1:8080
+    ```
 
 
 ## IOT
