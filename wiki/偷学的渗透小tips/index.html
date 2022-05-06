@@ -17,7 +17,7 @@
 <meta property="og:description" content="(人菜就要多学习) 简单套路 当请求为数据更新操作（添加、删除、修改等），且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF&#x2F;XSRF攻击（burp自动生成payload） 上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 12345&lt;html&gt;    &lt;body&gt;">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-12-06T01:40:18.000Z">
-<meta property="article:modified_time" content="2022-04-24T06:13:59.836Z">
+<meta property="article:modified_time" content="2022-05-06T02:58:01.561Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="Summary">
 <meta name="twitter:card" content="summary">
@@ -618,7 +618,7 @@
 <li>HOST碰撞（利用难度低，危害高，技术较新）</li>
 <li>API接口服务漏洞，关键词wsdl</li>
 <li>分块传输 bypass waf/ waf缓冲区溢出</li>
-<li>dirsearch与burp的简单联动，利用burp的upstream proxy来获取目标目录（跟联动xray的办法差不多，这个联动方式我还找了好久，明明这么简单，为什么没找到太多文章呢） <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http:&#x2F;&#x2F;whateveraa.test -w $HOME&#x2F;Desktop&#x2F;pentest&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;merged-no-duplicates.txt -e php -x 301,400,403 --proxy http:&#x2F;&#x2F;127.0.0.1:8080</span><br></pre></td></tr></table></figure></li>
+<li>dirsearch与burp的简单联动，利用burp的proxy发送请求。但经过与dirsearch作者的讨论，目前dirsearch并不能支持与burp很紧密的联动（指从burp实时获取扫描目录等），有见过导出burp目录给dirsearch做扫描的插件，但与我理想中的实时扫描二级/多级目录下敏感目录的功能不太相符。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http:&#x2F;&#x2F;whateveraa.test -w $HOME&#x2F;Desktop&#x2F;pentest&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;merged-no-duplicates.txt -e php -x 301,400,403 --proxy http:&#x2F;&#x2F;127.0.0.1:8080</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="IOT"><a href="#IOT" class="headerlink" title="IOT"></a>IOT</h2><ol>
 <li>MQTT协议越权/未授权</li>
