@@ -930,7 +930,7 @@
 <li>HOST碰撞（利用难度低，危害高，技术较新）</li>
 <li>API接口服务漏洞，关键词wsdl</li>
 <li>分块传输 bypass waf/ waf缓冲区溢出</li>
-<li>dirsearch与burp的简单联动，利用burp的upstream proxy来获取目标目录（跟联动xray的办法差不多，这个联动方式我还找了好久，明明这么简单，为什么没找到太多文章呢） <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http:&#x2F;&#x2F;whateveraa.test -w $HOME&#x2F;Desktop&#x2F;pentest&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;merged-no-duplicates.txt -e php -x 301,400,403 --proxy http:&#x2F;&#x2F;127.0.0.1:8080</span><br></pre></td></tr></table></figure></li>
+<li>dirsearch与burp的简单联动，利用burp的proxy发送请求。但经过与dirsearch作者的讨论，目前dirsearch并不能支持与burp很紧密的联动（指从burp实时获取扫描目录等），有见过导出burp目录给dirsearch做扫描的插件，但与我理想中的实时扫描二级/多级目录下敏感目录的功能不太相符。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http:&#x2F;&#x2F;whateveraa.test -w $HOME&#x2F;Desktop&#x2F;pentest&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;merged-no-duplicates.txt -e php -x 301,400,403 --proxy http:&#x2F;&#x2F;127.0.0.1:8080</span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="IOT"><a href="#IOT" class="headerlink" title="IOT"></a>IOT</h2><ol>
 <li>MQTT协议越权/未授权</li>
