@@ -3,21 +3,21 @@
 <head>
     <meta charset="utf-8">
     
-    <title>About | Tsunamori&#39;s blog</title>
+    <title>在kali上安装clash/V2raya的教程 | Tsunamori&#39;s blog</title>
     
     
-        <meta name="keywords" content="About">
+        <meta name="keywords" content="在kali上安装clash/V2raya的教程">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="关于我自己如你所见，这是个简单的个人介绍。 常用ID Tsunamori，也可能简化为Tsu，名字灵感来自于常守朱（Akane Tsunemori）和飓风（tsunami）。起步缓慢型选手，但每天都在朝着目标努力中。 拥有一大只可可爱爱细心温柔又努力勤奋的开发男朋友 相对擅长的方向： Web渗透&#x2F;机器学习&#x2F;插件开发专业以外的特长： 流利的英语口语&#x2F;为爱发电同人写手&#x2F;推理小能手&#x2F;曾经的云顶之弈宗师分">
-<meta property="og:type" content="website">
-<meta property="og:title" content="About">
-<meta property="og:url" content="https://tsunamori.github.io/about/index.html">
+    <meta name="description" content="19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。 然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。 先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在kali上安装clash&#x2F;V2raya的教程">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/index.html">
 <meta property="og:site_name" content="Tsunamori&#39;s blog">
-<meta property="og:description" content="关于我自己如你所见，这是个简单的个人介绍。 常用ID Tsunamori，也可能简化为Tsu，名字灵感来自于常守朱（Akane Tsunemori）和飓风（tsunami）。起步缓慢型选手，但每天都在朝着目标努力中。 拥有一大只可可爱爱细心温柔又努力勤奋的开发男朋友 相对擅长的方向： Web渗透&#x2F;机器学习&#x2F;插件开发专业以外的特长： 流利的英语口语&#x2F;为爱发电同人写手&#x2F;推理小能手&#x2F;曾经的云顶之弈宗师分">
+<meta property="og:description" content="19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。 然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。 先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-05-06T02:53:36.565Z">
-<meta property="article:modified_time" content="2022-05-06T02:53:36.565Z">
+<meta property="article:published_time" content="2022-09-23T07:33:04.000Z">
+<meta property="article:modified_time" content="2022-09-23T07:48:18.569Z">
 <meta property="article:author" content="Tsunamori">
 <meta name="twitter:card" content="summary">
     
@@ -415,13 +415,13 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             600 随便叨叨
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/">现阶段对blog的规划思考</a></li>  <li class="file"><a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">在kali上安装clash/V2raya的教程</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/">现阶段对blog的规划思考</a></li>  <li class="file active"><a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">在kali上安装clash/V2raya的教程</a></li>  </ul> 
                     </li> 
                      </ul> 
     </div>
@@ -503,16 +503,50 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="page-" class="article article-type-page" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-kali的VPN代理软件选择" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
             <header class="article-header">
                 
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/600-%E9%9A%8F%E4%BE%BF%E5%8F%A8%E5%8F%A8/">600 随便叨叨</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">
+            <time datetime="2022-09-23T07:33:04.000Z" itemprop="datePublished">2022-09-23</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/kali的VPN代理软件选择.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/kali的VPN代理软件选择.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/kali的VPN代理软件选择.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
                 
     
         <h1 class="article-title" itemprop="name">
-            About
+            在kali上安装clash/V2raya的教程
         </h1>
     
 
@@ -523,24 +557,42 @@
         
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    
+                </div>
+            
         
         
-            <h1 id="关于我自己"><a href="#关于我自己" class="headerlink" title="关于我自己"></a>关于我自己</h1><p>如你所见，这是个简单的个人介绍。</p>
-<p>常用ID Tsunamori，也可能简化为Tsu，名字灵感来自于常守朱（Akane Tsunemori）和飓风（tsunami）。<br>起步缓慢型选手，但每天都在朝着目标努力中。</p>
-<p><em>拥有一大只可可爱爱细心温柔又努力勤奋的开发男朋友</em></p>
-<p>相对擅长的方向： Web渗透/机器学习/插件开发<br>专业以外的特长： 流利的英语口语/为爱发电同人写手/推理小能手/曾经的云顶之弈宗师分段选手<br>想要拓展的方向： pwn/AI security/代码审计/OSCP</p>
-<p>知乎ID： VIVZC (在知乎发过的文章不会在博客重复，反之也不会，除非被小管家gank)<br>GitHub ID: Tsunamori （我只是个无情的star机器）<br>邮箱：dHN1bmFtb3JpI3Byb3Rvbm1haWwuY29t= （每日查看次数1）<br>bugku info：<a target="_blank" rel="external nofollow noopener noreferrer" href="https://ctf.bugku.com/user/info/id/14330.html">https://ctf.bugku.com/user/info/id/14330.html</a> （证明我真的见过ctf）</p>
-<p>喜欢的事物：符合逻辑的推理/2D策略游戏/智商惊艳的角色/好玩有趣的技术/硬核科幻</p>
-<p>博客应该会主要用来整理学习笔记和构建自己的知识库吧，这也是为什么会选择wikitten的原因， wiki格式很合我心意。分类方式沿用了之前工作中构建知识库的模式，刚好解决了wikitten的排序问题。<br>P.S.觉得左侧categories的序号看起来很奇怪？那是因为它还没有完全填充好，目录规划可参照该git项目hexo分支内cyber security categories文件。<br>再P.S.，虽然本博客开了RSS订阅，但由于本人总喜欢多次更新翻新内容，RSS订阅流并不那么适合于追踪本博客，敬请谅解。最合适的食用办法是，点开左侧categories，跟着感兴趣的主题浏览内容。</p>
-<h1 id="需要补一补的东西"><a href="#需要补一补的东西" class="headerlink" title="需要补一补的东西"></a>需要补一补的东西</h1><ol>
-<li>代码审计-自动化审计（攻防兼顾）</li>
-<li>安全开发（又强又难）</li>
-<li>API安全（有用）</li>
-<li>条件竞争（有用，会的人不多）</li>
-<li>URL跳转的快速发现 （是我不会测的东西）</li>
-<li>JWT挖洞</li>
-<li>HTTP请求走私+DNS缓存投毒（重点在实战应用）</li>
-</ol>
+            <p>19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。</p>
+<p>然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。</p>
+<p>先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2raya。我自己经过反复踩雷之后选择Kali虚拟机用V2raya，主机Windows用Clash。</p>
+<p>当然，Clash的win端想要开全局代理把运行Kali的虚拟机流量代理起来又是另一个很头秃的问题，毕竟Clash创造出来的本意似乎并不是服务于更好的全局代，我至今没能找到简单又完美的开局办法（也可能因为我妥协了换成V2raya for Linux）。</p>
+<p>V2ray for win可以直接全局代理搞定虚拟机，但是配置要比Clash麻烦一些。而且出于各种需求，我还是倾向于给Kali自己开代理，主机端就不需要一直开着代理用了。</p>
+<p>但从安装在Kali的体验来说，V2raya更适合像我一样，经常从github下个脚本跑的人，毕竟Clash的全局代额外使用了脚本之后在kali控制台内体验仍然不好（再次羡慕Ubuntu的网络全局配置），使用Clash的话往往需要加一条 –proxy x.x.x.x:xxx，还容易不好使。Kali虽然自带proxychains，但一个是配置起来麻烦，另一个是如果用的机场，可能需要多次的手动调整配置文件。</p>
+<p>先写Clash，V2raya在下面。</p>
+<p>Clash：</p>
+<p>下载合适的版本，我在kali2021上用的是clash-linux-amd64-v1.6.0.gz。</p>
+<p>解压<code>gzip -d clash-linux-amd64-v1.6.0.gz </code></p>
+<p>(注意修改版本号，改成你自己下载的版本)<br>给个权限<br><code>sudo chmod +x ./clash-linux-amd64-v1.6.0</code><br>，这里想把文件名简化一下也可以。（再次注意clash的文件名可能需要改动成你自己拥有的）</p>
+<p>运行<br><code>./clash-linux-amd64-v1.6.0</code><br>， 注意Clash默认每次开机后需要手动开启，也就是该命令每次开机你都需要跑一下。</p>
+<p>然后路径<br><code>/home/用户名/.config/clash</code><br>下会有自动生成的配置文件，没有.config文件的去view里打开show hidden file。（用户名是你自己设置的啊，会不一样）</p>
+<p>这里的两个配置文件要更换，如果你的XXX服务商没有提供配置文件，建议win下装个Clash，配好了再把配置文件拿过来，反正win端Clash也挺好用的，装个不亏。</p>
+<p>config.yaml：从win端路径C:\Users\用户名.config\clash\profiles拿到一个多半是<code>数字.yml</code>格式的yaml文件，改名成config.yaml，丢进/home/kali/.config/clash替换原文件。（注意这个yml和yaml的区别）</p>
+<p>Country.mmdb：从win端路径C:\Users\用户名.config\clash下拿到Country.mmdb，丢进/home/kali/.config/clash替换原文件。（Users在中文版win里面是<code>用户</code>，用户名就是你的账户名字啦）</p>
+<p>重新运行<br>./clash-linux-amd64-v1.6.0<br>（不需要sudo），打开浏览器访问<br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://clash.razord.top/#/proxies">http://clash.razord.top/#/proxies</a><br>看Clash配置，浏览器端口设置<code>HTTP:127.0.0.1:7890, SSL:127.0.0.1:7890, SOCKS_v5:127.0.0.1:7891</code>(preference-&gt;network settings,新版本似乎已经统一到127.0.0.1:7890了,socks_v5要改成7890，具体要看运行clash时候控制台显示什么)，访问外网确定能使。(运行clash的terminal不要关，关了就结束运行了)</p>
+<p>那么到这里，问题来了，目前的配置能让你的Kali浏览器访问外网，Clash的作用仅仅是帮你在127.0.0.1:7890开了一个代理通道，但除了浏览器以外的流量想要指向代理就得自己设置。这可就有名堂了，比如控制台、环境变量、apt源、npm源、docker，这些都要自行配置指向代理通道。</p>
+<p>如果是造轮子达人可以写个自定义脚本，我等渣渣还是优先找别人的轮子了，指路himanshub16/ProxyMan，一键配置（运行不需要sudo），这个脚本有一处难点，就是它原本是写给linux用，所以kali有些环境变量路径不适配，需要切换至bash让脚本自行适配环境变量再切回来，具体操作为:<br>控制台<br>exec bash<br>进入bash模式，<br>source ~/.bashrc<br>更改bashrc配置，安装ProxyMan脚本<br>./install<br>，配置生效后<br>exec zsh<br>回到zsh模式，<br>proxyman set<br>设置一键配置端口。 （这里有不会用的实在解决不了的再来问我吧，容易遇到的问题种类比较多，具体问题具体分析）</p>
+<p>但以上仅能保证脚本内提及的各种控制台、apt源、npm源等一键配置代理，其它你会用到的临时项目都要手动指向代理通道，或者自己手动添加进配置文件or脚本。（或许也有更好的解决办法但是我还是选择v2raya）</p>
+<p>V2raya：</p>
+<p>Linux版建议使用v2rayA/v2rayA，比直接上原生V2ray好使。</p>
+<p>安装方法指路官方文档，照着搞。</p>
+<p>v2raya默认开机自启动，省心省力。(注意！现在的1.5.x版本已经不支持默认开机自启动，也不支持软件源更新时自动更新版本了，具体命令去<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/v2rayA/v2rayA/issues/237">这里</a>看)</p>
+<p>访问<code>http://localhost:2017/</code>，导入你的XXX服务商生成的配置文件，记得把全局透明代理打开。</p>
+<p>设置不会改的就保持默认，我自己开了DNS防劫持(有的时候会出现一些连不上的情况，如果排除是订阅源的问题，我会重新开关一下DNS防劫持)。</p>
+<p>总结：写的很稀碎并不保姆，累了（划掉）</p>
+<p>之所以大费周张地写了很多Clash内容，只是因为相对来说Clash for Kali的教程还是很少，官方文档也是云里雾里，而且也基本没人提新版本的Kali网络配置没有了全局代理，要么能打开谷歌就算胜利，要么旧版Kali教程来回搬运。偶尔有提到Clash for Linux的，也是打开配置文件挨个手动更改配置代理，这很不cool。</p>
+<p>虽然我仍然推荐V2rayA，但或许会有人有一天用的上这些内容。</p>
 
             </div>
         
@@ -551,6 +603,16 @@
 
 
     
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">现阶段对blog的规划思考</div>
+        </a>
+    
+</nav>
+
 
 
 
