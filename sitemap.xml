@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</loc>
+    
+    <lastmod>2023-01-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/</loc>
+    
+    <lastmod>2023-01-29</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://tsunamori.github.io/wiki/CTF-Tools/</loc>
+    
+    <lastmod>2023-01-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tsunamori.github.io/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/</loc>
     
     <lastmod>2023-01-29</lastmod>
@@ -17,13 +38,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/</loc>
-    
-    <lastmod>2023-01-29</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/</loc>
     
     <lastmod>2023-01-29</lastmod>
     
@@ -205,13 +219,6 @@
   </url>
   
   <url>
-    <loc>https://tsunamori.github.io/wiki/CTF-Tools/</loc>
-    
-    <lastmod>2023-01-29</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/wiki/Notes_HowToHunt-md/</loc>
     
     <lastmod>2023-01-29</lastmod>
@@ -220,13 +227,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/File-upload-bypass_%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0/</loc>
-    
-    <lastmod>2023-01-29</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</loc>
     
     <lastmod>2023-01-29</lastmod>
     
@@ -356,20 +356,6 @@
 
   
   <url>
-    <loc>https://tsunamori.github.io/categories/100-Cyber-security/</loc>
-    <lastmod>2023-01-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/categories/100-Cyber-security/120-CTF/</loc>
-    <lastmod>2023-01-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/categories/600-%E9%9A%8F%E4%BE%BF%E5%8F%A8%E5%8F%A8/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>daily</changefreq>
@@ -482,21 +468,7 @@
   </url>
   
   <url>
-    <loc>https://tsunamori.github.io/categories/110-Web-security/</loc>
-    <lastmod>2023-01-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://tsunamori.github.io/categories/100-Web-security/140-Code-review-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
-    <lastmod>2023-01-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/categories/110-Web-security/140-Code-review-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc>
     <lastmod>2023-01-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
