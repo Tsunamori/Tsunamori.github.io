@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2022-09-23T07:48:18.569Z</updated>
+  <updated>2023-01-29T07:56:21.362Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>blog重构啦！</title>
+    <link href="https://tsunamori.github.io/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/"/>
+    <id>https://tsunamori.github.io/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/</id>
+    <published>2023-01-29T07:12:35.000Z</published>
+    <updated>2023-01-29T07:56:21.362Z</updated>
+    
+    <content type="html"><![CDATA[<p>Hello everybody!</p><p>趁着开工不太忙，我把手里的各种笔记整理了一下，准备整合成一个知识库。同样，也重新审视了一下现有的内容，做了一些调整。</p><p>之所以很长一段时间没有更新blog，主要是因为一部分笔记没有脱敏处理就没放上来，其次就是某些特定主题的内容，被我直接做成了一个git项目放在了主页。</p><p>我思考了一下我对这个博客的定位，决定把它做成一个更加偏向内容产出的地方，可能会看到的有我做的Write up、一些综合性的总结、一些进行中的思考、一些经验性的东西，不只是安全相关。（这么一想可能今后还得不断重构目录以容纳新方向的东西）</p><p>大量且主题专一包括很多素材收录的内容，大概率还是会放在我的github上作为单一的项目出现（eg: <a href="https://github.com/Tsunamori/AI-drawing-prompts%EF%BC%89">https://github.com/Tsunamori/AI-drawing-prompts）</a></p><p>啊顺便说一下22年的一些总结吧。</p><p>工作上我自己最喜欢的部分是做了一些风险收敛的研究，写了一些非常落地的风险收敛解决方案。这些内容让我很惊讶的发现了甲方安全运营角度和乙方攻击视角的不同，安全运营最头疼的其实不是‘如何修复漏洞’，而是‘当前修复方案在实际情况中存在一些不对等/无法实现时，如何平衡成本、是否需要修改缓解措施、如何缓解处理效果更好’+‘如何更好更具有性价比的在全部资产上收敛风险’。</p><p>在技术上的提升，主要是作为红队实施了一些攻防项目，OSCP虽然没考过但确实学到了很多东西。（啊短时间之内应该不会再考了吧</p><p>说到OSCP，在ddl的高压之下，也<del>被迫</del>阅读了不少关于自我提升主题的书籍，实际地应用了一些技巧和思路；尝试了很多个todo APP，终于找到了目前我比较喜欢的一个；尝试了很多种记笔记的方式以及应用，目前也算是找到了最舒适的应用，配置了非常多自定义插件和快捷键调整。</p><p>再来说关于23年的。。。展望？</p><p>技术上主要方向会是做一些云安全的了解，从攻击技术拓展到安全运营。另外也会看一些数据安全的内容，总之目的都是做安全运营。（这一部分的素材收录大概会放在项目 <a href="https://github.com/Tsunamori/security-learning-schedule">https://github.com/Tsunamori/security-learning-schedule</a> 里）</p><p>除去以上，休闲时间应该会养成并保持定期打HTB的习惯，算是一些复健活动并且<del>我真的非常想过OSCP</del>。</p><p>再休闲一些的活动就是读书啦，微信读书22年读了10本，今年目前已经读完2本了，超越去年记录指日可待。以及22年底开始从中图网买纸质书，会放在床头睡前读一段，比较助眠。</p><p>游戏的话，steam打折买的巫师3还没动，今年还有王国之泪要玩。</p><p>就是这样啦，新年快乐！</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;Hello everybody!&lt;/p&gt;
+&lt;p&gt;趁着开工不太忙，我把手里的各种笔记整理了一下，准备整合成一个知识库。同样，也重新审视了一下现有的内容，做了一些调整。&lt;/p&gt;
+&lt;p&gt;之所以很长一段时间没有更新blog，主要是因为一部分笔记没有脱敏处理就没放上来，其次就是某些特</summary>
+      
+    
+    
+    
+    <category term="600 随便叨叨" scheme="https://tsunamori.github.io/categories/600-%E9%9A%8F%E4%BE%BF%E5%8F%A8%E5%8F%A8/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>在kali上安装clash/V2raya的教程</title>
@@ -539,35 +563,6 @@
       
     <summary type="html">&lt;h3 id=&quot;手注流程&quot;&gt;&lt;a href=&quot;#手注流程&quot; class=&quot;headerlink&quot; title=&quot;手注流程&quot;&gt;&lt;/a&gt;手注流程&lt;/h3&gt;&lt;ol&gt;
 &lt;li&gt;&lt;p&gt;页面里有一个POST表单，测试会不会有注入漏洞&lt;br&gt; POST里&lt;br&gt; id=1’和id=1’#&lt;br</summary>
-      
-    
-    
-    
-    <category term="100 Web security" scheme="https://tsunamori.github.io/categories/100-Web-security/"/>
-    
-    <category term="120 CTF" scheme="https://tsunamori.github.io/categories/100-Web-security/120-CTF/"/>
-    
-    <category term="121 Web" scheme="https://tsunamori.github.io/categories/100-Web-security/120-CTF/121-Web/"/>
-    
-    
-    <category term="CTF" scheme="https://tsunamori.github.io/tags/CTF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CTF MD5</title>
-    <link href="https://tsunamori.github.io/wiki/CTF_MD5/"/>
-    <id>https://tsunamori.github.io/wiki/CTF_MD5/</id>
-    <published>2021-04-25T10:30:06.000Z</published>
-    <updated>2023-01-29T07:00:49.194Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="MD5-函数数组绕过"><a href="#MD5-函数数组绕过" class="headerlink" title="MD5()函数数组绕过"></a>MD5()函数数组绕过</h4><ol><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?</span><br><span class="line"></span><br><span class="line">include_once “flag.php”;</span><br><span class="line">ini_set(“display_errors”, 0);</span><br><span class="line">$str &#x3D; strstr($_SERVER[‘REQUEST_URI’], ‘?’);&#x2F;&#x2F;返回$_SERVER[‘REQUEST_URI’]内从‘?’后开始的值。</span><br><span class="line">$str &#x3D; substr($str,1);</span><br><span class="line">$str &#x3D; str_replace(‘key’,”,$str);</span><br><span class="line">parse_str($str);</span><br><span class="line">echo md5($key1);</span><br><span class="line"></span><br><span class="line">echo md5($key2);</span><br><span class="line">if(md5($key1) &#x3D;&#x3D; md5($key2) &amp;&amp; $key1 !&#x3D;&#x3D; $key2)&#123;</span><br><span class="line">echo $flag.”取得flag”;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>绕过方法：</li></ol><ul><li> 对key关键词的过滤可以用kekeyy绕过，从而传递key1&amp;key2进行比较。</li><li> md5()函数无法处理数组，如果传入的为数组，会返回NULL，所以两个数组经过加密后得到的都是NULL,也就是相等的。</li><li> 利用==比较漏洞,如果两个字符经MD5加密后的值为 0exxxxx形式，就会被认为是科学计数法，且表示的是0*10的xxxx次方，还是零，都是相等的。下列的字符串的MD5值都是0e开头的：<br><code>QNKCDZO</code><br><code>240610708</code><br><code>s878926199a</code><br><code>s155964671a</code><br><code>s214587387a</code><br><code>s214587387a</code></li></ul><p><code>sha1(str)</code><br><code>sha1(&#39;aaroZmOk&#39;)</code><br><code>sha1(&#39;aaK1STfY&#39;)</code><br><code>sha1(&#39;aaO8zKZF&#39;)</code><br><code>sha1(&#39;aa3OFF9m&#39;)</code></p><p>ref: <a href="https://blog.csdn.net/zpy1998zpy/article/details/80582974">https://blog.csdn.net/zpy1998zpy/article/details/80582974</a></p><h4 id="MD5碰撞严格比较（非弱类型绕过）"><a href="#MD5碰撞严格比较（非弱类型绕过）" class="headerlink" title="MD5碰撞严格比较（非弱类型绕过）"></a>MD5碰撞严格比较（非弱类型绕过）</h4><p>构造前缀碰撞法”（chosen-prefix collisions）<br><a href="https://xz.aliyun.com/t/2232">https://xz.aliyun.com/t/2232</a></p><h4 id="SHA1绕过（-弱类型）"><a href="#SHA1绕过（-弱类型）" class="headerlink" title="SHA1绕过（==弱类型）"></a>SHA1绕过（==弱类型）</h4><p>和MD5弱类型一样，可以用数组绕过。</p><h4 id="SHA1强类型绕过"><a href="#SHA1强类型绕过" class="headerlink" title="SHA1强类型绕过"></a>SHA1强类型绕过</h4><p><code>sha1(str)</code><br><code>sha1(&#39;aaroZmOk&#39;)</code><br><code>sha1(&#39;aaK1STfY&#39;)</code><br><code>sha1(&#39;aaO8zKZF&#39;)</code><br><code>sha1(&#39;aa3OFF9m&#39;)</code></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4 id=&quot;MD5-函数数组绕过&quot;&gt;&lt;a href=&quot;#MD5-函数数组绕过&quot; class=&quot;headerlink&quot; title=&quot;MD5()函数数组绕过&quot;&gt;&lt;/a&gt;MD5()函数数组绕过&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;&lt;figure class=&quot;highlight plain</summary>
       
     
     
