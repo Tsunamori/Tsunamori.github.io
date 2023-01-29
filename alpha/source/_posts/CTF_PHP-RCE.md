@@ -3,7 +3,7 @@ title: CTF PHP-RCE
 toc: true
 date: 2021-04-20 16:22:46
 tags: CTF
-categories: [100 Cyber security, 120 CTF, 121 Web]
+categories: [100 Web security, 120 CTF, 121 Web]
 ---
 
 ### 文件包含

@@ -2,8 +2,8 @@
 title: 0 to 1 the road of CTFer 第一章 Web入门
 toc: true
 date: 2021-04-26 13:49:07
-tags: Notes
-categories: [100 Cyber security, 110 Bug bounty, 119 Notes]
+tags: Notes, CTF
+categories: [100 Web security, 120 CTF, 129 Notes]
 ---
 
 # 第一章 Web入门

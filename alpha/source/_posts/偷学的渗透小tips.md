@@ -3,7 +3,7 @@ title: 偶然学到的渗透小tips
 toc: true
 date: 2021-12-05 19:40:18
 tags: Summary
-categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
+categories: [100 Web security, 110 Bug bounty, 111 Ideas/WP]
 ---
 
 (人菜就要多学习)

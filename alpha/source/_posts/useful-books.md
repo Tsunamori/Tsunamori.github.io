@@ -3,7 +3,7 @@ title: useful sources
 toc: true
 date: 2021-04-15 09:56:37
 tags: Books
-categories: [100 Cyber security]
+categories: [100 Web security]
 ---
 
 
@@ -11,3 +11,4 @@ categories: [100 Cyber security]
 1. CTF-wiki https://ctf-wiki.org/
 1. https://3wapp.github.io/WebSecurity
 1. http://www.securityidiots.com/index.html
+2. https://github.com/KathanP19/HowToHunt

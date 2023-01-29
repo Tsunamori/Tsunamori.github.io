@@ -1,37 +1,27 @@
-100 Cyber security
+100 Web security
 	110 bug bounty
-		111 intro
-		112 ideas
+		111 ideas/WP
 		113 tools
 		114 platforms
-		# 115 news
-		# 116 writeups
-		# 117 certs
-
-		119 notes
+		119 Notes
 	120 CTF
 		121 Web
-		122 PWN
-		123 Reverse
-		124 Crypto
-		125 Mobile
-		126 Misc
-		127 Blockchain
-		128 IoT
-		129 ICS
-	130 POC
-	140 code review/代码审计
-	150 practices
-	160 projects
-
-200 AI security
-300 hardware security
-
+		122 Crypto
+		123 Misc
+		129 Notes
+	130 OSCP
+		131 HTB
+	140 Code review/代码审计
+		149 Notes
+200 Cloud security
+300 PWN/Reverse
+	310 ?
+	320 CTF
+		311 PWN
+		312 Reverse
+		313 Mobile
 400 ICS security
-	410 Electric power system 
-
 500 IoT security
 	510 Automotive security
-
 600 随便叨叨
 700 随便记记

@@ -2,8 +2,8 @@
 title: CTF_Tools
 toc: true
 date: 2021-04-23 16:48:56
-tags: Tools
-categories: [100 Cyber security, 120 CTF]
+tags: Tools, CTF
+categories: [100 Web security, 120 CTF]
 ---
 
 ### 综合

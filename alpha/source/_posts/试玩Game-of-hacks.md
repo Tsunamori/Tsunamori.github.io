@@ -3,7 +3,7 @@ title: Game of hacks 试玩
 toc: true
 date: 2021-07-15 16:44:14
 tags: 靶场
-categories: [100 Cyber security, 140 Practices]
+categories: [100 Web security, 140 Code review/代码审计]
 ---
 
 ### 前言

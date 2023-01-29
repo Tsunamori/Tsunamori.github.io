@@ -3,7 +3,7 @@ title: 错题wp集
 toc: true
 date: 2021-04-22 14:57:37
 tags: CTF
-categories: [100 Cyber security, 120 CTF, 121 Web ]
+categories: [100 Web security, 120 CTF]
 ---
 
 

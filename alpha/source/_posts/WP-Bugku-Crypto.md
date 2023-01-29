@@ -3,7 +3,7 @@ title: WP-Bugku-Crypto
 toc: true
 date: 2021-05-17 17:02:34
 tags: [CTF, WriteUp]
-categories: [100 Cyber security, 120 CTF, 124 Crypto ]
+categories: [100 Web security, 120 CTF, 122 Crypto ]
 ---
 
 #### /.-

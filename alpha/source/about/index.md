@@ -12,14 +12,13 @@ layout: "page"
 
 *拥有一大只可可爱爱细心温柔又努力勤奋的开发男朋友*
 
-相对擅长的方向： Web渗透/机器学习/插件开发
-专业以外的特长： 流利的英语口语/为爱发电同人写手/推理小能手/曾经的云顶之弈宗师分段选手
-想要拓展的方向： pwn/AI security/代码审计/OSCP
+相对擅长的方向： SDL安全及风险收敛解决方案/Web渗透/红队攻击
+专业以外的特长： 流利的英语口语/推理爱好者/曾经的云顶之弈宗师分段选手
+正在拓展的方向： 云安全/数据安全/安全运营体系建设
 
-知乎ID： VIVZC (在知乎发过的文章不会在博客重复，反之也不会，除非被小管家gank)
+知乎ID： VIVZC 
 GitHub ID: Tsunamori （我只是个无情的star机器）
-邮箱：dHN1bmFtb3JpI3Byb3Rvbm1haWwuY29t= （每日查看次数1）
-bugku info：https://ctf.bugku.com/user/info/id/14330.html （证明我真的见过ctf）
+邮箱：tsunamori#protonmail.com （每日查看次数1）
 
 喜欢的事物：符合逻辑的推理/2D策略游戏/智商惊艳的角色/好玩有趣的技术/硬核科幻
 
@@ -27,13 +26,3 @@ bugku info：https://ctf.bugku.com/user/info/id/14330.html （证明我真的见
 P.S.觉得左侧categories的序号看起来很奇怪？那是因为它还没有完全填充好，目录规划可参照该git项目hexo分支内cyber security categories文件。
 再P.S.，虽然本博客开了RSS订阅，但由于本人总喜欢多次更新翻新内容，RSS订阅流并不那么适合于追踪本博客，敬请谅解。最合适的食用办法是，点开左侧categories，跟着感兴趣的主题浏览内容。
 
-
-# 需要补一补的东西
-
-1. 代码审计-自动化审计（攻防兼顾）
-1. 安全开发（又强又难）
-1. API安全（有用）
-1. 条件竞争（有用，会的人不多）
-1. URL跳转的快速发现 （是我不会测的东西）
-1. JWT挖洞
-1. HTTP请求走私+DNS缓存投毒（重点在实战应用）

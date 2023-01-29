@@ -3,7 +3,7 @@ title: XSS
 toc: true
 date: 2021-04-14 16:13:55
 tags: Summary
-categories: [100 Cyber security, 110 Bug bounty, 112 Ideas]
+categories: [100 Web security, 110 Bug bounty, 111 Ideas/WP]
 ---
 
 1. XSS https://kathan19.gitbook.io/howtohunt/xss/xss

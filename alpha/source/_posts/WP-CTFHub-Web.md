@@ -1,9 +1,9 @@
 ---
-title: CTF MD5
+title: CTFHub web
 toc: true
 date: 2022-02-08 10:30:06
-tags: CTF
-categories: [100 Cyber security, 120 CTF, 121 Web ]
+tags: [CTF, WriteUp]
+categories: [100 Web security, 120 CTF, 121 Web ]
 ---
 
 ## 2020

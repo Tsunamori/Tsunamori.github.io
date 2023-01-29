@@ -2,7 +2,7 @@
 title: Notes for HowToHunt.md
 toc: true
 date: 2021-04-08 16:05:57
-categories: [100 Cyber security, 110 Bug bounty, 119 Notes]
+categories: [100 Web security, 110 Bug bounty, 119 Notes]
 tag: Notes
 ---
 

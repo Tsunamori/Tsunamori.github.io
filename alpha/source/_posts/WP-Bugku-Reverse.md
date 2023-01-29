@@ -3,7 +3,7 @@ title: WP-Bugku-Reverse
 toc: true
 date: 2021-06-24 14:44:06
 tags: [CTF, WriteUp]
-categories: [100 Cyber security, 120 CTF, 123 Reverse ]
+categories: [300 PWN/Reverse, 320 CTF, 312 Reverse ]
 ---
 
 #### 入门逆向

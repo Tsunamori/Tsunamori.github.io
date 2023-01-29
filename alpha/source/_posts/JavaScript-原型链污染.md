@@ -3,7 +3,7 @@ title: JavaScript-原型链污染
 toc: true
 date: 2022-02-8 17:58:21
 tags: Summary
-categories: [100 Cyber security, 120 CTF, 121 Web ]
+categories: [100 Web security, 120 CTF, 121 Web ]
 ---
 
 # 简单的背景介绍

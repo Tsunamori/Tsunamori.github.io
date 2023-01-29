@@ -3,7 +3,7 @@ title: CTF SQLI
 toc: true
 date: 2021-04-25 17:12:07
 tags: CTF
-categories: [100 Cyber security, 120 CTF, 121 Web ]
+categories: [100 Web security, 120 CTF, 121 Web ]
 ---
 
 ### 手注流程

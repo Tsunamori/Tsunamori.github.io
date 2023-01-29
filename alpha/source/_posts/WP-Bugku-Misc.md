@@ -3,7 +3,7 @@ title: WP-Bugku-Misc
 toc: true
 date: 2021-06-17 15:04:40
 tags: [CTF, WriteUp]
-categories: [100 Cyber security, 120 CTF, 126 Misc ]
+categories: [100 Web security, 120 CTF, 123 Misc ]
 ---
 
 #### 社工-进阶收集

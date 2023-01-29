@@ -3,7 +3,7 @@ title: 代码审计 企业级web代码安全结构
 toc: true
 date: 2021-07-17 10:05:28
 tags: Notes
-categories: [100 Cyber security, 140 Code review 代码审计, 149 Notes]
+categories: [100 Web security, 140 Code review/代码审计]
 ---
 
 苦于代码审计能力偏弱，调研一番发现这本书或许有所帮助。
