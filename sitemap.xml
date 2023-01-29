@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://tsunamori.github.io/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/</loc>
+    
+    <lastmod>2023-01-29</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://tsunamori.github.io/wiki/CTF_%E9%94%99%E9%A2%98%E9%9B%86/</loc>
     
     <lastmod>2023-01-29</lastmod>
@@ -17,13 +24,6 @@
   
   <url>
     <loc>https://tsunamori.github.io/wiki/CTF-Tools/</loc>
-    
-    <lastmod>2023-01-29</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://tsunamori.github.io/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/</loc>
     
     <lastmod>2023-01-29</lastmod>
     
