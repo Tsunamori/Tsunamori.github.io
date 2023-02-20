@@ -2,8 +2,8 @@
 title: 偶然学到的渗透小tips
 toc: true
 date: 2021-12-05 19:40:18
-tags: Summary
-categories: [100 Web security, 110 Bug bounty, 111 Ideas/WP]
+tags: 渗透测试
+categories: [学习笔记]
 ---
 
 (人菜就要多学习)

@@ -2,8 +2,8 @@
 title: 在kali上安装clash/V2raya的教程
 toc: true
 date: 2022-09-23 02:33:04
-tags:
-categories: [600 随便叨叨]
+tags: 踩坑
+categories: [踩坑记录]
 ---
 
 19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。

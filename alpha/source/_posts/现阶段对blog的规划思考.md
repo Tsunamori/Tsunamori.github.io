@@ -2,8 +2,8 @@
 title: 现阶段对blog的规划思考
 toc: true
 date: 2022-04-01 02:44:05
-tags:
-categories: [600 随便叨叨]
+tags: 随便叨叨
+categories: [其它笔记]
 ---
 
 难得有时间，想整理一下现在的东西。

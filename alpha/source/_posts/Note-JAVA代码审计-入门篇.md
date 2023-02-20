@@ -2,8 +2,8 @@
 title: note_JAVA代码审计-入门篇
 toc: true
 date: 2021-09-22 09:47:07
-tags:
-categories: [100 Cyber security, 140 Code review 代码审计, 149 Notes]
+tags: 代码审计
+categories: [读书笔记]
 ---
 
 ## 第1章 初识JAVA代码审计
