@@ -3,22 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Categories | Tsunamori&#39;s blog</title>
+    <title>note_JAVA代码审计-入门篇 | Tsunamori&#39;s blog</title>
     
     
-        <meta name="keywords" content="Categories">
+        <meta name="keywords" content="代码审计">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="test1test2">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Categories">
-<meta property="og:url" content="https://tsunamori.github.io/categories/index.html">
+    <meta name="description" content="第1章 初识JAVA代码审计第2章 代码审计环境搭建 使用环境：JAVA JDK、Docker、Vulhub、IntelliJ IDEA(远程调试)、VMware、Maven  第3章 代码审计辅助工具简介 代码编辑器：Sublime、IDEA、Eclipse 测试工具：Burp Suite、SwitchyOmega、Max HackerBar、Postman、Postwoman、Tamper D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="note_JAVA代码审计-入门篇">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/index.html">
 <meta property="og:site_name" content="Tsunamori&#39;s blog">
-<meta property="og:description" content="test1test2">
+<meta property="og:description" content="第1章 初识JAVA代码审计第2章 代码审计环境搭建 使用环境：JAVA JDK、Docker、Vulhub、IntelliJ IDEA(远程调试)、VMware、Maven  第3章 代码审计辅助工具简介 代码编辑器：Sublime、IDEA、Eclipse 测试工具：Burp Suite、SwitchyOmega、Max HackerBar、Postman、Postwoman、Tamper D">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-09-06T07:54:07.093Z">
-<meta property="article:modified_time" content="2021-06-17T14:43:08.365Z">
+<meta property="article:published_time" content="2021-09-22T09:47:07.000Z">
+<meta property="article:modified_time" content="2023-02-20T06:36:06.537Z">
 <meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="代码审计">
 <meta name="twitter:card" content="summary">
     
 
@@ -253,13 +254,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">Game of hacks 试玩</a></li>  <li class="file"><a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/">偶然学到的渗透小tips</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             读书笔记
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes_HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer_1/">0 to 1 the road of CTFer 第一章 Web入门</a></li>  <li class="file"><a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">代码审计 企业级web代码安全结构</a></li>  <li class="file"><a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">note_JAVA代码审计-入门篇</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes_HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer_1/">0 to 1 the road of CTFer 第一章 Web入门</a></li>  <li class="file"><a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">代码审计 企业级web代码安全结构</a></li>  <li class="file active"><a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">note_JAVA代码审计-入门篇</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -350,16 +351,155 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><section class="layout-wrap">
-    <div class="layout-title">
-        <span>Categories</span>
-    </div>
-    <div class="layout-wrap-inner list-categories">
+            <section id="main"><article id="post-Note-JAVA代码审计-入门篇" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%85%B6%E5%AE%83%E7%AC%94%E8%AE%B0/">其它笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a><span class="category-list-count">2</span></li></ul>
         
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a>
     </div>
-</section></section>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" rel="tag">代码审计</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">
+            <time datetime="2021-09-22T09:47:07.000Z" itemprop="datePublished">2021-09-22</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/Note-JAVA代码审计-入门篇.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/Note-JAVA代码审计-入门篇.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/Note-JAVA代码审计-入门篇.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            note_JAVA代码审计-入门篇
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC1%E7%AB%A0-%E5%88%9D%E8%AF%86JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1"><span class="toc-number">1.</span> <span class="toc-text">第1章 初识JAVA代码审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-number">2.</span> <span class="toc-text">第2章 代码审计环境搭建</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0-%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7%E7%AE%80%E4%BB%8B"><span class="toc-number">3.</span> <span class="toc-text">第3章 代码审计辅助工具简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-EE%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">4.</span> <span class="toc-text">Java EE基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-EE"><span class="toc-number">4.1.</span> <span class="toc-text">Java EE</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-EE%E5%B8%B8%E7%94%A8%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF"><span class="toc-number">4.1.1.</span> <span class="toc-text">Java EE常用核心技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-EE-%E5%88%86%E5%B1%82%E6%A8%A1%E5%9E%8B"><span class="toc-number">4.1.2.</span> <span class="toc-text">Java EE 分层模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC"><span class="toc-number">4.2.</span> <span class="toc-text">MVC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-MVC"><span class="toc-number">4.2.1.</span> <span class="toc-text">Java MVC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java-MVC%E6%A1%86%E6%9E%B6"><span class="toc-number">4.2.2.</span> <span class="toc-text">Java MVC框架</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Servlet"><span class="toc-number">4.3.</span> <span class="toc-text">Servlet</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="第1章-初识JAVA代码审计"><a href="#第1章-初识JAVA代码审计" class="headerlink" title="第1章 初识JAVA代码审计"></a>第1章 初识JAVA代码审计</h2><h2 id="第2章-代码审计环境搭建"><a href="#第2章-代码审计环境搭建" class="headerlink" title="第2章 代码审计环境搭建"></a>第2章 代码审计环境搭建</h2><ol>
+<li>使用环境：JAVA JDK、Docker、Vulhub、IntelliJ IDEA(远程调试)、VMware、Maven</li>
+</ol>
+<h2 id="第3章-代码审计辅助工具简介"><a href="#第3章-代码审计辅助工具简介" class="headerlink" title="第3章 代码审计辅助工具简介"></a>第3章 代码审计辅助工具简介</h2><ol>
+<li>代码编辑器：Sublime、IDEA、Eclipse</li>
+<li>测试工具：Burp Suite、SwitchyOmega、Max HackerBar、Postman、Postwoman、Tamper Data、Ysoserial、Marshalsec、MySQL监视工具、Beyond Compare</li>
+<li>反编译工具：JD-GUI、FernFLower、CFR、IntelliJ IDEA</li>
+<li>JAVA代码静态扫描工具：Fortify、VCG、FindBugs与FindSecBugs插件、SpotBugs</li>
+<li>公开漏洞查找平台：CVE、NVD、CNVD、CNNVD</li>
+</ol>
+<h2 id="Java-EE基础知识"><a href="#Java-EE基础知识" class="headerlink" title="Java EE基础知识"></a>Java EE基础知识</h2><h3 id="Java-EE"><a href="#Java-EE" class="headerlink" title="Java EE"></a>Java EE</h3><h4 id="Java-EE常用核心技术"><a href="#Java-EE常用核心技术" class="headerlink" title="Java EE常用核心技术"></a>Java EE常用核心技术</h4><ol>
+<li>Java 数据库连接 （JDBC）：用于规范客户端程序如何访问数据库的应用程序接口。</li>
+<li>Java 命名和目录接口（JNDI）：Java的一个目录服务应用程序界面（API），将服务名称和对象关联起来，从而使开发可以用名称来访问对象。</li>
+<li>企业级JavaBean（EJB）：用来构筑企业级应用的、在服务端可被管理的组件。</li>
+<li>远程方法调用（RMI）：是Java的一组用户开发分布式应用程序的API，增强Java开发分布式应用的能力。</li>
+<li>Servlet：是使用Java编写的服务端程序，狭义的Servlet指Java语言实现的一个接口，广义上指任何实现该Servlet接口的类。主要功能在于交互式地浏览和修改数据，生成动态内容。</li>
+<li>JSP（JavaServer Pages）：一种动态网页技术标准，部署在网络服务器上，可以相应用户端发送的请求，并根据请求内容动态生成HTML、XML或其他格式文档的Web网页，返回给请求者。</li>
+<li>可扩展标记语言（XML）：是被设计用于传输和存储数据的语言。</li>
+<li>Java消息服务（Java Message Service, JMS）是一个Java平台中关于面向消息中间件（MOM）的API，用于在两个应用程序之间或分布式系统中发生消息，进行异步通信。</li>
+</ol>
+<h4 id="Java-EE-分层模型"><a href="#Java-EE-分层模型" class="headerlink" title="Java EE 分层模型"></a>Java EE 分层模型</h4><ol>
+<li>Domain Object(领域对象)层：由一系列POJO（Plain Old Java Object）组成，这些对象是该系统的Domain Object，通常包含各自所需实现的业务逻辑方法。</li>
+<li>DAO(Data Access Object, 数据访问对象)层：由一系列DAO组件组成，实现对数据库创建、查询、更新、删除等操作。</li>
+<li>Service(业务逻辑)层：由一系列控制器组成，用于拦截用户请求，并调用业务逻辑组件的业务逻辑方法处理用户请求，根据处理结果向不同View组件转发。</li>
+<li>View(表现)层：由一系列页面及视图组件组成，负责收集用户请求，并显示处理后的结果。</li>
+</ol>
+<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h3><p>MVC，即为Model View Controller，三个核心部件，独自处理各自的任务。这种分离思想应用在代码审计中，以抓住关键问题。</p>
+<h4 id="Java-MVC"><a href="#Java-MVC" class="headerlink" title="Java MVC"></a>Java MVC</h4><ol>
+<li>Model：表示携带数据的对象或Java POJO，即使模型内的数据改变，它也具有逻辑来更新控制器。</li>
+<li>Controller：表示逻辑控制，它对模型和视图都有作用，控制数据流进入模型对象，并在数据更改时更新视图，是视图和模型的中间层。</li>
+<li>View：表示模型包含的数据的可视化层。<br>工作流程：控制层接收用户请求，决定调用哪个模型，模型处理用户请求并返回数据，最后由视图层将数据转化呈现给用户。MVC模式使视图层和业务层分离，比如修改View层代码时，不用重新编译Model和Controller代码。</li>
+</ol>
+<h4 id="Java-MVC框架"><a href="#Java-MVC框架" class="headerlink" title="Java MVC框架"></a>Java MVC框架</h4><ol>
+<li>Struts1</li>
+<li>Struts2</li>
+<li>Spring MVC</li>
+<li>JSF</li>
+<li>Tapestry</li>
+</ol>
+<h3 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h3>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    偶然学到的渗透小tips
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">代码审计 企业级web代码安全结构</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
         </div>
         <footer id="footer">
     <div class="outer">
