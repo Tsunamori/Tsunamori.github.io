@@ -16,15 +16,15 @@
 <meta property="og:site_name" content="Tsunamori&#39;s blog">
 <meta property="og:description" content="现状-我们为什么需要服务网格Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://github.com/Tsunamori/Tsunamori.github.io/blob/hexo/alpha/source/_posts/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_1679471507318_0.png">
-<meta property="og:image" content="https://jimmysong.io/blog/what-is-a-service-mesh/service-mesh-arch.png">
+<meta property="og:image" content="https://tsunamori.github.io/img/image_1679471507318_0.png">
+<meta property="og:image" content="https://tsunamori.github.io/img/service-mesh-arch.png">
 <meta property="article:published_time" content="2023-03-23T12:20:18.000Z">
-<meta property="article:modified_time" content="2023-03-23T12:36:04.986Z">
+<meta property="article:modified_time" content="2023-03-23T12:43:19.810Z">
 <meta property="article:author" content="Tsunamori">
 <meta property="article:tag" content="笔记">
 <meta property="article:tag" content="云原生">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/Tsunamori/Tsunamori.github.io/blob/hexo/alpha/source/_posts/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_1679471507318_0.png">
+<meta name="twitter:image" content="https://tsunamori.github.io/img/image_1679471507318_0.png">
     
 
     
@@ -421,9 +421,9 @@
             
         
         
-            <h2 id="现状-我们为什么需要服务网格"><a href="#现状-我们为什么需要服务网格" class="headerlink" title="现状-我们为什么需要服务网格"></a>现状-我们为什么需要服务网格</h2><p>Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分微服务。<br>但随着微服务 数量增多，为了解决微服务管理，避免繁琐的服务发现、监控、分布式追踪等事务，服务网格应运而生。<br>相比而言，K8S关注的是应用的生命周期，它管理的对象是资源和部署，对于服务的管控力度很小。而服务网格正好弥补了这个缺陷。服务网格可以连接、控制、观察和保护微服务。<br><img src="https://github.com/Tsunamori/Tsunamori.github.io/blob/hexo/alpha/source/_posts/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/image_1679471507318_0.png" alt="image.png"><br>从图中我们可以看到 kube-proxy 的设置是全局的，无法对每个服务进行细粒度的控制，Kubernetes 可以做的只有拓扑感知路由、将流量就近路由，为 Pod 设置进出站的网络策略。<br>而服务网格通过 Sidecar 的方式将 Kubernetes 中的流量控制从服务层中抽离出来，为每个 Pod 中注入代理，并通过一个控制平面来操控这些分布式代理。这样可以实现更大的弹性。<br>*CNI：容器网络接口。</p>
+            <h2 id="现状-我们为什么需要服务网格"><a href="#现状-我们为什么需要服务网格" class="headerlink" title="现状-我们为什么需要服务网格"></a>现状-我们为什么需要服务网格</h2><p>Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分微服务。<br>但随着微服务 数量增多，为了解决微服务管理，避免繁琐的服务发现、监控、分布式追踪等事务，服务网格应运而生。<br>相比而言，K8S关注的是应用的生命周期，它管理的对象是资源和部署，对于服务的管控力度很小。而服务网格正好弥补了这个缺陷。服务网格可以连接、控制、观察和保护微服务。<br><img src="https://tsunamori.github.io/img/image_1679471507318_0.png" alt="image.png"><br>从图中我们可以看到 kube-proxy 的设置是全局的，无法对每个服务进行细粒度的控制，Kubernetes 可以做的只有拓扑感知路由、将流量就近路由，为 Pod 设置进出站的网络策略。<br>而服务网格通过 Sidecar 的方式将 Kubernetes 中的流量控制从服务层中抽离出来，为每个 Pod 中注入代理，并通过一个控制平面来操控这些分布式代理。这样可以实现更大的弹性。<br>*CNI：容器网络接口。</p>
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="什么是Service-Mesh"><a href="#什么是Service-Mesh" class="headerlink" title="什么是Service Mesh"></a>什么是Service Mesh</h3><p>服务网格（Service Mesh）是处理服务间通信的基础设施层。它负责构成现代云原生应用程序的复杂服务拓扑来可靠地交付请求。在实践中，Service Mesh 通常以轻量级网络代理阵列的形式实现，这些代理与应用程序代码部署在一起，对应用程序来说无需感知代理的存在。</p>
-<p><img src="https://jimmysong.io/blog/what-is-a-service-mesh/service-mesh-arch.png" alt="Service Mesh 架构图"><br>Service Mesh 作为 sidecar 运行，对应用程序来说是透明，所有应用程序间的流量都会通过它，所以对应用程序流量的控制都可以在 service mesh 中实现。</p>
+<p><img src="https://tsunamori.github.io/img/service-mesh-arch.png" alt="Service Mesh 架构图"><br>Service Mesh 作为 sidecar 运行，对应用程序来说是透明，所有应用程序间的流量都会通过它，所以对应用程序流量的控制都可以在 service mesh 中实现。</p>
 <h3 id="Service-Mesh的特点"><a href="#Service-Mesh的特点" class="headerlink" title="Service Mesh的特点"></a>Service Mesh的特点</h3><p>应用程序间通信的中间层<br>轻量级网络代理<br>应用程序无感知<br>解耦应用程序的重试/超时、监控、追踪和服务发现<br>对于编写应用程序来说一般无须关心 TCP/IP 这一层（比如通过 HTTP 协议的 RESTful 应用），同样使用 Service Mesh 也就无须关心服务之间的那些原本通过服务框架实现的事情<br>目前两款流行的 Service Mesh 开源软件 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://istio.io/">Istio</a>和 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://linkerd.io/">Linkerd</a>都可以直接在 Kubernetes 中集成，其中 Linkerd 已经成为 CNCF 中的项目。</p>
 <h2 id="工作流程（以Istio为例）"><a href="#工作流程（以Istio为例）" class="headerlink" title="工作流程（以Istio为例）"></a>工作流程（以Istio为例）</h2><p>Sidecar（Istio 中使用 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://envoyproxy.io/">Envoy</a>作为 sidecar 代理）将服务请求路由到目的地址，根据请求中的参数判断是到生产环境、测试环境还是 staging 环境中的服务（服务可能同时部署在这三个环境中），是路由到本地环境还是公有云环境？所有的这些路由信息可以动态配置，可以是全局配置也可以为某些服务单独配置。这些配置是由服务网格的控制平面推送给各个sidecar 的，<br>当 sidecar 确认了目的地址后，将流量发送到相应服务发现端点，在 Kubernetes 中是 service，然后 service 会将服务转发给后端的实例。<br>Sidecar 根据它观测到最近请求的延迟时间，选择出所有应用程序的实例中响应最快的实例。<br>Sidecar 将请求发送给该实例，同时记录响应类型和延迟数据。<br>如果该实例挂了、不响应了或者进程不工作了，sidecar 会将把请求发送到其他实例上重试。<br>如果该实例持续返回 error，sidecar 会将该实例从负载均衡池中移除，稍后再周期性得重试。<br>如果请求的截止时间已过，sidecar 主动标记该请求为失败，而不是再次尝试添加负载。<br>Sidecar 以 metric 和分布式追踪的形式捕获上述行为的各个方面，这些追踪信息将发送到集中 metric 系统。</p>
 <h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p><strong>流量控制</strong>：流控是最主要也是最重要的功能，通过 Service Mesh，我们可以为应用提供智能路由（蓝绿部署、金丝雀发布、A/B test）、超时重试、熔断、故障注入、流量镜像等各种控制能力<br><strong>安全</strong>：在安全层面上，授权和身份认证也可以托管给 Service Mesh<br><strong>策略</strong>：可以为流量设置配额、黑白名单等策略<br><strong>可观察性</strong>：服务的可观察性一般是通过指标数据、日志、追踪三个方式展现的，目前的 Service Mesh 产品可以很容易和和主流的后端设施整合，提供给应用系统完整的监控能力</p>
