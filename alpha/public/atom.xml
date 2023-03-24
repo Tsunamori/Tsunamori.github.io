@@ -6,7 +6,7 @@
   <link href="https://tsunamori.github.io/atom.xml" rel="self"/>
   
   <link href="https://tsunamori.github.io/"/>
-  <updated>2023-02-20T06:33:10.817Z</updated>
+  <updated>2023-03-23T12:43:19.810Z</updated>
   <id>https://tsunamori.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>服务网格学习笔记</title>
+    <link href="https://tsunamori.github.io/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    <id>https://tsunamori.github.io/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</id>
+    <published>2023-03-23T12:20:18.000Z</published>
+    <updated>2023-03-23T12:43:19.810Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="现状-我们为什么需要服务网格"><a href="#现状-我们为什么需要服务网格" class="headerlink" title="现状-我们为什么需要服务网格"></a>现状-我们为什么需要服务网格</h2><p>Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分微服务。<br>但随着微服务 数量增多，为了解决微服务管理，避免繁琐的服务发现、监控、分布式追踪等事务，服务网格应运而生。<br>相比而言，K8S关注的是应用的生命周期，它管理的对象是资源和部署，对于服务的管控力度很小。而服务网格正好弥补了这个缺陷。服务网格可以连接、控制、观察和保护微服务。<br><img src="https://tsunamori.github.io/img/image_1679471507318_0.png" alt="image.png"><br>从图中我们可以看到 kube-proxy 的设置是全局的，无法对每个服务进行细粒度的控制，Kubernetes 可以做的只有拓扑感知路由、将流量就近路由，为 Pod 设置进出站的网络策略。<br>而服务网格通过 Sidecar 的方式将 Kubernetes 中的流量控制从服务层中抽离出来，为每个 Pod 中注入代理，并通过一个控制平面来操控这些分布式代理。这样可以实现更大的弹性。<br>*CNI：容器网络接口。</p><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="什么是Service-Mesh"><a href="#什么是Service-Mesh" class="headerlink" title="什么是Service Mesh"></a>什么是Service Mesh</h3><p>服务网格（Service Mesh）是处理服务间通信的基础设施层。它负责构成现代云原生应用程序的复杂服务拓扑来可靠地交付请求。在实践中，Service Mesh 通常以轻量级网络代理阵列的形式实现，这些代理与应用程序代码部署在一起，对应用程序来说无需感知代理的存在。</p><p><img src="https://tsunamori.github.io/img/service-mesh-arch.png" alt="Service Mesh 架构图"><br>Service Mesh 作为 sidecar 运行，对应用程序来说是透明，所有应用程序间的流量都会通过它，所以对应用程序流量的控制都可以在 service mesh 中实现。</p><h3 id="Service-Mesh的特点"><a href="#Service-Mesh的特点" class="headerlink" title="Service Mesh的特点"></a>Service Mesh的特点</h3><p>应用程序间通信的中间层<br>轻量级网络代理<br>应用程序无感知<br>解耦应用程序的重试/超时、监控、追踪和服务发现<br>对于编写应用程序来说一般无须关心 TCP/IP 这一层（比如通过 HTTP 协议的 RESTful 应用），同样使用 Service Mesh 也就无须关心服务之间的那些原本通过服务框架实现的事情<br>目前两款流行的 Service Mesh 开源软件 <a href="https://istio.io/">Istio</a>和 <a href="https://linkerd.io/">Linkerd</a>都可以直接在 Kubernetes 中集成，其中 Linkerd 已经成为 CNCF 中的项目。</p><h2 id="工作流程（以Istio为例）"><a href="#工作流程（以Istio为例）" class="headerlink" title="工作流程（以Istio为例）"></a>工作流程（以Istio为例）</h2><p>Sidecar（Istio 中使用 <a href="https://envoyproxy.io/">Envoy</a>作为 sidecar 代理）将服务请求路由到目的地址，根据请求中的参数判断是到生产环境、测试环境还是 staging 环境中的服务（服务可能同时部署在这三个环境中），是路由到本地环境还是公有云环境？所有的这些路由信息可以动态配置，可以是全局配置也可以为某些服务单独配置。这些配置是由服务网格的控制平面推送给各个sidecar 的，<br>当 sidecar 确认了目的地址后，将流量发送到相应服务发现端点，在 Kubernetes 中是 service，然后 service 会将服务转发给后端的实例。<br>Sidecar 根据它观测到最近请求的延迟时间，选择出所有应用程序的实例中响应最快的实例。<br>Sidecar 将请求发送给该实例，同时记录响应类型和延迟数据。<br>如果该实例挂了、不响应了或者进程不工作了，sidecar 会将把请求发送到其他实例上重试。<br>如果该实例持续返回 error，sidecar 会将该实例从负载均衡池中移除，稍后再周期性得重试。<br>如果请求的截止时间已过，sidecar 主动标记该请求为失败，而不是再次尝试添加负载。<br>Sidecar 以 metric 和分布式追踪的形式捕获上述行为的各个方面，这些追踪信息将发送到集中 metric 系统。</p><h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p><strong>流量控制</strong>：流控是最主要也是最重要的功能，通过 Service Mesh，我们可以为应用提供智能路由（蓝绿部署、金丝雀发布、A/B test）、超时重试、熔断、故障注入、流量镜像等各种控制能力<br><strong>安全</strong>：在安全层面上，授权和身份认证也可以托管给 Service Mesh<br><strong>策略</strong>：可以为流量设置配额、黑白名单等策略<br><strong>可观察性</strong>：服务的可观察性一般是通过指标数据、日志、追踪三个方式展现的，目前的 Service Mesh 产品可以很容易和和主流的后端设施整合，提供给应用系统完整的监控能力</p><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>屏蔽分布式系统通信的复杂性(负载均衡、服务发现、认证授权、监控追踪、流量控制等等)，服务只用关注业务逻辑<br>真正的语言无关，服务可以用任何语言编写，只需和 Service Mesh 通信即可<br>对应用透明，Service Mesh 组件可以单独升级</p><h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>增加的复杂性: 在一个已经很复杂的环境中引入代理、sidecar 和其他组件会极大地增加开发和运维的复杂性<br>需要的专业知识: 在容器编排服务（k8s）之上添加 Istio 之类的服务网格要求运维人员足够熟悉这两种服务<br>延迟: 服务网格是一种入侵的、复杂的技术，它能向服务架构中添加显著的延迟<br>平台的依赖性: 服务网格的侵入性迫使开发人员和运维人员适应一个高度自治的平台，并遵守其规则（现存的服务迁移足够让开发咬牙切齿！）</p><h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><h3 id="服务治理与业务逻辑解耦"><a href="#服务治理与业务逻辑解耦" class="headerlink" title="服务治理与业务逻辑解耦"></a>服务治理与业务逻辑解耦</h3><p>在运行时，SDK 和业务应用的代码是混合在一个进程中运行的，耦合度非常高，会产生如下问题：<br>升级成本高：每次升级都需要业务应用修改 SDK 版本号，重新发布。在业务飞速发展的时候，更倾向于专注业务，不希望分散精力做升级等事情。<br>版本碎片化严重：由于升级成本高，但中间件还是会向前发展，久而久之，就会导致线上 SDK 版本各不统一、能力参差不齐，造成很难统一治理。<br>中间件演进困难：由于版本碎片化严重，导致中间件向前演进过程中需要兼容各种老版本的逻辑，无法实现快速迭代。<br>使用 Service Mesh 后，您可以将 SDK 中的大部分能力从应用中剥离拆解为独立进程，以 Sidecar 的模式部署。通过将服务治理能力下沉到基础设施，可以让业务更加专注于业务逻辑，中间件团队则更加专注于各种通用能力，真正实现独立演进、透明升级，提升整体效率。</p><h3 id="多语言、多协议支持"><a href="#多语言、多协议支持" class="headerlink" title="多语言、多协议支持"></a>多语言、多协议支持</h3><p>随着新技术的发展和人员更替，在同一家公司中往往会出现使用各种不同语言、不同框架的应用和服务，为了能够统一管控这些服务，以往的做法是为每种语言、每种框架都重新开发一套完整的 SDK，维护成本非常高，而且对中间件团队的人员结构也带来了很大的挑战。<br>有了服务网格之后，通过将主体的服务治理能力下沉到基础设施，多语言的支持就轻松很多了，只需要提供一个非常轻量的 SDK，甚至很多情况都不需要一个单独的 SDK，就可以方便地实现多语言、多协议的统一流量管控、监控等治理需求。</p><h3 id="云原生架构转型助力"><a href="#云原生架构转型助力" class="headerlink" title="云原生架构转型助力"></a>云原生架构转型助力</h3><p>从单体应用到微服务架构改造以及全面容器化的云原生架构基础往往带来很高的改造成本。SOFAStack 服务网格可以满足未容器化的虚拟机部署方案，也可以兼容过渡阶段的部分容器化和虚拟化混合部署的场景，加速企业云原生架构转型。</p><h3 id="金融场景网络安全"><a href="#金融场景网络安全" class="headerlink" title="金融场景网络安全"></a>金融场景网络安全</h3><p>当前很多公司的微服务体系建设都建立在内网可信的假设之上，然而这个原则在当前大规模上云的背景下可能显得有点不合时宜，尤其是涉及到一些金融场景的时候。<br>通过服务网格可以更方便地实现应用的身份标识和访问控制，辅之以数据加密，就能实现全链路可信，从而使得服务可以运行于零信任网络中，提升整体安全水位。</p><h3 id="未来发展方向"><a href="#未来发展方向" class="headerlink" title="未来发展方向"></a>未来发展方向</h3><p><strong>让 Istio 适用于一切环境和一切工作负载</strong><br><strong>当前痛点</strong>：基础设施向容器化、云原生转型，存在多集群的容器、虚拟机并存的复杂环境。<br><strong>未来解决方案</strong>：需要改造Istio，在其之上增加一层，用于集群管理，并在每个集群中部署一个网关，统一连接到一个边缘代理，让所有的集群互联。这也是 <a href="https://www.tetrate.io/tetrate-service-bridge/">Tetrate Service Bridge</a> 的产品理念<br><strong>API 网关与服务网格的融合</strong><br>API网关、反向代理和服务网格的融合产品。</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://jimmysong.io/blog/what-is-a-service-mesh/">什么是 Service Mesh（服务网格）？</a><br><a href="https://philcalcado.com/2017/08/03/pattern_service_mesh.html">Pattern: Service Mesh</a><br><a href="https://www.redhat.com/en/topics/microservices/what-is-a-service-mesh">What’s a service mesh?</a><br><a href="https://help.aliyun.com/document_detail/200296.html">阿里云 - 服务网格 - 应用场景</a><br><a href="https://jimmysong.io/blog/service-mesh-insight/">服务网格现状之我见</a><br><a href="https://cloud.tencent.com/developer/article/1400578">我为啥不看好 ServiceMesh</a><br><a href="https://cloud.tencent.com/developer/news/846981">不是所有的应用都需要 ServiceMesh 架构</a><br><a href="https://jimmysong.io/kubernetes-handbook/usecases/service-mesh-vs-api-gateway.html">服务网格对比API网关</a></p><h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><p><a href="https://cloudnative.to/">云原生社区-国内最大的独立第三方云原生社区</a><br><a href="https://lib.jimmysong.io/">云原生资料库</a><br>《深入理解Istio：云原生服务网格进阶实战》</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;现状-我们为什么需要服务网格&quot;&gt;&lt;a href=&quot;#现状-我们为什么需要服务网格&quot; class=&quot;headerlink&quot; title=&quot;现状-我们为什么需要服务网格&quot;&gt;&lt;/a&gt;现状-我们为什么需要服务网格&lt;/h2&gt;&lt;p&gt;Kubernetes是一种开源的容器编排平台</summary>
+      
+    
+    
+    
+    <category term="学习笔记" scheme="https://tsunamori.github.io/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+    
+    <category term="笔记" scheme="https://tsunamori.github.io/tags/%E7%AC%94%E8%AE%B0/"/>
+    
+    <category term="云原生" scheme="https://tsunamori.github.io/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>一次差点翻车的kali v2raya版本更新经历</title>
