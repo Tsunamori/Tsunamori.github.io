@@ -47,4 +47,4 @@ if __name__ == "__main__":
 
 这里踩坑主要是对抗资产本身的一些校验机制，譬如我遇到的是请求验证码的Cookie（放在test.py的header里）要和请求登录的包内cookie保持一致，不然可以识别到验证码但请求登录时还是提示验证码错误。
 
-高级用法同样参考上述[这个链接](https://mp.weixin.qq.com/s/iA9XEuoTyjOAxSDoIJsm5Q)和作者的readme实例。
+高级用法同样参考上述[这个链接](https://mp.weixin.qq.com/s/iA9XEuoTyjOAxSDoIJsm5Q)和作者的readme后半部分高级用法指引。
