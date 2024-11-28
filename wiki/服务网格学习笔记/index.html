@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>服务网格学习笔记 | Tsunamori&#39;s blog</title>
+    
+    
+        <meta name="keywords" content="云原生,笔记">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="现状-我们为什么需要服务网格Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务网格学习笔记">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Tsunamori&#39;s blog">
+<meta property="og:description" content="现状-我们为什么需要服务网格Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://tsunamori.github.io/img/image_1679471507318_0.png">
+<meta property="og:image" content="https://tsunamori.github.io/img/service-mesh-arch.png">
+<meta property="article:published_time" content="2023-03-23T04:20:18.000Z">
+<meta property="article:modified_time" content="2024-11-18T10:52:17.657Z">
+<meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="云原生">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tsunamori.github.io/img/image_1679471507318_0.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Tsunamori&#39;s blog" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Tsunamori&#39;s blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
+            <h2 id="name">Tsunamori</h2>
+            <h3 id="title">The green hat hacker</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Moon the other side</span>
+            <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                15
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                10
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Tsunamori" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            其它笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/">现阶段对blog的规划思考</a></li>  <li class="file"><a href="/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/">blog重构啦！</a></li>  <li class="file"><a href="/wiki/%E5%85%B3%E5%85%B3%E9%9A%BE%E8%BF%87%E5%85%B3%E5%85%B3%E8%BF%87/">关关难过关关过</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            学习笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">Game of hacks 试玩</a></li>  <li class="file"><a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/">偶然学到的渗透小tips</a></li>  <li class="file active"><a href="/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">服务网格学习笔记</a></li>  <li class="file"><a href="/wiki/Chatgpt%E7%BF%BB%E8%AF%91%E5%A4%96%E6%96%87%E4%B9%A6%E7%B1%8D%E5%88%9D%E4%BD%93%E9%AA%8C/">Chatgpt翻译外文书籍初体验</a></li>  <li class="file"><a href="/wiki/Logseq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">Logseq使用体验</a></li>  <li class="file"><a href="/wiki/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%88%86%E7%A0%B4-xp-CAPTCHA%E6%8C%96%E6%B4%9E%E4%BD%93%E9%AA%8C/">验证码爆破-xp_CAPTCHA挖洞体验</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            读书笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes_HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer_1/">0 to 1 the road of CTFer 第一章 Web入门</a></li>  <li class="file"><a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">代码审计 企业级web代码安全结构</a></li>  <li class="file"><a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">note_JAVA代码审计-入门篇</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            踩坑记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">在kali上安装clash/V2raya的教程</a></li>  <li class="file"><a href="/wiki/%E4%B8%80%E6%AC%A1%E5%B7%AE%E7%82%B9%E7%BF%BB%E8%BD%A6%E7%9A%84v2raya%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%BB%8F%E5%8E%86/">一次差点翻车的kali v2raya版本更新经历</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-服务网格学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/" rel="tag">云原生</a>, <a class="tag-link-link" href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag">笔记</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+            <time datetime="2023-03-23T04:20:18.000Z" itemprop="datePublished">2023-03-23</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/服务网格学习笔记.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/服务网格学习笔记.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/服务网格学习笔记.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            服务网格学习笔记
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E7%8A%B6-%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC"><span class="toc-number">1.</span> <span class="toc-text">现状-我们为什么需要服务网格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-number">2.</span> <span class="toc-text">基础知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFService-Mesh"><span class="toc-number">2.1.</span> <span class="toc-text">什么是Service Mesh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service-Mesh%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">2.2.</span> <span class="toc-text">Service Mesh的特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%EF%BC%88%E4%BB%A5Istio%E4%B8%BA%E4%BE%8B%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">工作流程（以Istio为例）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD"><span class="toc-number">4.</span> <span class="toc-text">主要功能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%98%E7%82%B9"><span class="toc-number">5.</span> <span class="toc-text">优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%BA%E7%82%B9"><span class="toc-number">6.</span> <span class="toc-text">缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">7.</span> <span class="toc-text">适用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E4%B8%8E%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%E8%A7%A3%E8%80%A6"><span class="toc-number">7.1.</span> <span class="toc-text">服务治理与业务逻辑解耦</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E8%AF%AD%E8%A8%80%E3%80%81%E5%A4%9A%E5%8D%8F%E8%AE%AE%E6%94%AF%E6%8C%81"><span class="toc-number">7.2.</span> <span class="toc-text">多语言、多协议支持</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%91%E5%8E%9F%E7%94%9F%E6%9E%B6%E6%9E%84%E8%BD%AC%E5%9E%8B%E5%8A%A9%E5%8A%9B"><span class="toc-number">7.3.</span> <span class="toc-text">云原生架构转型助力</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%91%E8%9E%8D%E5%9C%BA%E6%99%AF%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8"><span class="toc-number">7.4.</span> <span class="toc-text">金融场景网络安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AA%E6%9D%A5%E5%8F%91%E5%B1%95%E6%96%B9%E5%90%91"><span class="toc-number">7.5.</span> <span class="toc-text">未来发展方向</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="toc-number">8.</span> <span class="toc-text">参考资料</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E9%98%85%E8%AF%BB"><span class="toc-number">9.</span> <span class="toc-text">扩展阅读</span></a></li></ol>
+                </div>
+            
+        
+        
+            <h2 id="现状-我们为什么需要服务网格"><a href="#现状-我们为什么需要服务网格" class="headerlink" title="现状-我们为什么需要服务网格"></a>现状-我们为什么需要服务网格</h2><p>Kubernetes是一种开源的容器编排平台，用于自动化部署、扩展和管理容器化应用程序。它可以帮助开发人员和运维团队快速、可靠地构建、部署和管理大规模容器化应用程序，同时提供负载均衡、自动伸缩、自我修复等功能，从而实现高可用性和弹性。Kubernetes最初由Google开发，并于2014年开源发布。成为主流容器编排架构，其本身就是按照云原生的理念来设计，将单体应用拆分微服务。<br>但随着微服务 数量增多，为了解决微服务管理，避免繁琐的服务发现、监控、分布式追踪等事务，服务网格应运而生。<br>相比而言，K8S关注的是应用的生命周期，它管理的对象是资源和部署，对于服务的管控力度很小。而服务网格正好弥补了这个缺陷。服务网格可以连接、控制、观察和保护微服务。<br><img src="https://tsunamori.github.io/img/image_1679471507318_0.png" alt="image.png"><br>从图中我们可以看到 kube-proxy 的设置是全局的，无法对每个服务进行细粒度的控制，Kubernetes 可以做的只有拓扑感知路由、将流量就近路由，为 Pod 设置进出站的网络策略。<br>而服务网格通过 Sidecar 的方式将 Kubernetes 中的流量控制从服务层中抽离出来，为每个 Pod 中注入代理，并通过一个控制平面来操控这些分布式代理。这样可以实现更大的弹性。<br>*CNI：容器网络接口。</p>
+<h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><h3 id="什么是Service-Mesh"><a href="#什么是Service-Mesh" class="headerlink" title="什么是Service Mesh"></a>什么是Service Mesh</h3><p>服务网格（Service Mesh）是处理服务间通信的基础设施层。它负责构成现代云原生应用程序的复杂服务拓扑来可靠地交付请求。在实践中，Service Mesh 通常以轻量级网络代理阵列的形式实现，这些代理与应用程序代码部署在一起，对应用程序来说无需感知代理的存在。</p>
+<p><img src="https://tsunamori.github.io/img/service-mesh-arch.png" alt="Service Mesh 架构图"><br>Service Mesh 作为 sidecar 运行，对应用程序来说是透明，所有应用程序间的流量都会通过它，所以对应用程序流量的控制都可以在 service mesh 中实现。</p>
+<h3 id="Service-Mesh的特点"><a href="#Service-Mesh的特点" class="headerlink" title="Service Mesh的特点"></a>Service Mesh的特点</h3><p>应用程序间通信的中间层<br>轻量级网络代理<br>应用程序无感知<br>解耦应用程序的重试/超时、监控、追踪和服务发现<br>对于编写应用程序来说一般无须关心 TCP/IP 这一层（比如通过 HTTP 协议的 RESTful 应用），同样使用 Service Mesh 也就无须关心服务之间的那些原本通过服务框架实现的事情<br>目前两款流行的 Service Mesh 开源软件 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://istio.io/">Istio</a>和 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://linkerd.io/">Linkerd</a>都可以直接在 Kubernetes 中集成，其中 Linkerd 已经成为 CNCF 中的项目。</p>
+<h2 id="工作流程（以Istio为例）"><a href="#工作流程（以Istio为例）" class="headerlink" title="工作流程（以Istio为例）"></a>工作流程（以Istio为例）</h2><p>Sidecar（Istio 中使用 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://envoyproxy.io/">Envoy</a>作为 sidecar 代理）将服务请求路由到目的地址，根据请求中的参数判断是到生产环境、测试环境还是 staging 环境中的服务（服务可能同时部署在这三个环境中），是路由到本地环境还是公有云环境？所有的这些路由信息可以动态配置，可以是全局配置也可以为某些服务单独配置。这些配置是由服务网格的控制平面推送给各个sidecar 的，<br>当 sidecar 确认了目的地址后，将流量发送到相应服务发现端点，在 Kubernetes 中是 service，然后 service 会将服务转发给后端的实例。<br>Sidecar 根据它观测到最近请求的延迟时间，选择出所有应用程序的实例中响应最快的实例。<br>Sidecar 将请求发送给该实例，同时记录响应类型和延迟数据。<br>如果该实例挂了、不响应了或者进程不工作了，sidecar 会将把请求发送到其他实例上重试。<br>如果该实例持续返回 error，sidecar 会将该实例从负载均衡池中移除，稍后再周期性得重试。<br>如果请求的截止时间已过，sidecar 主动标记该请求为失败，而不是再次尝试添加负载。<br>Sidecar 以 metric 和分布式追踪的形式捕获上述行为的各个方面，这些追踪信息将发送到集中 metric 系统。</p>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p><strong>流量控制</strong>：流控是最主要也是最重要的功能，通过 Service Mesh，我们可以为应用提供智能路由（蓝绿部署、金丝雀发布、A/B test）、超时重试、熔断、故障注入、流量镜像等各种控制能力<br><strong>安全</strong>：在安全层面上，授权和身份认证也可以托管给 Service Mesh<br><strong>策略</strong>：可以为流量设置配额、黑白名单等策略<br><strong>可观察性</strong>：服务的可观察性一般是通过指标数据、日志、追踪三个方式展现的，目前的 Service Mesh 产品可以很容易和和主流的后端设施整合，提供给应用系统完整的监控能力</p>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>屏蔽分布式系统通信的复杂性(负载均衡、服务发现、认证授权、监控追踪、流量控制等等)，服务只用关注业务逻辑<br>真正的语言无关，服务可以用任何语言编写，只需和 Service Mesh 通信即可<br>对应用透明，Service Mesh 组件可以单独升级</p>
+<h2 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h2><p>增加的复杂性: 在一个已经很复杂的环境中引入代理、sidecar 和其他组件会极大地增加开发和运维的复杂性<br>需要的专业知识: 在容器编排服务（k8s）之上添加 Istio 之类的服务网格要求运维人员足够熟悉这两种服务<br>延迟: 服务网格是一种入侵的、复杂的技术，它能向服务架构中添加显著的延迟<br>平台的依赖性: 服务网格的侵入性迫使开发人员和运维人员适应一个高度自治的平台，并遵守其规则（现存的服务迁移足够让开发咬牙切齿！）</p>
+<h2 id="适用场景"><a href="#适用场景" class="headerlink" title="适用场景"></a>适用场景</h2><h3 id="服务治理与业务逻辑解耦"><a href="#服务治理与业务逻辑解耦" class="headerlink" title="服务治理与业务逻辑解耦"></a>服务治理与业务逻辑解耦</h3><p>在运行时，SDK 和业务应用的代码是混合在一个进程中运行的，耦合度非常高，会产生如下问题：<br>升级成本高：每次升级都需要业务应用修改 SDK 版本号，重新发布。在业务飞速发展的时候，更倾向于专注业务，不希望分散精力做升级等事情。<br>版本碎片化严重：由于升级成本高，但中间件还是会向前发展，久而久之，就会导致线上 SDK 版本各不统一、能力参差不齐，造成很难统一治理。<br>中间件演进困难：由于版本碎片化严重，导致中间件向前演进过程中需要兼容各种老版本的逻辑，无法实现快速迭代。<br>使用 Service Mesh 后，您可以将 SDK 中的大部分能力从应用中剥离拆解为独立进程，以 Sidecar 的模式部署。通过将服务治理能力下沉到基础设施，可以让业务更加专注于业务逻辑，中间件团队则更加专注于各种通用能力，真正实现独立演进、透明升级，提升整体效率。</p>
+<h3 id="多语言、多协议支持"><a href="#多语言、多协议支持" class="headerlink" title="多语言、多协议支持"></a>多语言、多协议支持</h3><p>随着新技术的发展和人员更替，在同一家公司中往往会出现使用各种不同语言、不同框架的应用和服务，为了能够统一管控这些服务，以往的做法是为每种语言、每种框架都重新开发一套完整的 SDK，维护成本非常高，而且对中间件团队的人员结构也带来了很大的挑战。<br>有了服务网格之后，通过将主体的服务治理能力下沉到基础设施，多语言的支持就轻松很多了，只需要提供一个非常轻量的 SDK，甚至很多情况都不需要一个单独的 SDK，就可以方便地实现多语言、多协议的统一流量管控、监控等治理需求。</p>
+<h3 id="云原生架构转型助力"><a href="#云原生架构转型助力" class="headerlink" title="云原生架构转型助力"></a>云原生架构转型助力</h3><p>从单体应用到微服务架构改造以及全面容器化的云原生架构基础往往带来很高的改造成本。SOFAStack 服务网格可以满足未容器化的虚拟机部署方案，也可以兼容过渡阶段的部分容器化和虚拟化混合部署的场景，加速企业云原生架构转型。</p>
+<h3 id="金融场景网络安全"><a href="#金融场景网络安全" class="headerlink" title="金融场景网络安全"></a>金融场景网络安全</h3><p>当前很多公司的微服务体系建设都建立在内网可信的假设之上，然而这个原则在当前大规模上云的背景下可能显得有点不合时宜，尤其是涉及到一些金融场景的时候。<br>通过服务网格可以更方便地实现应用的身份标识和访问控制，辅之以数据加密，就能实现全链路可信，从而使得服务可以运行于零信任网络中，提升整体安全水位。</p>
+<h3 id="未来发展方向"><a href="#未来发展方向" class="headerlink" title="未来发展方向"></a>未来发展方向</h3><p><strong>让 Istio 适用于一切环境和一切工作负载</strong><br><strong>当前痛点</strong>：基础设施向容器化、云原生转型，存在多集群的容器、虚拟机并存的复杂环境。<br><strong>未来解决方案</strong>：需要改造Istio，在其之上增加一层，用于集群管理，并在每个集群中部署一个网关，统一连接到一个边缘代理，让所有的集群互联。这也是 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.tetrate.io/tetrate-service-bridge/">Tetrate Service Bridge</a> 的产品理念<br><strong>API 网关与服务网格的融合</strong><br>API网关、反向代理和服务网格的融合产品。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://jimmysong.io/blog/what-is-a-service-mesh/">什么是 Service Mesh（服务网格）？</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://philcalcado.com/2017/08/03/pattern_service_mesh.html">Pattern: Service Mesh</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://www.redhat.com/en/topics/microservices/what-is-a-service-mesh">What’s a service mesh?</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://help.aliyun.com/document_detail/200296.html">阿里云 - 服务网格 - 应用场景</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://jimmysong.io/blog/service-mesh-insight/">服务网格现状之我见</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cloud.tencent.com/developer/article/1400578">我为啥不看好 ServiceMesh</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cloud.tencent.com/developer/news/846981">不是所有的应用都需要 ServiceMesh 架构</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://jimmysong.io/kubernetes-handbook/usecases/service-mesh-vs-api-gateway.html">服务网格对比API网关</a></p>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><p><a target="_blank" rel="external nofollow noopener noreferrer" href="https://cloudnative.to/">云原生社区-国内最大的独立第三方云原生社区</a><br><a target="_blank" rel="external nofollow noopener noreferrer" href="https://lib.jimmysong.io/">云原生资料库</a><br>《深入理解Istio：云原生服务网格进阶实战》</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/Chatgpt%E7%BF%BB%E8%AF%91%E5%A4%96%E6%96%87%E4%B9%A6%E7%B1%8D%E5%88%9D%E4%BD%93%E9%AA%8C/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Chatgpt翻译外文书籍初体验
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E4%B8%80%E6%AC%A1%E5%B7%AE%E7%82%B9%E7%BF%BB%E8%BD%A6%E7%9A%84v2raya%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%BB%8F%E5%8E%86/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">一次差点翻车的kali v2raya版本更新经历</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Tsunamori &copy; 2024 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

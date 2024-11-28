@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>偶然学到的渗透小tips | Tsunamori&#39;s blog</title>
+    
+    
+        <meta name="keywords" content="渗透测试">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="(人菜就要多学习) 简单套路 当请求为数据更新操作（添加、删除、修改等），且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF&#x2F;XSRF攻击（burp自动生成payload） 上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 12345&lt;html&gt;    &lt;body&gt;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="偶然学到的渗透小tips">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/index.html">
+<meta property="og:site_name" content="Tsunamori&#39;s blog">
+<meta property="og:description" content="(人菜就要多学习) 简单套路 当请求为数据更新操作（添加、删除、修改等），且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF&#x2F;XSRF攻击（burp自动生成payload） 上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 12345&lt;html&gt;    &lt;body&gt;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-12-05T11:40:18.000Z">
+<meta property="article:modified_time" content="2024-11-18T10:52:17.656Z">
+<meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="渗透测试">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Tsunamori&#39;s blog" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Tsunamori&#39;s blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
+            <h2 id="name">Tsunamori</h2>
+            <h3 id="title">The green hat hacker</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Moon the other side</span>
+            <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                15
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                10
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Tsunamori" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            其它笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/">现阶段对blog的规划思考</a></li>  <li class="file"><a href="/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/">blog重构啦！</a></li>  <li class="file"><a href="/wiki/%E5%85%B3%E5%85%B3%E9%9A%BE%E8%BF%87%E5%85%B3%E5%85%B3%E8%BF%87/">关关难过关关过</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            学习笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">Game of hacks 试玩</a></li>  <li class="file active"><a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/">偶然学到的渗透小tips</a></li>  <li class="file"><a href="/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">服务网格学习笔记</a></li>  <li class="file"><a href="/wiki/Chatgpt%E7%BF%BB%E8%AF%91%E5%A4%96%E6%96%87%E4%B9%A6%E7%B1%8D%E5%88%9D%E4%BD%93%E9%AA%8C/">Chatgpt翻译外文书籍初体验</a></li>  <li class="file"><a href="/wiki/Logseq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">Logseq使用体验</a></li>  <li class="file"><a href="/wiki/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%88%86%E7%A0%B4-xp-CAPTCHA%E6%8C%96%E6%B4%9E%E4%BD%93%E9%AA%8C/">验证码爆破-xp_CAPTCHA挖洞体验</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            读书笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes_HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer_1/">0 to 1 the road of CTFer 第一章 Web入门</a></li>  <li class="file"><a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">代码审计 企业级web代码安全结构</a></li>  <li class="file"><a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">note_JAVA代码审计-入门篇</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            踩坑记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">在kali上安装clash/V2raya的教程</a></li>  <li class="file"><a href="/wiki/%E4%B8%80%E6%AC%A1%E5%B7%AE%E7%82%B9%E7%BF%BB%E8%BD%A6%E7%9A%84v2raya%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%BB%8F%E5%8E%86/">一次差点翻车的kali v2raya版本更新经历</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-偷学的渗透小tips" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">学习笔记</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/" rel="tag">渗透测试</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/">
+            <time datetime="2021-12-05T11:40:18.000Z" itemprop="datePublished">2021-12-05</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/偷学的渗透小tips.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/偷学的渗透小tips.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/偷学的渗透小tips.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            偶然学到的渗透小tips
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%A5%97%E8%B7%AF"><span class="toc-number">1.</span> <span class="toc-text">简单套路</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%AA%9A%E6%93%8D%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">骚操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#APP"><span class="toc-number">2.1.</span> <span class="toc-text">APP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.2.</span> <span class="toc-text">小程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web"><span class="toc-number">2.3.</span> <span class="toc-text">Web</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IOT"><span class="toc-number">2.4.</span> <span class="toc-text">IOT</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E7%9C%8B%E5%88%B0%E8%BF%87%E7%9A%84burp%E6%8F%92%E4%BB%B6"><span class="toc-number">3.</span> <span class="toc-text">记录一下看到过的burp插件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%B0%E5%BD%95%E4%B8%80%E4%B8%8B%E5%85%B6%E4%BB%96%E8%84%9A%E6%9C%AC%E5%B7%A5%E5%85%B7"><span class="toc-number">4.</span> <span class="toc-text">记录一下其他脚本工具</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>(人菜就要多学习)</p>
+<h1 id="简单套路"><a href="#简单套路" class="headerlink" title="简单套路"></a>简单套路</h1><ol>
+<li>当请求为<code>数据更新操作（添加、删除、修改等）</code>，且请求包没添加（或可绕过）Referer来源地址、随机CSRF-token时，考虑CSRF/XSRF攻击（burp自动生成payload）</li>
+<li>上传位置可以尝试上传html，验证有无html解析（毕竟万年碰不到一个能传马的点了！），危害为钓鱼、挂马、挂黑页等。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">          &lt;script&gt;alert(1)&lt;&#x2F;script&gt;</span><br><span class="line">    &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure></li>
+<li>测越权，burp插件携带权限cookie批量请求值得拥有（实现该功能的插件很多，比如Autorize）。</li>
+<li>JS经常泄漏各种API接口（找链接： <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Threezh1/JSFinder">https://github.com/Threezh1/JSFinder</a> ，也有非链接需要自己构造包含函数名称及参数的数据包的JS，被动搜索浏览器插件： <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/momosecurity/FindSomething">https://github.com/momosecurity/FindSomething</a> ）。</li>
+<li>链接里带有URL的点可以试试改成任意URL测重定向（大概算是依靠链接前半部分造成链接可信任，结合短链接等伪装手法，重定向钓鱼）。</li>
+</ol>
+<h1 id="骚操作"><a href="#骚操作" class="headerlink" title="骚操作"></a>骚操作</h1><h2 id="APP"><a href="#APP" class="headerlink" title="APP"></a>APP</h2><ol>
+<li><em><strong>逆向分析YYDS！</strong></em></li>
+<li>APP脱壳找证书，放进抓包工具反编译流量（适用于流量内容不可见的情况，具体教程找找看）。</li>
+<li><code>adb logcat &gt;&gt; x.txt</code>输出本地日志，可能包含本机用户使用APP时输入的敏感信息。</li>
+<li>快速并发数据包，可以实现批量发送短信、刷赞等。（burp-turbo）</li>
+<li>将拦截的<code>响应包</code>内容从fail改为success可以实现验证码绕过等（是原理清楚但从来没改过响应包的我），证明校验为前端校验。</li>
+<li>Activity劫持（涉及安卓端命令调用了，目测是比较冷门可挖的）。</li>
+<li>LaunchAnyWhere （<a target="_blank" rel="external nofollow noopener noreferrer" href="https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/%EF%BC%89">https://chan-shaw.github.io/2020/04/12/LaunchAnyWhere%E7%BB%95%E8%BF%87%E5%8E%9F%E7%90%86/）</a></li>
+<li>(这是一条防御办法)当APP做证书绑定后，可以在被抓包时不发送业务请求（但据说有办法仍然实现抓包）。<ol>
+<li>确认有效的绕过办法1：VirtualXposed + JustTrustMe，已验证可绕过防抓包加固，使用VirtualXposed是否可以绕过防root加固，目前没有样本，暂时未知。</li>
+</ol>
+</li>
+<li>以下是奇怪的root后替换人脸数据的工具：<ol>
+<li>Magisk <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/topjohnwu/Magisk">https://github.com/topjohnwu/Magisk</a></li>
+<li>Riru <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/RikkaApps/Riru">https://github.com/RikkaApps/Riru</a></li>
+<li>LSPosed <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/LSPosed/LSPosed">https://github.com/LSPosed/LSPosed</a></li>
+<li>virtualcam <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/w2016561536/android_virtual_cam">https://github.com/w2016561536/android_virtual_cam</a></li>
+</ol>
+</li>
+</ol>
+<h2 id="小程序"><a href="#小程序" class="headerlink" title="小程序"></a>小程序</h2><ol>
+<li>发送请求参数被加密时，可解包找公钥。（这怕是不太能防？还是说果然RSA/RSA2不靠谱？）</li>
+<li>绕过批量发送限制：在参数末尾每次多加一个对整体无作用的<code>+</code>（猜测只有当参数在请求末端可行？）。</li>
+<li>测批量时，不仅可以考虑本网站用户的手机号被批量的问题，也可以加上非注册用户手机号实现批量轰炸的情况（扩大漏洞影响）。</li>
+</ol>
+<h2 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h2><ol>
+<li>api接口无法直接访问时（如swagger），把脚本配置文件（如dirsearch）的host改成网站IP。</li>
+<li>注意邮件、短信等携带的链接、短链接内容，可能存在参数可枚举的问题。</li>
+<li>必应、雅虎、搜狗、谷歌、etc，没准就有一个可以搜到奇怪的带权限链接。</li>
+<li>地址接口 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;fonts&#x2F;</span><br><span class="line">&#x2F;pdf&#x2F;</span><br><span class="line">&#x2F;js&#x2F;</span><br><span class="line">&#x2F;css&#x2F;</span><br><span class="line">&#x2F;img&#x2F;</span><br></pre></td></tr></table></figure></li>
+<li>浏览器开插件模拟手机端。</li>
+<li>在线客服处总容易出现奇怪的越权/敏感信息泄漏。</li>
+<li>抓包改发送的邮件内容搞钓鱼（有意思的思路）。</li>
+<li>HTTP请求走私（看来还是该多打CTF）</li>
+<li>ip/a/b 会强制跳转到登录口，但ip/a/c不会，则使用ip/a/c/../b绕过跳转。访问xx.jsp会强制转到访问aa.jsp，访问aa.jsp/../../(../多个)/xx.jsp实现绕过过滤。</li>
+<li>查询参数留空，可能会出现一次性相应所有查询内容的问题。（遇到过几次，和同事讨论过，大概是因为留空自动从where里排除了，导致全量查询。算是平时比较难去想到和测试的点。）</li>
+<li>LDAP 未授权访问 （相比于危害来说，利用未免太过轻松。。。）</li>
+<li>HOST碰撞（利用难度低，危害高，技术较新）</li>
+<li>API接口服务漏洞，关键词wsdl</li>
+<li>分块传输 bypass waf/ waf缓冲区溢出</li>
+<li>dirsearch与burp的简单联动，利用burp的proxy发送请求。但经过与dirsearch作者的讨论，目前dirsearch并不能支持与burp很紧密的联动（指从burp实时获取扫描目录等），有见过导出burp目录给dirsearch做扫描的插件，但与我理想中的实时扫描二级/多级目录下敏感目录的功能不太相符。 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 dirsearch.py -u http:&#x2F;&#x2F;whateveraa.test -w $HOME&#x2F;Desktop&#x2F;pentest&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;merged-no-duplicates.txt -e php -x 301,400,403 --proxy http:&#x2F;&#x2F;127.0.0.1:8080</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="IOT"><a href="#IOT" class="headerlink" title="IOT"></a>IOT</h2><ol>
+<li>MQTT协议越权/未授权</li>
+</ol>
+<h1 id="记录一下看到过的burp插件"><a href="#记录一下看到过的burp插件" class="headerlink" title="记录一下看到过的burp插件"></a>记录一下看到过的burp插件</h1><ol>
+<li>JSON Decoder 解码JSON（新burp不是可以直接美化json？）</li>
+<li>MarkINFO (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/UUUUnotfound/BurpSuite-Extender-MarkInfo">https://github.com/UUUUnotfound/BurpSuite-Extender-MarkInfo</a>) 高亮敏感信息</li>
+<li>highlighter-and-extractor</li>
+<li>APIKit (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/API-Security/APIKit">https://github.com/API-Security/APIKit</a>)</li>
+<li>BurpCrypto</li>
+<li>BurpDomain (<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/404SEC/BurpDomain">https://github.com/404SEC/BurpDomain</a>)</li>
+<li>turbo</li>
+<li>Logger++</li>
+<li>Bypass WAF</li>
+<li>JSON Web Tokens</li>
+<li>lazyCSRF <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/tkmru/lazyCSRF/releases/">https://github.com/tkmru/lazyCSRF/releases/</a></li>
+<li>ActiveScan++</li>
+<li>LinkFinder</li>
+</ol>
+<h1 id="记录一下其他脚本工具"><a href="#记录一下其他脚本工具" class="headerlink" title="记录一下其他脚本工具"></a>记录一下其他脚本工具</h1><ol>
+<li>reverse-sourcemap 还原jsmap （可以用curl命令对付不能直接下载的js.map文件）</li>
+<li>wxappUnpacker</li>
+<li>微信小程序加解密脚本：<a target="_blank" rel="external nofollow noopener noreferrer" href="http://82.156.16.24/index.php/2021/05/26/4.html">http://82.156.16.24/index.php/2021/05/26/4.html</a></li>
+<li>HOST碰撞 <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/fofapro/Hosts_scan">https://github.com/fofapro/Hosts_scan</a></li>
+<li>fiddler（虽然不是脚本工具但是有看到某个大佬用这个抓包，可能有特别之处）</li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    现阶段对blog的规划思考
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">note_JAVA代码审计-入门篇</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Tsunamori &copy; 2024 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    
+    <title>在kali上安装clash/V2raya的教程 | Tsunamori&#39;s blog</title>
+    
+    
+        <meta name="keywords" content="踩坑">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。 然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。 先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在kali上安装clash&#x2F;V2raya的教程">
+<meta property="og:url" content="https://tsunamori.github.io/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/index.html">
+<meta property="og:site_name" content="Tsunamori&#39;s blog">
+<meta property="og:description" content="19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。 然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。 先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-09-22T18:33:04.000Z">
+<meta property="article:modified_time" content="2024-11-18T10:52:17.656Z">
+<meta property="article:author" content="Tsunamori">
+<meta property="article:tag" content="踩坑">
+<meta name="twitter:card" content="summary">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="Tsunamori&#39;s blog" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    
+<link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+
+    
+<link rel="stylesheet" href="/libs/open-sans/styles.css">
+
+    
+<link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+
+    
+<script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+
+    
+    
+        
+<link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+
+    
+    
+    
+    
+
+
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">Tsunamori&#39;s blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/bf0a499c8b2705f83e63c534d6cd38a2?s=128">
+            <h2 id="name">Tsunamori</h2>
+            <h3 id="title">The green hat hacker</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Moon the other side</span>
+            <a id="follow" target="_blank" href="https://github.com/Tsunamori/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                15
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                10
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/Tsunamori" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            其它笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/">现阶段对blog的规划思考</a></li>  <li class="file"><a href="/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/">blog重构啦！</a></li>  <li class="file"><a href="/wiki/%E5%85%B3%E5%85%B3%E9%9A%BE%E8%BF%87%E5%85%B3%E5%85%B3%E8%BF%87/">关关难过关关过</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            学习笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/%E8%AF%95%E7%8E%A9Game-of-hacks/">Game of hacks 试玩</a></li>  <li class="file"><a href="/wiki/%E5%81%B7%E5%AD%A6%E7%9A%84%E6%B8%97%E9%80%8F%E5%B0%8Ftips/">偶然学到的渗透小tips</a></li>  <li class="file"><a href="/wiki/%E6%9C%8D%E5%8A%A1%E7%BD%91%E6%A0%BC%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">服务网格学习笔记</a></li>  <li class="file"><a href="/wiki/Chatgpt%E7%BF%BB%E8%AF%91%E5%A4%96%E6%96%87%E4%B9%A6%E7%B1%8D%E5%88%9D%E4%BD%93%E9%AA%8C/">Chatgpt翻译外文书籍初体验</a></li>  <li class="file"><a href="/wiki/Logseq%E4%BD%BF%E7%94%A8%E4%BD%93%E9%AA%8C/">Logseq使用体验</a></li>  <li class="file"><a href="/wiki/%E9%AA%8C%E8%AF%81%E7%A0%81%E7%88%86%E7%A0%B4-xp-CAPTCHA%E6%8C%96%E6%B4%9E%E4%BD%93%E9%AA%8C/">验证码爆破-xp_CAPTCHA挖洞体验</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            读书笔记
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Notes_HowToHunt-md/">Notes for HowToHunt.md</a></li>  <li class="file"><a href="/wiki/Notes_0-to-1-the-road-of-CTFer_1/">0 to 1 the road of CTFer 第一章 Web入门</a></li>  <li class="file"><a href="/wiki/Notes_%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BC%81%E4%B8%9A%E7%BA%A7web%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8%E7%BB%93%E6%9E%84/">代码审计 企业级web代码安全结构</a></li>  <li class="file"><a href="/wiki/Note-JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E5%85%A5%E9%97%A8%E7%AF%87/">note_JAVA代码审计-入门篇</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            踩坑记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">在kali上安装clash/V2raya的教程</a></li>  <li class="file"><a href="/wiki/%E4%B8%80%E6%AC%A1%E5%B7%AE%E7%82%B9%E7%BF%BB%E8%BD%A6%E7%9A%84v2raya%E7%89%88%E6%9C%AC%E6%9B%B4%E6%96%B0%E7%BB%8F%E5%8E%86/">一次差点翻车的kali v2raya版本更新经历</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title"><span>archives</span></h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">November 2024</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/05/">May 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/">April 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/">March 2023</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/02/">February 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/">January 2023</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/">September 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/04/">April 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a><span class="archive-list-count">2</span></li></ul>
+        </div>
+    </div>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-kali的VPN代理软件选择" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/%E8%B8%A9%E5%9D%91%E8%AE%B0%E5%BD%95/">踩坑记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E8%B8%A9%E5%9D%91/" rel="tag">踩坑</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/kali%E7%9A%84VPN%E4%BB%A3%E7%90%86%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">
+            <time datetime="2022-09-22T18:33:04.000Z" itemprop="datePublished">2022-09-23</time>
+        </a>
+    </div>
+
+
+                        
+                            <i class="fa fa-bar-chart"></i>
+                            <span id="busuanzi_container_site_pv"><span id="busuanzi_value_page_pv"></span></span>    
+                        
+                        
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/raw/writing/source/_posts/kali的VPN代理软件选择.md"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/edit/writing/source/_posts/kali的VPN代理软件选择.md"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/Tsunamori/Wiki-site/commits/writing/source/_posts/kali的VPN代理软件选择.md"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            在kali上安装clash/V2raya的教程
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    
+                </div>
+            
+        
+        
+            <p>19年写过的东西了，当时被小管家gank文章无了，好在还有备份。这次更新V2raya的时候正好放上来，给自己一个安装指导。</p>
+<p>然后，本文仅提供Clash和V2raya的Kali系统对比和安装教程（因为Win的要简单多了）。</p>
+<p>先把结论放在最前面，Clash的优点是可以自动切换IP，v2raya要手动切，但个人使用之后感觉Linux端Clash真心不如V2raya，不过win端Clash的舒适度大于V2raya。我自己经过反复踩雷之后选择Kali虚拟机用V2raya，主机Windows用Clash。</p>
+<p>当然，Clash的win端想要开全局代理把运行Kali的虚拟机流量代理起来又是另一个很头秃的问题，毕竟Clash创造出来的本意似乎并不是服务于更好的全局代，我至今没能找到简单又完美的开局办法（也可能因为我妥协了换成V2raya for Linux）。</p>
+<p>V2ray for win可以直接全局代理搞定虚拟机，但是配置要比Clash麻烦一些。而且出于各种需求，我还是倾向于给Kali自己开代理，主机端就不需要一直开着代理用了。</p>
+<p>但从安装在Kali的体验来说，V2raya更适合像我一样，经常从github下个脚本跑的人，毕竟Clash的全局代额外使用了脚本之后在kali控制台内体验仍然不好（再次羡慕Ubuntu的网络全局配置），使用Clash的话往往需要加一条 –proxy x.x.x.x:xxx，还容易不好使。Kali虽然自带proxychains，但一个是配置起来麻烦，另一个是如果用的机场，可能需要多次的手动调整配置文件。</p>
+<p>先写Clash，V2raya在下面。</p>
+<p>Clash：</p>
+<p>下载合适的版本，我在kali2021上用的是clash-linux-amd64-v1.6.0.gz。</p>
+<p>解压<code>gzip -d clash-linux-amd64-v1.6.0.gz </code></p>
+<p>(注意修改版本号，改成你自己下载的版本)<br>给个权限<br><code>sudo chmod +x ./clash-linux-amd64-v1.6.0</code><br>，这里想把文件名简化一下也可以。（再次注意clash的文件名可能需要改动成你自己拥有的）</p>
+<p>运行<br><code>./clash-linux-amd64-v1.6.0</code><br>， 注意Clash默认每次开机后需要手动开启，也就是该命令每次开机你都需要跑一下。</p>
+<p>然后路径<br><code>/home/用户名/.config/clash</code><br>下会有自动生成的配置文件，没有.config文件的去view里打开show hidden file。（用户名是你自己设置的啊，会不一样）</p>
+<p>这里的两个配置文件要更换，如果你的XXX服务商没有提供配置文件，建议win下装个Clash，配好了再把配置文件拿过来，反正win端Clash也挺好用的，装个不亏。</p>
+<p>config.yaml：从win端路径C:\Users\用户名.config\clash\profiles拿到一个多半是<code>数字.yml</code>格式的yaml文件，改名成config.yaml，丢进/home/kali/.config/clash替换原文件。（注意这个yml和yaml的区别）</p>
+<p>Country.mmdb：从win端路径C:\Users\用户名.config\clash下拿到Country.mmdb，丢进/home/kali/.config/clash替换原文件。（Users在中文版win里面是<code>用户</code>，用户名就是你的账户名字啦）</p>
+<p>重新运行<br>./clash-linux-amd64-v1.6.0<br>（不需要sudo），打开浏览器访问<br><a target="_blank" rel="external nofollow noopener noreferrer" href="http://clash.razord.top/#/proxies">http://clash.razord.top/#/proxies</a><br>看Clash配置，浏览器端口设置<code>HTTP:127.0.0.1:7890, SSL:127.0.0.1:7890, SOCKS_v5:127.0.0.1:7891</code>(preference-&gt;network settings,新版本似乎已经统一到127.0.0.1:7890了,socks_v5要改成7890，具体要看运行clash时候控制台显示什么)，访问外网确定能使。(运行clash的terminal不要关，关了就结束运行了)</p>
+<p>那么到这里，问题来了，目前的配置能让你的Kali浏览器访问外网，Clash的作用仅仅是帮你在127.0.0.1:7890开了一个代理通道，但除了浏览器以外的流量想要指向代理就得自己设置。这可就有名堂了，比如控制台、环境变量、apt源、npm源、docker，这些都要自行配置指向代理通道。</p>
+<p>如果是造轮子达人可以写个自定义脚本，我等渣渣还是优先找别人的轮子了，指路himanshub16/ProxyMan，一键配置（运行不需要sudo），这个脚本有一处难点，就是它原本是写给linux用，所以kali有些环境变量路径不适配，需要切换至bash让脚本自行适配环境变量再切回来，具体操作为:<br>控制台<br>exec bash<br>进入bash模式，<br>source ~/.bashrc<br>更改bashrc配置，安装ProxyMan脚本<br>./install<br>，配置生效后<br>exec zsh<br>回到zsh模式，<br>proxyman set<br>设置一键配置端口。 （这里有不会用的实在解决不了的再来问我吧，容易遇到的问题种类比较多，具体问题具体分析）</p>
+<p>但以上仅能保证脚本内提及的各种控制台、apt源、npm源等一键配置代理，其它你会用到的临时项目都要手动指向代理通道，或者自己手动添加进配置文件or脚本。（或许也有更好的解决办法但是我还是选择v2raya）</p>
+<p>V2raya：</p>
+<p>Linux版建议使用v2rayA/v2rayA，比直接上原生V2ray好使。</p>
+<p>安装方法指路官方文档，照着搞。</p>
+<p>v2raya默认开机自启动，省心省力。(注意！现在的1.5.x版本已经不支持默认开机自启动，也不支持软件源更新时自动更新版本了，具体命令去<a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/v2rayA/v2rayA/issues/237">这里</a>看)</p>
+<p>访问<code>http://localhost:2017/</code>，导入你的XXX服务商生成的配置文件，记得把全局透明代理打开。</p>
+<p>设置不会改的就保持默认，我自己开了DNS防劫持(有的时候会出现一些连不上的情况，如果排除是订阅源的问题，我会重新开关一下DNS防劫持)。</p>
+<p>总结：写的很稀碎并不保姆，累了（划掉）</p>
+<p>之所以大费周张地写了很多Clash内容，只是因为相对来说Clash for Kali的教程还是很少，官方文档也是云里雾里，而且也基本没人提新版本的Kali网络配置没有了全局代理，要么能打开谷歌就算胜利，要么旧版Kali教程来回搬运。偶尔有提到Clash for Linux的，也是打开配置文件挨个手动更改配置代理，这很不cool。</p>
+<p>虽然我仍然推荐V2rayA，但或许会有人有一天用的上这些内容。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/blog%E9%87%8D%E6%9E%84%E5%95%A6/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    blog重构啦！
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/%E7%8E%B0%E9%98%B6%E6%AE%B5%E5%AF%B9blog%E7%9A%84%E8%A7%84%E5%88%92%E6%80%9D%E8%80%83/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">现阶段对blog的规划思考</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            Tsunamori &copy; 2024 
+            <a rel="external nofollow noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a target="_blank" rel="external nofollow noopener noreferrer" href="https://github.com/zthxxx/hexo-theme-Wikitten">wikitten</a>
+            
+                <br>
+                <span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i> <span id="busuanzi_value_site_pv"></span></span>
+                &nbsp;|&nbsp;
+                <span id="busuanzi_container_site_pv"><i class="fa fa-user"></i> <span id="busuanzi_value_site_uv"></span></span>
+            
+        </div>
+    </div>
+</footer>
+
+        
+
+    
+        
+<script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-share.min.js"></script>
+
+        
+<script src="/libs/lightgallery/js/lg-video.min.js"></script>
+
+    
+    
+        
+<script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+
+<script src="/js/main.js"></script>
+
+
+    </div>
+</body>
+</html>
